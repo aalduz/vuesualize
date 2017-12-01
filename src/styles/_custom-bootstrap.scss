@@ -1,0 +1,6 @@
+// Here we override boostrap styles
+body {
+    margin:0;
+    padding:0;
+    background-color: map-get($brand-palette, main-background);
+}
