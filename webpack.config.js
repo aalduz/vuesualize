@@ -20,9 +20,29 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'vue-style-loader',
-          'css-loader',
-          'sass-loader'
+          {
+            loader:'vue-style-loader'
+          },
+          {
+            loader:'style-loader'
+          },
+          {
+            loader:'css-loader'
+          },
+          {
+            loader: 'postcss-loader', // Run post css actions
+            options: {
+              plugins: function () { // post css plugins, can be exported to postcss.config.js
+                return [
+                  require('precss'),
+                  require('autoprefixer')
+                ];
+              }
+            }
+          },
+          {
+            loader:'sass-loader'
+          }
         ],
       },
       {
