@@ -1,21 +1,21 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="steps-container">
+            <div v-for="step in steps" class="card user-journey-step">
+              <h4 class="card-header"><span class="step-number">{{ step.number }}</span>{{ step.name }}</h4>
+              <div class="card-body">
+                <p class="card-text">{{ step.description }}</p>
+              </div>
+              <!-- <img v-bind:src="step.imageSrc" class="card-img-bottom"> -->
+              <img src="./assets/logo.png" class="card-img-bottom">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -24,37 +24,42 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      steps : [
+        {
+          number: 1,
+          name: 'Entry point',
+          description: 'Search is engaged',
+          imageSrc: '../../assets/logo.png',
+        },
+        {
+          number: 2,
+          name: 'Search for a product',
+          description: 'We type in something in the input',
+          imageSrc: '../assets/logo.png',
+        },
+        {
+          number: 3,
+          name: 'Go to Product page',
+          description: 'By clicking on an item of the list of results, we navigate to PDP',
+          imageSrc: '../assets/logo.png',
+        }
+      ]
     }
   }
 }
 </script>
 
 <style lang="scss">
+
+
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
 
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+@import "styles/index";
 </style>
