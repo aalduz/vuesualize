@@ -5,36 +5,114 @@
     align-content: center;
     align-items: center;
 
-    .card.user-journey-step {
-        width: 320px;
-        margin: 15px;
-
-        .card-body {
-            background-color: map-get($brand-palette, main-background);
-            color: white;
+    .user-journey-step-container {
+        .card.user-journey-step {
+            width: 100%;
+            margin: 5rem 0;
+    
+            .card-body {
+                background-color: map-get($brand-palette, main-background);
+                color: white;
+            }
+    
+            .card-header {
+                background-color: map-get($brand-palette, main-background);
+                color: white;
+                border-bottom-color: white;
+    
+                .step-number {
+                    border-radius: 50%;
+                    font-size: 1rem;
+                    padding: 0 0.45rem;
+                    background-color: map-get($brand-palette, primary);
+                    color: white;
+                    margin-right: 0.5rem;
+                }
+            }
         }
 
-        .card-header {
-            background-color: map-get($brand-palette, main-background);
-            color: white;
-            border-bottom-color: white;
+        &.user-journey-step-container--no-childs {
+            &:after {
+                content: '';
+                height: 9rem;
+                width: 2px;
+                border: 1px solid white;
+                display: inline-block;
+                position: absolute;
+                bottom: -4.5rem;
+                left: calc(50% - 2px/2);
+            }
 
-            .step-number {
-                border-radius: 50%;
-                font-size: 1rem;
-                padding: 0 0.45rem;
-                background-color: map-get($brand-palette, primary);
-                color: white;
-                margin-right: 0.5rem;
+            &:before {
+                content: '';
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 7px 5px 0 5px;
+                border-color: white transparent transparent transparent;
+                display: inline-block;
+                position: absolute;
+                bottom: -4.8rem;
+                left: calc(50% - 5px);
+            }
+        }
+        &.user-journey-step-container--with-childs {
+            &:after {
+                content: '';
+                height: calc(4rem - 5px);
+                width: 2px;
+                border: 1px solid white;
+                display: inline-block;
+                position: absolute;
+                top: 605px;
+                left: calc(50% - 2px/2);
+            }
+
+            &:before {
+                content: '';
+                content: '';
+                height: 1px;
+                width: 50%;
+                border: 1px solid white;
+                display: inline-block;
+                position: absolute;
+                top: calc(600px + 4rem);
+                left: calc((100% - 50%)/2);
+            }
+        }
+        &.user-journey-step-container--child {
+            &:after {
+                content: '';
+                height: 4.5rem;
+                width: 2px;
+                border: 1px solid white;
+                display: inline-block;
+                position: absolute;
+                top: -.95rem;
+                left: calc(50% - 1px);
+            }
+
+            &:before {
+                content: '';
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 7px 5px 0 5px;
+                border-color: white transparent transparent transparent;
+                display: inline-block;
+                position: absolute;
+                top: calc(-.95rem + 4.5rem);
+                left: calc(50% - 5px);
             }
         }
     }
+
     @include media-breakpoint-up(lg) {
         flex-direction: row;
         flex-wrap: wrap;
 
-        .card.user-journey-step {
-            width: 450px;
+        .card-img-bottom {
+            max-height: 400px;
         }
     }
 }
