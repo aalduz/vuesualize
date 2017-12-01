@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <div class="container">
+    <div class="container user-journey">
+      <h1>{{ feature.name }}</h1>
+      <h2>User journey</h2>
       <div class="row">
         <div class="col-12">
           <div class="steps-container">
@@ -24,6 +26,9 @@ export default {
   name: 'app',
   data () {
     return {
+      feature: {
+        name: 'Feature name'
+      },
       steps : [
         {
           number: 1,
@@ -59,6 +64,19 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.user-journey > h1,
+.user-journey > h2 {
+  color: white;
+  text-align: center;
+}
+
+.user-journey > h2 {
+  border-bottom: 1px solid white;
+  padding-bottom: 1.5rem;
+  margin:0 15px 3rem;
+  color: #2a9fda;
 }
 
 @import "styles/index";
