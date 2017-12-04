@@ -41,6 +41,7 @@
                 position: absolute;
                 bottom: -4.5rem;
                 left: calc(50% - 2px/2);
+                
             }
 
             &:before {
@@ -54,6 +55,13 @@
                 position: absolute;
                 bottom: -4.8rem;
                 left: calc(50% - 5px);
+            }
+
+            &.last-step {
+                &:after,
+                &:before {
+                    display: none;
+                }
             }
         }
         &.user-journey-step-container--with-childs {
@@ -69,7 +77,6 @@
             }
 
             &:before {
-                content: '';
                 content: '';
                 height: 1px;
                 width: 50%;
@@ -90,6 +97,7 @@
                 position: absolute;
                 top: -.95rem;
                 left: calc(50% - 1px);
+
             }
 
             &:before {
@@ -113,6 +121,29 @@
 
         .card-img-bottom {
             max-height: 400px;
+        }
+    }
+
+    .edit-mode-container {
+        padding: 1rem;
+        background-color: map-get($brand-palette, main-background); 
+        border-bottom: 1px solid white;
+        
+        input.form-control,
+        textarea.form-control {
+            background-color: map-get($brand-palette, main-background);
+            color: map-get($brand-palette, primary); 
+        }
+
+        .form-group {
+            label {
+                color: white;
+            }
+        }
+
+        button.btn.btn-primary {
+            background-color: map-get($brand-palette, primary); 
+            border-color: map-get($brand-palette, primary); 
         }
     }
 }
