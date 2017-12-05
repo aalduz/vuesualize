@@ -1,7 +1,23 @@
 <template>
   <div id="app">
     <div class="container user-journey">
-      <h1>{{ feature.name }}</h1>
+      <template v-if="feature.inViewMode">
+        <h1 v-on:click="feature.inViewMode = !feature.inViewMode">{{ feature.name }}</h1>
+      </template>
+      <template  v-else>
+        <div class="edit-mode-container edit-mode-container--feature">
+          <div class="card">
+            <div class="row form-inline">
+              <div class="col-10">
+                <input v-model="feature.name" type="text" class="form-control full">
+              </div>
+              <div class="col-2">
+                <button v-on:click="feature.inViewMode = !feature.inViewMode" class="btn btn-primary btn-block">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
       <h2>User journey</h2>
       <div class="row">
         <div class="col-12">
@@ -222,7 +238,8 @@ export default {
         description: '',
       },
       feature: {
-        name: 'My new task'
+        name: 'My new task',
+        inViewMode: true
       },
       steps : [
         {

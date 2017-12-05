@@ -136,28 +136,34 @@
             max-height: 400px;
         }
     }
+}
 
-    .edit-mode-container {
-        padding: 1rem;
-        background-color: map-get($brand-palette, main-background); 
-        border-bottom: 1px solid white;
+.edit-mode-container {
+    padding: 1rem;
+    background-color: map-get($brand-palette, main-background); 
+    border-bottom: 1px solid white;
 
-        .form-inline  .form-control.full {
-            width: 100%;
-        }
-        .form-group {
-            label {
-                color: white;
-            }
-        }
-
+    .form-inline  .form-control.full {
+        width: 100%;
     }
-
-    input.form-control,
-    textarea.form-control {
-        background-color: map-get($brand-palette, main-background);
-        color: map-get($brand-palette, primary); 
+    .form-group {
+        label {
+            color: white;
+        }
     }
+    &--feature {
+        margin-bottom: 2rem;
+        border-bottom: 0;
+        .card {
+            background-color: map-get($brand-palette, main-background); 
+        }
+    }
+}
+
+input.form-control,
+textarea.form-control {
+    background-color: map-get($brand-palette, main-background);
+    color: map-get($brand-palette, primary); 
 }
 
 button.btn.btn-primary {
