@@ -36,9 +36,8 @@
                       </template>
                     </div>
                     <template v-if="step.imageInViewMode">
-                      <img v-if="step.imageSrc != ''" :src="step.imageSrc" class="card-img-bottom">
                       <div class="card-block">
-                        <p v-if="step.imageSrc != ''" v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Change the image</i></p>
+                        <img v-if="step.imageSrc != ''" v-on:click="step.imageInViewMode = !step.imageInViewMode" :src="step.imageSrc" class="card-img-bottom">
                         <p v-else v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Click here to provide an image</i></p>
                       </div>
                     </template>
@@ -84,9 +83,8 @@
                               </template>
                             </div>
                             <template v-if="step.imageInViewMode">
-                              <img v-if="step.imageSrc != ''" :src="step.imageSrc" class="card-img-bottom">
                               <div class="card-block">
-                                <p v-if="step.imageSrc != ''" v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Change the image</i></p>
+                                <img v-if="step.imageSrc != ''" v-on:click="step.imageInViewMode = !step.imageInViewMode" :src="step.imageSrc" class="card-img-bottom">
                                 <p v-else v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Click here to provide an image</i></p>
                               </div>
                             </template>

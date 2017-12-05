@@ -32,12 +32,12 @@
             .card-block {
                 background-color: map-get($brand-palette, main-background);
                 color: white;
+                cursor: pointer;
 
                 p.image-src {
                     padding-left: 15px;
 
                     &:hover {
-                        cursor: pointer;
                         color: map-get($brand-palette, primary);
                     }
                 }
