@@ -123,7 +123,7 @@
                 </div>
               </div>
             </div>
-            <div class="container user-journey--empty">
+            <div v-if="!readyToPrint" class="container user-journey--empty">
               <div class="row justify-content-center">
                 <div class="col-12">
                   <template v-if="!addStepStarted">
@@ -141,17 +141,18 @@
                       <button v-on:click="addStepStarted = true" class="btn btn-primary">Add step</button>
                     </div>
                     <h3 class="clarification">You can also import a certain data structure</h3>
-                      <div class="edit-mode-container edit-mode-container--feature">
-                        <div class="row">
-                          <div class="col-12">
-                            <div class="form-group">
-                              <textarea v-model="dataToImport" class="form-control" name="importData" id="importData" rows="10"></textarea>
-                              <br>
-                              <button v-on:click="importData(dataToImport)" class="btn btn-primary">Import Data</button>
-                            </div>
+                    <div class="edit-mode-container edit-mode-container--feature">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="form-group">
+                            <textarea v-model="dataToImport" class="form-control" name="importData" id="importData" rows="10"></textarea>
+                            <br>
+                            <button v-on:click="importData(dataToImport)" class="btn btn-primary">Import Data</button>
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <h3 class="clarification">Whenever you are happy with your diagram, just <span v-on:click="print" class="print">print it</span></h3>
                   </template>
                   <template v-else>
                     <h3 v-if="steps.length > 0" class="clarification"></h3>
@@ -242,7 +243,16 @@ export default {
       });
     },
     importData(data) {
-      //TODO
+      var dataToProcess = JSON.parse(data);
+      var vm = this;
+
+      dataToProcess.forEach(function(element) {
+        vm.steps.push(element);
+      });
+      vm.dataToImport = '';
+    },
+    print() {
+      this.readyToPrint = true;
     }
   },
   data () {
@@ -257,6 +267,7 @@ export default {
         name: 'My new task',
         inViewMode: true
       },
+      readyToPrint: false,
       steps : [
         // {
         //   number: 1,
@@ -367,6 +378,12 @@ export default {
     button {
       margin: 0 1rem;
     }
+}
+
+span.print {
+  text-decoration: underline;
+  color: #2a9fda;
+  cursor: pointer;
 }
 
 @import "styles/index";
