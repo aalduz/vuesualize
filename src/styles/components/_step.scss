@@ -29,6 +29,19 @@
                     margin-right: 0.5rem;
                 }
             }
+            .card-block {
+                background-color: map-get($brand-palette, main-background);
+                color: white;
+
+                p.image-src {
+                    padding-left: 15px;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: map-get($brand-palette, primary);
+                    }
+                }
+            }
         }
 
         &.user-journey-step-container--no-childs {
@@ -128,19 +141,22 @@
         padding: 1rem;
         background-color: map-get($brand-palette, main-background); 
         border-bottom: 1px solid white;
-        
-        input.form-control,
-        textarea.form-control {
-            background-color: map-get($brand-palette, main-background);
-            color: map-get($brand-palette, primary); 
-        }
 
+        .form-inline  .form-control.full {
+            width: 100%;
+        }
         .form-group {
             label {
                 color: white;
             }
         }
 
+    }
+
+    input.form-control,
+    textarea.form-control {
+        background-color: map-get($brand-palette, main-background);
+        color: map-get($brand-palette, primary); 
     }
 }
 

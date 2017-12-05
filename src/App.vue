@@ -14,13 +14,13 @@
                       <h4 v-on:click="step.nameInViewMode = !step.nameInViewMode" class="card-header"><span class="step-number">{{ step.number }}</span>{{ step.name }}</h4>
                     </template>
                     <template v-else>
-                      <div class="container edit-mode-container">
-                        <div class="row justify-content-center">
+                      <div class="card-header edit-mode-container">
+                        <div class="row justify-content-center form-inline">
                           <div class="col-10">
-                            <input type="text" v-model="step.name" class="form-control">
+                            <input type="text" v-model="step.name" class="form-control full">
                           </div>
                           <div class="col-2">
-                            <button v-on:click="step.nameInViewMode = !step.nameInViewMode" class="btn btn-primary">Save</button>
+                            <button v-on:click="step.nameInViewMode = !step.nameInViewMode" class="btn btn-primary  btn-block">Save</button>
                           </div>
                         </div>
                       </div>
@@ -31,11 +31,30 @@
                       </template>
                       <template v-else>
                         <textarea type="text" v-model="step.description" class="form-control"></textarea>
+                        <br>
                         <button v-on:click="step.descriptionInViewMode = !step.descriptionInViewMode" class="btn btn-primary">Save</button>
                       </template>
                     </div>
-                    <img :src="step.imageSrc" class="card-img-bottom">
-                    <template v-if="(!step.nameInViewMode || !step.descriptionInViewMode)">
+                    <template v-if="step.imageInViewMode">
+                      <img v-if="step.imageSrc != ''" :src="step.imageSrc" class="card-img-bottom">
+                      <div class="card-block">
+                        <p v-if="step.imageSrc != ''" v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Change the image</i></p>
+                        <p v-else v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Click here to provide an image</i></p>
+                      </div>
+                    </template>
+                    <template v-else>
+                      <div class="edit-mode-container">
+                        <div class="row form-inline">
+                          <div class="col-10">
+                            <input type="text" v-model="step.imageSrc" class="form-control full">
+                          </div>
+                          <div class="col-2">
+                            <button v-on:click="step.imageInViewMode = !step.imageInViewMode" class="btn btn-primary btn-block">Save</button>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                    <template v-if="(!step.nameInViewMode || !step.descriptionInViewMode || !step.imageInViewMode)">
                         <button @click="deleteStep(index)" class="btn btn-danger btn-sm">Delete step</button>
                     </template>
                   </div>
@@ -48,22 +67,39 @@
                               <h4 v-on:click="step.nameInViewMode = !step.nameInViewMode" class="card-header"><span class="step-number">{{ step.number }}</span>{{ step.name }}</h4>
                             </template>
                             <template v-else>
-                              <div class="container">
-                                <div class="row">
-                                  <div class="col-10">
-                                    <input type="text" v-model="step.name" class="form-control">
-                                  </div>
-                                  <div class="col-2">
-                                    <button v-on:click="step.nameInViewMode = !step.nameInViewMode" class="btn btn-primary">Save</button>
-                                  </div>
-                                </div>
+                              <div class="card-header edit-mode-container">
+                                <input type="text" v-model="step.name" class="form-control">
+                                <br>
+                                <button v-on:click="step.nameInViewMode = !step.nameInViewMode" class="btn btn-primary  btn-block">Save</button>
                               </div>
                             </template>
-
                             <div class="card-body">
-                              <p class="card-text">{{ step.description }}</p>
+                              <template v-if="step.descriptionInViewMode">
+                                <p v-on:click="step.descriptionInViewMode = !step.descriptionInViewMode" class="card-text">{{ step.description }}</p>
+                              </template>
+                              <template v-else>                        
+                                <textarea type="text" v-model="step.description" class="form-control"></textarea>
+                                <br>
+                                <button v-on:click="step.descriptionInViewMode = !step.descriptionInViewMode" class="btn btn-primary">Save</button>
+                              </template>
                             </div>
-                            <img :src="step.imageSrc" class="card-img-bottom">
+                            <template v-if="step.imageInViewMode">
+                              <img v-if="step.imageSrc != ''" :src="step.imageSrc" class="card-img-bottom">
+                              <div class="card-block">
+                                <p v-if="step.imageSrc != ''" v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Change the image</i></p>
+                                <p v-else v-on:click="step.imageInViewMode = !step.imageInViewMode" class="image-src"><i>Click here to provide an image</i></p>
+                              </div>
+                            </template>
+                            <template v-else>
+                              <div class="edit-mode-container">
+                                <input type="text" v-model="step.imageSrc" class="form-control">
+                                <br>
+                                <button v-on:click="step.imageInViewMode = !step.imageInViewMode" class="btn btn-primary btn-block">Save</button>
+                              </div>
+                            </template>
+                            <template v-if="(!step.nameInViewMode || !step.descriptionInViewMode || !step.imageInViewMode)">
+                                <button @click="deleteStep(index)" class="btn btn-danger btn-sm">Delete step</button>
+                            </template>
                           </div>
                         </div>
                       </div>
@@ -106,6 +142,11 @@
                               <textarea v-model="newStep.description" type="text" class="form-control" rows="10" id="stepDescription"></textarea>
                               <small id="descriptionHelp" class="form-text text-muted">Describe with as much as detail as you think it might be necessary.</small>
                             </div>
+                            <div class="form-group">
+                              <label for="stepImage">Step image</label>
+                              <input v-model="newStep.imageSrc" type="text" class="form-control" id="stepImg" aria-describedby="stepImg" placeholder="Image src">
+                              <small id="imageSrcnHelp" class="form-text text-muted">Provide an URL with the image that describes the step.</small>
+                            </div>
                             <div class="row justify-content-end">
                               <div class="col-12">
                                 <button v-on:click="addStepStarted = false" class="btn btn-light">Cancel</button>
@@ -133,9 +174,6 @@ export default {
     src: (assetName) => {
       return require(assetName);
     },
-    isNewStepEmpty: (newStep) => {
-      return newStep.name != '' && newStep.description != '';
-    },
     addNewStepToArray(newStep, array) {
       array.push({
         number: array.length + 1,
@@ -144,11 +182,12 @@ export default {
         description: newStep.description,
         descriptionInViewMode: true,
         imageSrc: '',
+        imageInViewMode: true,
         childs: false
       });
     },
     createStep(newStep, isChild) {
-      if(this.isNewStepEmpty) {
+      if(newStep.name != '' && newStep.description != '') {
         var stepsLength = this.steps.length;
 
         if (isChild) {
@@ -188,56 +227,62 @@ export default {
         name: 'My new task'
       },
       steps : [
-        // {
-        //   number: 1,
-        //   name: 'Entry point',
-        //   nameInViewMode: true,
-        //   description: 'Search is engaged',
-        //   descriptionInViewMode: true,
-        //   imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-1.png?token=AK4Zas3XRCbsU8beMp0lraYHMN6895F_ks5aLqDnwA%3D%3D',
-        // },
-        // {
-        //   number: 2,
-        //   name: 'Search for a product',
-        //   nameInViewMode: true,
-        //   description: 'We type in something in the input',
-        //   descriptionInViewMode: true,
-        //   imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-2.png?token=AK4ZavJpq5JZoA68lunGbUtSpEBNM8PDks5aLqFKwA%3D%3D',
-        // },
-        // {
-        //   number: 3,
-        //   name: 'Go to Product page',
-        //   nameInViewMode: true,
-        //   description: 'By clicking on an item of the list of results, we navigate to PDP',
-        //   descriptionInViewMode: true,
-        //   imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-3.png?token=AK4Zar_NItRWtSokNn4PH-Dlp46UYpZpks5aLqGFwA%3D%3D',
-        // },
-        // {
-        //   number: 4,
-        //   name: 'Go to Product page',
-        //   nameInViewMode: true,
-        //   description: 'By clicking on an item of the list of results, we navigate to PDP',
-        //   descriptionInViewMode: true,
-        //   imageSrc: 'https://mymodernmet.com/wp/wp-content/uploads/2017/09/albert-dros-landscape-photography-tips-4.jpg',
-        //   childs: [
-        //     {
-        //       number: 4.1,
-        //       name: 'Go to Product page',
-        //       nameInViewMode: true,
-        //       description: 'By clicking on an item of the list of results, we navigate to PDP',
-        //       descriptionInViewMode: true,
-        //       imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/logo.png?token=AK4ZavWFbmL3n_oezsAk07fwTkqLCRV4ks5aLqKuwA%3D%3D',
-        //     },
-        //     {
-        //       number: 4.2,
-        //       name: 'Go to Product page',
-        //       nameInViewMode: true,
-        //       description: 'By clicking on an item of the list of results, we navigate to PDP',
-        //       descriptionInViewMode: true,
-        //       imageSrc: 'https://static.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg',
-        //     }
-        //   ]
-        // }
+        {
+          number: 1,
+          name: 'Entry point',
+          nameInViewMode: true,
+          description: 'Search is engaged',
+          descriptionInViewMode: true,
+          imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-1.png?token=AK4Zas3XRCbsU8beMp0lraYHMN6895F_ks5aLqDnwA%3D%3D',
+          imageInViewMode: true
+        },
+        {
+          number: 2,
+          name: 'Search for a product',
+          nameInViewMode: true,
+          description: 'We type in something in the input',
+          descriptionInViewMode: true,
+          imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-2.png?token=AK4ZavJpq5JZoA68lunGbUtSpEBNM8PDks5aLqFKwA%3D%3D',
+          imageInViewMode: true
+        },
+        {
+          number: 3,
+          name: 'Go to Product page',
+          nameInViewMode: true,
+          description: 'By clicking on an item of the list of results, we navigate to PDP',
+          descriptionInViewMode: true,
+          imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-3.png?token=AK4Zar_NItRWtSokNn4PH-Dlp46UYpZpks5aLqGFwA%3D%3D',
+          imageInViewMode: true
+        },
+        {
+          number: 4,
+          name: 'Go to Product page',
+          nameInViewMode: true,
+          description: 'By clicking on an item of the list of results, we navigate to PDP',
+          descriptionInViewMode: true,
+          imageSrc: 'https://mymodernmet.com/wp/wp-content/uploads/2017/09/albert-dros-landscape-photography-tips-4.jpg',
+          imageInViewMode: true,
+          childs: [
+            {
+              number: 4.1,
+              name: 'Go to Product page',
+              nameInViewMode: true,
+              description: 'By clicking on an item of the list of results, we navigate to PDP',
+              descriptionInViewMode: true,
+              imageSrc: 'https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/logo.png?token=AK4ZavWFbmL3n_oezsAk07fwTkqLCRV4ks5aLqKuwA%3D%3D',
+              imageInViewMode: true
+            },
+            {
+              number: 4.2,
+              name: 'Go to Product page',
+              nameInViewMode: true,
+              description: 'By clicking on an item of the list of results, we navigate to PDP',
+              descriptionInViewMode: true,
+              imageSrc: 'https://static.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg',
+              imageInViewMode: true
+            }
+          ]
+        }
       ]
     }
   }
