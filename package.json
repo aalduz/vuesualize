@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta.2",
-    "vue": "^2.4.4"
+    "firebase": "^4.7.0",
+    "font-awesome": "^4.7.0",
+    "vue": "^2.4.4",
+    "vuefire": "^1.4.5"
   },
   "browserslist": [
     "> 1%",
@@ -26,6 +29,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
+    "font-awesome-loader": "^1.0.2",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "vue-loader": "^13.0.5",
