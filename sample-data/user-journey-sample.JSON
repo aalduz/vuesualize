@@ -1,0 +1,61 @@
+[{
+    "number": 1,
+    "name": "Entry point",
+    "nameInViewMode": true,
+    "description": "Search is engaged",
+    "descriptionInViewMode": true,
+    "imageSrc": "https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-1.png?token=AK4Zas3XRCbsU8beMp0lraYHMN6895F_ks5aLqDnwA%3D%3D",
+    "imageInViewMode": true,
+    "childs": false
+  },
+  {
+    "number": 2,
+    "name": "Search for a product",
+    "nameInViewMode": true,
+    "description": "We type in something in the input",
+    "descriptionInViewMode": true,
+    "imageSrc": "https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-2.png?token=AK4ZavJpq5JZoA68lunGbUtSpEBNM8PDks5aLqFKwA%3D%3D",
+    "imageInViewMode": true,
+    "childs": false
+  },
+  {
+    "number": 3,
+    "name": "Go to Product page",
+    "nameInViewMode": true,
+    "description": "By clicking on an item of the list of results, we navigate to PDP",
+    "descriptionInViewMode": true,
+    "imageSrc": "https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-3.png?token=AK4Zar_NItRWtSokNn4PH-Dlp46UYpZpks5aLqGFwA%3D%3D",
+    "imageInViewMode": true,
+    "childs": false
+  },
+  {
+    "number": 4,
+    "name": "Go to Product page",
+    "nameInViewMode": true,
+    "description": "By clicking on an item of the list of results, we navigate to PDP",
+    "descriptionInViewMode": true,
+    "imageSrc": "https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/step-3.png?token=AK4Zar_NItRWtSokNn4PH-Dlp46UYpZpks5aLqGFwA%3D%3D",
+    "imageInViewMode": true,
+    "childs": [{
+        "number": 4.1,
+        "name": "Go to Product page",
+        "nameInViewMode": true,
+        "description": "By clicking on an item of the list of results, we navigate to PDP",
+        "descriptionInViewMode": true,
+        "imageSrc": "https://raw.githubusercontent.com/aalduz/vuesualize/master/src/assets/logo.png?token=AK4ZavWFbmL3n_oezsAk07fwTkqLCRV4ks5aLqKuwA%3D%3D",
+        "imageInViewMode": true,
+        "childs": false
+      },
+      {
+        "number": 4.2,
+        "name": "Go to Product page",
+        "nameInViewMode": true,
+        "description": "By clicking on an item of the list of results, we navigate to PDP",
+        "descriptionInViewMode": true,
+        "imageSrc": "https://static.pexels.com/photos/36717/amazing-animal-beautiful-beautifull.jpg",
+        "imageInViewMode": true,
+        "childs": false
+      }
+    ]
+  }
+]
