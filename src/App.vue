@@ -10,9 +10,11 @@
         </div>
             <div class="row">
               <template v-for="journey in journeys">
-                <div v-on:click="goToJourney(journey)" class="col-12 col-md-3 cols">
-                  <div class="card">
-                    <img class="card-img-top" src="./assets/user-journey.png" alt="Journey image">
+                <div v-on:click="goToJourney(journey)" class="col-12 col-sm-6 col-md-4 col-lg-3 cols">
+                  <div class="card card__overview-item">
+                    <div class="card-img-top">
+                      <img src="./assets/user-journey.png" alt="Journey image">
+                    </div>
                     <div class="card-block">
                       <h4 class="class-title">{{ journey.name }}</h4>
                     </div>

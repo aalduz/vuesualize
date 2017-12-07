@@ -4,3 +4,23 @@ body {
     padding:0;
     background-color: map-get($brand-palette, main-background);
 }
+
+.card.card__overview-item {
+    margin: 15px 0;
+    
+    .card-img-top {
+        max-height: 220px;
+        overflow-y: hidden;
+        
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .card-block {
+        .class-title {
+            padding: 10px 15px 0;
+        }
+    }
+}
