@@ -86,12 +86,37 @@
                       </template>
                       <template v-else>
                         <div class="edit-mode-container">
-                          <div class="row form-inline">
+                          <div v-if="!fileUploading" class="row form-inline">
                             <div class="col-10">
                               <input type="text" v-model="step.imageSrc" class="form-control full">
+                              <input @change="uploadFile($event, step)" type="file">
                             </div>
                             <div class="col-2">
                               <button v-on:click="updateJourney(journey, step, 'image')" class="btn btn-primary btn-block">Save</button>
+                            </div>
+                          </div>
+                          <div v-else class="row form-inline">
+                            <div class="col-12">
+                              <div class="loader-container">
+                                <div class="blobs">
+                                  <div class="blob-center"></div>
+                                  <div class="blob"></div>
+                                  <div class="blob"></div>
+                                  <div class="blob"></div>
+                                  <div class="blob"></div>
+                                  <div class="blob"></div>
+                                  <div class="blob"></div>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                  <defs>
+                                    <filter id="goo">
+                                      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                                      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+                                      <feBlend in="SourceGraphic" in2="goo" />
+                                    </filter>
+                                  </defs>
+                                </svg>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -136,6 +161,7 @@
                                   <input type="text" v-model="step.imageSrc" class="form-control">
                                   <br>
                                   <button v-on:click="step.imageInViewMode = !step.imageInViewMode" class="btn btn-primary btn-block">Save</button>
+                                  <input v-on:change="uploadFile(event, step)" type="file">
                                 </div>
                               </template>
                               <template v-if="(!step.nameInViewMode || !step.descriptionInViewMode || !step.imageInViewMode)">
@@ -237,6 +263,8 @@ let config = {
 let app = Firebase.initializeApp(config)
 let db = app.database()
 let journeysRef = db.ref('journeys')
+let storageRef = app.storage().ref();
+let imagesRef = storageRef.child('images');
 
 export default {
   name: 'app',
@@ -275,6 +303,23 @@ export default {
     },
     removeJourney: function (journey) {
       journeysRef.child(journey['.key']).remove()
+    },
+    uploadFile: function(event, step) {
+      
+      var file = event.target.files[0];
+
+      var fileRef = storageRef.child(file.name);
+
+      var fileImagesRef = storageRef.child('images/' + file.name);
+      this.fileUploading = true;
+
+      var vm = this;
+      fileImagesRef.put(file).then(function(snapshot) {
+        console.log('Uploaded a file!', snapshot);
+        step.imageSrc = snapshot.downloadURL;
+        vm.fileUploading = false;
+      });
+
     },
     goToJourney: function(journey) {
       this.feature.name = journey.name;
@@ -351,6 +396,7 @@ export default {
   data () {
     return {
       onJourneysView: true,
+      fileUploading: false,
       addStepStarted: false,
       addChildStarted: false,
       journey: {},
