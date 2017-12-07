@@ -3,7 +3,7 @@
     <template v-if="onJourneysView">
       <div class="container">
         <div class="row">
-          <div class="col-12 user-journeys">
+          <div class="col-12 page-heading">
             <h1 class="justify-content-lg-center">These are your journeys</h1>
             <button v-on:click="goToNewJourney" class="btn btn-primary">Add Journey</button>
           </div>
@@ -444,25 +444,25 @@ export default {
   color: #2a9fda;
 }
 
-.user-journeys > h1,
-.user-journeys > h2 {
+.page-heading > h1,
+.page-heading > h2 {
   color: white;
   text-align: center;
 }
 
-.user-journeys {
+.page-heading {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   align-items: center;
-  margin: 2rem;
+  margin: 2rem 0;
   padding-bottom: 2rem;
 
   border-bottom: 1px solid white;
 }
 
-.user-journeys button {
+.page-heading button {
   margin-top: 2rem;
 }
 
