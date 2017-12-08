@@ -11,7 +11,7 @@
                 <div class="row">
                     <template v-for="journey in journeys">
                         <div class="col-12 col-sm-6 col-md-4 col-lg-3 cols">
-                            <thumbnail :name="journey.name" :imageSrc="''"></thumbnail>
+                            <thumbnail :item="journey" :imageSrc="''"></thumbnail>
                         </div>
                     </template>
                 </div>
@@ -21,8 +21,11 @@
 </template>
 
 <script>
-    import Firebase from 'firebase';
+    // Components
     import Thumbnail from './components/Thumbnail/Thumbnail.vue';
+
+    // Firebase
+    import Firebase from 'firebase';
 
     let config = {
         apiKey: "AIzaSyDHRi9CfrPeGOUOleV787rUbI-lYI5qOb0",
@@ -43,7 +46,9 @@
     export default {
         name: 'app',
         methods: {
-
+            goToJourney(journey) {
+                console.log(journey);
+            },
         },
         components: {
             'thumbnail': Thumbnail,
