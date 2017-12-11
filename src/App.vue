@@ -1,28 +1,21 @@
 <template>
     <div id="app">
-        <template>
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 page-heading">
-                        <h1 class="justify-content-lg-center">These are your projects</h1>
-                        <button class="btn btn-primary">Add Project</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <template v-for="journey in journeys">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 cols">
-                            <thumbnail :item="journey" :imageSrc="''"></thumbnail>
-                        </div>
-                    </template>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <app-header></app-header> 
                 </div>
             </div>
-        </template>
+        </div>
+        <div class="container">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
 <script>
     // Components
-    import Thumbnail from './components/Thumbnail/Thumbnail.vue';
+    import Header from './Components/Header/Header.vue'
 
     // Firebase
     import Firebase from 'firebase';
@@ -51,16 +44,12 @@
             },
         },
         components: {
-            'thumbnail': Thumbnail,
+            appHeader: Header,
         },
         data () {
             return {
 
             }
-        },
-        firebase: {
-            projects: projectsRef,
-            journeys: journeysRef
         }
     }
 </script>
