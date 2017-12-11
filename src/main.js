@@ -3,17 +3,34 @@ import VueRouter from 'vue-router';
 import VueFire from 'vuefire';
 import App from './App.vue';
 import { routes } from './routes';
+import { store } from './store/store'
 
 Vue.use(VueFire);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return { selector: to.hash }
+    }
+    return { x: 0, y: 0};
+  }
+});
+
+// Route Guards: Avoid leaving without confirmation for certain routes.
+router.beforeEach((to, from, next) => {
+  console.log('global beforeEach');
+  next();
 });
 
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })
