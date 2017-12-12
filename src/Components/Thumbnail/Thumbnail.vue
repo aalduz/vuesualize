@@ -20,7 +20,7 @@
         },
         methods: {
             goToItem(){
-                console.log("Thumbnail was clicked")
+                
             }
         }
     }

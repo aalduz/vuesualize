@@ -1,0 +1,21 @@
+.card.card__overview-item {
+    margin: 15px 0;
+    height: 220px;
+
+    .card-img-top {
+        height: 180px;
+        overflow-y: hidden;
+        background-color: map-get($brand-palette, main-background);
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .card-block {
+        .class-title {
+            padding: 10px 15px 0;
+            font-size: 14px;
+        }
+    }
+}
