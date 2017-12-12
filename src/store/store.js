@@ -5,22 +5,28 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        journeys: []
+        id: null,
+        journeys: {},
+        journey: {}
     },
     getters: {
-        journeysByUser: (state) => {
 
-            return state.journeys;
+        journey(state) {
+            return state.journey;
         }
     },
     mutations: {
-        increment: state => {
-            let count = state.journeys.length;
-            state.journeys.push(count + 1);
+        addJourney(state, journey) {
+            state.journeys.push(journey);
         },
-        decrement: state => {
-            state.journeys.pop();
-            console.log(state.journeys);
+        updateJourney(state, journey) {
+            let journeyKey = journey['.key'];
+            state.journeys[journeyKey] = journey;
+            state.journey = journey;
+        },
+
+        journey(state, journey) {
+            state.journey = journey;
         }
     }
 })
