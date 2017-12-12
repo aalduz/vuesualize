@@ -3,12 +3,21 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <app-header></app-header> 
+                    <router-view name="header-top"></router-view>
                 </div>
             </div>
         </div>
         <div class="container">
-            <router-view></router-view>
+            <transition name="slide" mode="out-in">
+                <router-view></router-view>
+            </transition>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <router-view name="header-bottom"></router-view>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -17,24 +26,11 @@
     // Components
     import Header from './Components/Header/Header.vue'
 
-    // Firebase
-    import Firebase from 'firebase';
-
-    let config = {
-        apiKey: "AIzaSyDHRi9CfrPeGOUOleV787rUbI-lYI5qOb0",
-        authDomain: "vuesualize-5ec29.firebaseapp.com",
-        databaseURL: "https://vuesualize-5ec29.firebaseio.com",
-        projectId: "vuesualize-5ec29",
-        storageBucket: "vuesualize-5ec29.appspot.com",
-        messagingSenderId: "716786171870"
-    };
-
-    let app = Firebase.initializeApp(config);
-    let db = app.database();
-    let projectsRef = db.ref('projects');
-    let journeysRef = db.ref('journeys');
-    let storageRef = app.storage().ref();
-    let imagesRef = storageRef.child('images');
+    
+    // let projectsRef = db.ref('projects');
+    // let journeysRef = db.ref('journeys');
+    // let storageRef = app.storage().ref();
+    // let imagesRef = storageRef.child('images');
 
     export default {
         name: 'app',
@@ -48,7 +44,7 @@
         },
         data () {
             return {
-
+                
             }
         }
     }
@@ -86,5 +82,39 @@
     }
 
     @import "styles/index";
-</style>
 
+    .slide-leave-active {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        animation: slide-out 0.3s ease-out forwards;
+    }
+
+    .slide-leave {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .slide-enter-active {
+        animation: slide-in 0.3s ease-out forwards;
+    }
+
+    @keyframes slide-out {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-30px);
+        }
+    }
+
+    @keyframes slide-in {
+        0% {
+            transform: translateY(-30px);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+</style>
+ 
