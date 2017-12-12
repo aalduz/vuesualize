@@ -161,9 +161,28 @@
 }
 
 input.form-control,
-textarea.form-control {
+textarea.form-control,
+input.form-control:focus,
+textarea.form-control:focus {
     background-color: map-get($brand-palette, main-background);
-    color: map-get($brand-palette, primary); 
+    color: map-get($brand-palette, primary);
+}
+
+input.form-control:focus,
+textarea.form-control:focus {
+    outline: 0;
+    border-color: white;
+    box-shadow: 0 0 0 0;
+}
+
+input.form-control.invalid,
+textarea.form-control.invalid {
+    border-color: map-get($brand-palette, danger);
+}
+
+input.form-control.valid,
+textarea.form-control.valid {
+    border-color: map-get($brand-palette, success);
 }
 
 button.btn.btn-primary {
