@@ -1,9 +1,21 @@
 <template>
     <div class="row justify-content-lg-center">
         <div class="col-12 col-lg-10 empty-item-form">
-            <modal v-if="showModal" @cancel="showModal = false" @ok="discardChanges">
+            <modal v-if="showModalPreventLeave" 
+                    @cancel="showModalPreventLeave = false"
+                    @discard="discardChanges"
+                    :autoDismiss="false"
+                    :discardCancel="true">
                 <h3 slot="header">Unsaved changes!</h3>
                 <p slot="body">Are you sure you want to leave?</p>
+            </modal>
+            <modal v-if="showModalNameEmpty"
+                    @ok="showModalNameEmpty = false"
+                    @dismiss="showModalNameEmpty = false"
+                    :autoDismiss="true"
+                    :discardCancel="false">
+                <h3 slot="header">The name of your journey is empty</h3>
+                <p slot="body">In order to save it, you need to provide some value</p>
             </modal>
             <div class="page-heading">
                 <h1 class="justify-content-lg-center">New Journey</h1>
@@ -41,7 +53,12 @@
                     <div class="form-group">
                         <label for="stepImage">Journey image</label>
                         <div class="input-group">
-                            <input v-model="newJourney.imageSrc" type="text" class="form-control" id="journeyImg" aria-describedby="journeyImg" placeholder="Image src">
+                            <input v-model="newJourney.imageSrc"
+                                   type="text" class="form-control"
+                                   id="journeyImg"
+                                   aria-describedby="journeyImg"
+                                   placeholder="Image src"
+                                   readonly>
                             <div class="input-group-btn">
                                 <label class="btn btn-info">
                                     Browse <input @change="processFile($event)" type="file"  id="journeyImgUploadBtn" aria-describedby="journeyImgageUploadButton" hidden>
@@ -89,14 +106,15 @@ export default {
             file: {},
             savingJourney: false,
             nameIsDirty: false,
-            showModal: false,
+            showModalPreventLeave: false,
+            showModalNameEmpty: false,
             preventLeave: false
         }
     },
     beforeRouteLeave(to, from, next) {
         
         if(this.preventLeave) {
-            this.showModal = true;
+            this.showModalPreventLeave = true;
         } else {
             next();
         }
@@ -126,7 +144,7 @@ export default {
             return colors[index % numberOfColors];
         },
         discardChanges: function() {
-            this.showModal = false;
+            this.showModalPreventLeave = false;
             this.preventLeave = false;
             this.$router.push('/journey');
         },
@@ -163,33 +181,34 @@ export default {
 
         },
         storeJourney: function() {
-            this.savingJourney = true;
+            // this.savingJourney = true;
+            console.log(this.newJourney);
+            // let journeysRef = db.ref('journeys');
+            // let vm = this;
 
-            let journeysRef = db.ref('journeys');
-            let vm = this;
-
-            journeysRef.push(this.newJourney).then(function(snapshot){
-                vm.$router.push('/journey');
-            });
+            // journeysRef.push(this.newJourney).then(function(snapshot){
+            //     vm.$router.push('/journey');
+            // });
         },
         saveJourney: function() {
             if (this.newJourney.name == '') {
-                alert('Journey Name cannot be empty, please provide some name.');
+                this.showModalNameEmpty = true;
             } else {
-                if (this.file.name != '') {
+                console.log(this.file, this.file['name'] == null);
+                if (this.file['name'] != null) {
                     // upload Picture
                     console.log(this.file.name);
-                    let fileRef = storageRef.child(this.file.name);
+                    // let fileRef = storageRef.child(this.file.name);
 
-                    let fileImagesRef = storageRef.child('images/' + this.file.name);
+                    // let fileImagesRef = storageRef.child('images/' + this.file.name);
 
-                    let vm = this;
-                    fileImagesRef.put(this.file).then(function(snapshot) {
-                        console.log('Uploaded a file!', snapshot);
+                    // let vm = this;
+                    // fileImagesRef.put(this.file).then(function(snapshot) {
+                    //     console.log('Uploaded a file!', snapshot);
 
-                        vm.newJourney.imageSrc = snapshot.downloadURL;
-                        vm.storeJourney();
-                    });
+                    //     vm.newJourney.imageSrc = snapshot.downloadURL;
+                    //     vm.storeJourney();
+                    // });
                 } else {
                     this.storeJourney();
                 }
