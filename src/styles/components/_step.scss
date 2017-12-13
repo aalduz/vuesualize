@@ -185,6 +185,12 @@ textarea.form-control.valid {
     border-color: map-get($brand-palette, success);
 }
 
+input.form-control[readonly="readonly"] {
+    background-color: map-get($brand-palette, main-background);
+    color: map-get($brand-palette, primary);
+    cursor: not-allowed;
+}
+
 button.btn.btn-primary {
     background-color: map-get($brand-palette, primary); 
     border-color: map-get($brand-palette, primary); 
