@@ -1,12 +1,5 @@
 <template>
     <div id="app">
-        <!-- <div class="container-fluid header-container--top">
-            <div class="row">
-                <div class="col-12">
-                    <router-view name="header-top"></router-view>
-                </div>
-            </div>
-        </div> -->
         <transition name="slide" mode="out-in">
             <router-view></router-view>
         </transition>
@@ -17,12 +10,6 @@
     // Components
     import Header from './Components/Header/Header.vue'
 
-    
-    // let projectsRef = db.ref('projects');
-    // let journeysRef = db.ref('journeys');
-    // let storageRef = app.storage().ref();
-    // let imagesRef = storageRef.child('images');
-
     export default {
         name: 'app',
         methods: {
@@ -31,7 +18,7 @@
             },
         },
         components: {
-            appHeader: Header,
+            appHeader: Header
         },
         data () {
             return {

@@ -1,5 +1,6 @@
 <template>
     <div class="page-wrapper page-wrapper--center">
+        <particles/>
         <div class="container">
             <div id="sign-up" class="row justify-content-center">
                 <div class="col-12 col sm-10 col-md-8 col-lg-6">
@@ -40,8 +41,11 @@
 
 <script>
   import axios from '../../axios-auth';
-
+    import ParticlesJS from '../Particles/ParticlesJS'
     export default {
+        components: {
+            particles: ParticlesJS
+        },
         data () {
             return {
                 email: '',
@@ -62,3 +66,11 @@
         }
     }
 </script>
+
+<style scoped lang="scss">
+    #sign-up .form-container {
+        input.form-control {
+            background-color: rgba(56, 63, 74, 0.5);
+        }
+    }
+</style>
