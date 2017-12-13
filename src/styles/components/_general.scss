@@ -1,0 +1,11 @@
+.page-wrapper {
+    min-height: 100vh;
+
+    &--center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+}

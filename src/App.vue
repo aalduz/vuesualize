@@ -1,17 +1,15 @@
 <template>
     <div id="app">
-        <div class="container-fluid header-container--top">
+        <!-- <div class="container-fluid header-container--top">
             <div class="row">
                 <div class="col-12">
                     <router-view name="header-top"></router-view>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <transition name="slide" mode="out-in">
-                <router-view></router-view>
-            </transition>
-        </div>
+        </div> -->
+        <transition name="slide" mode="out-in">
+            <router-view></router-view>
+        </transition>
     </div>
 </template>
 
