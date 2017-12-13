@@ -88,6 +88,9 @@
 import { db, storageRef, imagesRef } from '../../firebase';
 import Loader from '../Loader/Loader';
 import Modal from '../Modal/Modal';
+import { 
+        mapGetters,
+} from 'vuex';
 
 export default {
     components: {
@@ -120,6 +123,9 @@ export default {
         }
     },
     computed: {
+        ...mapGetters([
+            'journey'
+        ]),
         nameInputClasses: function() {
             return {
                 valid: this.newJourney.name != '' && this.nameIsDirty,
@@ -177,38 +183,42 @@ export default {
 
             this.newJourney.imageSrc = file.name;
             this.file = file;
-            this.preventLeave = true
+            this.preventLeave = true;
 
         },
         storeJourney: function() {
-            // this.savingJourney = true;
-            console.log(this.newJourney);
-            // let journeysRef = db.ref('journeys');
-            // let vm = this;
+            let journeysRef = db.ref('journeys');
+            let vm = this;
 
-            // journeysRef.push(this.newJourney).then(function(snapshot){
-            //     vm.$router.push('/journey');
-            // });
+            journeysRef.push(this.newJourney).then(function(snapshot){
+                vm.showModalNameEmpty = false;
+                vm.preventLeave = false;
+
+                let journeyKey = snapshot['key'];
+                let journey = vm.journeys.filter(journey => journey['.key'] == journeyKey)[0];
+
+                vm.$store.commit('journey', journey);
+                vm.$router.push('/journey/' + journeyKey);
+            });
         },
         saveJourney: function() {
             if (this.newJourney.name == '') {
                 this.showModalNameEmpty = true;
             } else {
-                console.log(this.file, this.file['name'] == null);
+                this.savingJourney = true;
                 if (this.file['name'] != null) {
                     // upload Picture
-                    console.log(this.file.name);
-                    // let fileRef = storageRef.child(this.file.name);
+                    let fileRef = storageRef.child(this.file.name);
 
-                    // let fileImagesRef = storageRef.child('images/' + this.file.name);
+                    let fileImagesRef = storageRef.child('images/' + this.file.name);
 
-                    // let vm = this;
-                    // fileImagesRef.put(this.file).then(function(snapshot) {
-                    //     console.log('Uploaded a file!', snapshot);
+                    let vm = this;
+                    fileImagesRef.put(this.file).then(function(snapshot) {
 
-                    //     vm.newJourney.imageSrc = snapshot.downloadURL;
-                    //     vm.storeJourney();
-                    // });
+                        vm.newJourney.imageSrc = snapshot.downloadURL;
+                        vm.preventLeave = false;
+                        vm.storeJourney();
+                    });
                 } else {
                     this.storeJourney();
                 }
