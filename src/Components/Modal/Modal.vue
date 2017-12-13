@@ -13,8 +13,9 @@
 
                     <div class="modal-footer">
                         <slot name="footer">
-                            <button class="btn btn-default" @click="$emit('cancel')">Cancel</button>
-                            <button class="btn btn-primary" @click="$emit('ok')">OK</button>
+                            <button v-if="discardCancel" class="btn btn-default" @click="$emit('cancel')">Cancel</button>
+                            <button v-if="discardCancel" class="btn btn-primary" @click="$emit('discard')">Discard changes</button>
+                            <button v-else class="btn btn-primary" @click="$emit('ok')">OK</button>
                         </slot>
                     </div>
                 </div>
@@ -24,7 +25,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+    props: ['autoDismiss', 'discardCancel'],
+    mounted: function () {
+        if (this.autoDismiss) {
+            let vm = this;
+            setTimeout(function() {
+                vm.$emit('dismiss');
+            },3000);
+        }
+    }
+};
 </script>
 
 <style>
