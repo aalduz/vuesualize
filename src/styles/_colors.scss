@@ -5,3 +5,15 @@ $brand-palette: (
     success: #17b894,
     danger: #b8173a
 );
+
+.color {
+    color: white;
+    
+    &--primary {
+        color: map-get($brand-palette, primary);
+    }
+
+    &--secondary {
+        color: map-get($brand-palette, secondary);
+    }
+}
