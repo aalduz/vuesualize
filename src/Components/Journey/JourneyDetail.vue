@@ -1,9 +1,19 @@
 <template>
-    <div class="row">
+    <div class="row journey-container">
         <div class="col-12 page-heading">
             <h1 class="justify-content-lg-center">{{ journey.name }}</h1>
+            <template v-if="journey.tags">
+                <div class="tags-container">
+                    <span v-for="tag in journey.tags" class="badge badge-pill badge-warning">{{ tag }}</span>
+                </div>
+            </template>
         </div>
-        <div class="col-12">
+        <div v-if="steps.length == 0" class="col-12 page-heading">
+                <h3 class="color--primary">It  seems you dont have any steps defined on your user journey.</h3>
+                <h4 class="color--primary">Why dont you start creating the first one?</h4>
+                <button v-on:click="addStepStarted = true" class="btn btn-primary">Add step</button>
+        </div>
+        <div v-else class="col-12">
             <div class="steps-container row justify-content-lg-center">
                 <div v-for="(step, index) in steps" class="col-12 col-lg-10 ">
                     <div class="user-journey-step-container">
@@ -80,7 +90,8 @@
                 'journey'
             ]),
             steps: function() {
-                let stepsWithControlProperties = this.journey.steps;
+                if (this.journey.steps) {
+                    let stepsWithControlProperties = this.journey.steps;
 
                     stepsWithControlProperties.forEach(step => {
                         step.nameInViewMode = true;
@@ -88,8 +99,12 @@
                         step.imageInViewMode = true;
                         step.tagsInViewMode = true;
                     });
-               
-                return stepsWithControlProperties;
+
+                    return stepsWithControlProperties;
+                }
+
+               return [];
+
             }
         },
         data () {
@@ -128,3 +143,11 @@
         }
     }
 </script>
+
+<style lang="scss">
+    .tags-container {
+        span.badge.badge-pill {
+            margin: 0 2px;
+        }
+    }
+</style>
