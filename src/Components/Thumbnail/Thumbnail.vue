@@ -1,5 +1,5 @@
 <template>
-    <div @click="goToItem" class="card card__overview-item">
+    <div @click="goToItem" class="card card__overview-item" :class="thumbnailClasses">
         <div class="card-img-top">
             <img :src="imageSrc == '' ? 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2' : imageSrc">
         </div>
@@ -26,6 +26,7 @@
                 type: String
             },
             item: Object,
+            thumbnailClasses: Object
         },
         methods: {
             goToItem(){

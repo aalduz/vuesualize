@@ -1,6 +1,7 @@
 .card.card__overview-item {
     margin: 15px 0;
     height: 220px;
+    cursor: pointer;
 
     .card-img-top {
         height: 180px;
@@ -37,6 +38,17 @@
         }
         small {
             padding-left: 15px;
+        }
+    }
+    &.delete {
+        border: 1px solid map-get($brand-palette, danger);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(220, 53, 69, 1);
+
+        &:hover {
+            .card-block {
+                background-color: map-get($brand-palette, danger);
+            }
         }
     }
 }
