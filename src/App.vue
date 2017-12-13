@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div class="container-fluid">
+        <div class="container-fluid header-container--top">
             <div class="row">
                 <div class="col-12">
                     <router-view name="header-top"></router-view>
@@ -11,13 +11,6 @@
             <transition name="slide" mode="out-in">
                 <router-view></router-view>
             </transition>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <router-view name="header-bottom"></router-view>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -44,26 +37,36 @@
         },
         data () {
             return {
-                
+
             }
         }
     }
 </script>
 
 <style lang="scss">
+    
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
-        margin-top: 15px;
     }
 
     .page-heading > h1,
-    .page-heading > h2 {
+    .page-heading > h2,
+    .page-heading > h3,
+    .page-heading > h4 {
         color: white;
         text-align: center;
     }
+
+    .page-heading > h3,
+    .page-heading > h4 {
+        color: #2a9fda;
+        text-align: center;
+    }
+
+
 
     .page-heading {
         display: flex;

@@ -1,0 +1,10 @@
+.header-container {
+    &--top {
+        padding: 10px;
+        border-bottom: 1px solid white;
+    }
+
+    &--bottom {
+        border-top: 1px solid white;
+    }
+}
