@@ -9,12 +9,6 @@ export const store = new Vuex.Store({
         journeys: {},
         journey: {}
     },
-    getters: {
-
-        journey(state) {
-            return state.journey;
-        }
-    },
     mutations: {
         addJourney(state, journey) {
             state.journeys.push(journey);
@@ -28,5 +22,14 @@ export const store = new Vuex.Store({
         journey(state, journey) {
             state.journey = journey;
         }
-    }
+    },
+    actions: {
+        
+    },
+    getters: {
+
+        journey(state) {
+            return state.journey;
+        }
+    },
 })

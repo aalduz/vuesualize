@@ -10,10 +10,12 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "bootstrap": "^4.0.0-beta.2",
     "firebase": "^4.7.0",
     "font-awesome": "^4.7.0",
     "vue": "^2.4.4",
+    "vue-axios": "^2.0.2",
     "vue-router": "^3.0.1",
     "vuefire": "^1.4.5",
     "vuex": "^3.0.1"
