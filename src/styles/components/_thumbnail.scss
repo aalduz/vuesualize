@@ -6,6 +6,9 @@
         height: 180px;
         overflow-y: hidden;
         background-color: map-get($brand-palette, main-background);
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+
         img {
             width: 100%;
             height: auto;
@@ -13,9 +16,27 @@
     }
 
     .card-block {
+        background-color: map-get($brand-palette, main-background);
+        color: white;
+        border-top: 1px solid white;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        min-height: 56px;
+
         .class-title {
             padding: 10px 15px 0;
             font-size: 14px;
+            margin-bottom: 0;
+        }
+        .tags-container {
+            padding: 0 12px 5px;
+            
+            span.badge-pill {
+                margin: 0 2px 0 0;
+            }
+        }
+        small {
+            padding-left: 15px;
         }
     }
 }
