@@ -188,17 +188,17 @@ export default {
         },
         storeJourney: function() {
             let journeysRef = db.ref('journeys');
-            let vm = this;
+            // let vm = this;
 
-            journeysRef.push(this.newJourney).then(function(snapshot){
-                vm.showModalNameEmpty = false;
-                vm.preventLeave = false;
+            journeysRef.push(this.newJourney).then(snapshot => {
+                this.showModalNameEmpty = false;
+                this.preventLeave = false;
 
                 let journeyKey = snapshot['key'];
-                let journey = vm.journeys.filter(journey => journey['.key'] == journeyKey)[0];
+                let journey = this.journeys.filter(journey => journey['.key'] == journeyKey)[0];
 
-                vm.$store.commit('journey', journey);
-                vm.$router.push('/journey/' + journeyKey);
+                this.$store.commit('journey', journey);
+                this.$router.push('/journey/' + journeyKey);
             });
         },
         saveJourney: function() {

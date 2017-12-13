@@ -31,7 +31,7 @@
             journeyNew: JourneyNew
         },
         computed: {
-            thumbnailClasses: function(){
+            thumbnailClasses() {
                 return {
                     delete: this.isDeleteMode,
                 }
