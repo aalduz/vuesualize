@@ -3,11 +3,11 @@
         <particles/>
         <div class="container">
             <div id="sign-up" class="row justify-content-center">
-                <div class="col-12 col sm-10 col-md-8 col-lg-6">
-                    <div class="logo-container">
-                        <img src="" alt="">
-                    </div>
+                <div class="col-12 col sm-10 col-md-7 col-lg-5">
                     <div class="page-heading">
+                        <div class="logo-container">
+                            <img src="../../assets/vuesualize-logo.png" alt="Vuesualize Logo">
+                        </div>
                         <h1 class="justify-content-lg-center">Sign Up</h1>
                     </div>
                     <div class="form-container">
@@ -67,7 +67,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     #sign-up .form-container {
         input.form-control {
             background-color: rgba(56, 63, 74, 0.5);

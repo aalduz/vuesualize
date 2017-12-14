@@ -37,37 +37,6 @@
         color: #2c3e50;
     }
 
-    .page-heading > h1,
-    .page-heading > h2,
-    .page-heading > h3,
-    .page-heading > h4 {
-        color: white;
-        text-align: center;
-    }
-
-    .page-heading > h3,
-    .page-heading > h4 {
-        color: #2a9fda;
-        text-align: center;
-    }
-
-
-
-    .page-heading {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        margin: 2rem 0;
-        padding-bottom: 2rem;
-
-        border-bottom: 1px solid white;
-    }
-
-    .page-heading button {
-        margin-top: 2rem;
-    }
 
     @import "styles/index";
 
