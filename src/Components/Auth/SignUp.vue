@@ -63,7 +63,8 @@
                     password: this.password
                 }
                 console.log(formData);
-                this.$store.dispatch('signup', {email: formData.email, password: formData.password});
+                this.$store.dispatch('signup', {email: formData.email, password: formData.password})
+                    .then(res => this.$router.push('/'));
             }
         }
     }
