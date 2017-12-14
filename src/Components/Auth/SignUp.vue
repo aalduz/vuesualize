@@ -1,4 +1,5 @@
 <template>
+    <transition enter-active-class="animated flipInY" mode="out-in">
     <div class="page-wrapper page-wrapper--center">
         <particles/>
         <div class="container">
@@ -8,7 +9,7 @@
                         <div class="logo-container">
                             <img src="../../assets/vuesualize-logo.png" alt="Vuesualize Logo">
                         </div>
-                        <h1 class="justify-content-lg-center">Sign Up</h1>
+                        <h1 class="justify-content-lg-center"><span class="color--secondary">Sign Up</span></h1>
                     </div>
                     <div class="form-container">
                         <form @submit.prevent="onSubmit">
@@ -33,10 +34,12 @@
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </form>
                     </div>
+                    <router-link to="/signin" class="router-link">Do you have already an account? <span class="color">Sign in</span></router-link>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
+    </transition>
 </template>
 
 <script>
@@ -71,6 +74,20 @@
     #sign-up .form-container {
         input.form-control {
             background-color: rgba(56, 63, 74, 0.5);
+        }
+    }
+    .router-link {
+        display: block;
+        text-align: center;
+        margin-top: 1rem;
+        color: #2a9fda;
+
+        &:hover {
+            color: white;
+            text-decoration: none;
+            span {
+                color: white;
+            }
         }
     }
 </style>
