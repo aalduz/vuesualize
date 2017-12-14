@@ -1,15 +1,20 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from '../axios-auth';
+import { firebaseConfig }  from '../firebase';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        id: null,
+        idToken: null,
+        userId: null,
         journeys: {},
         journey: {}
     },
     mutations: {
+        
+        // To review 
         addJourney(state, journey) {
             state.journeys.push(journey);
         },
@@ -24,10 +29,25 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
-        
+        signup ({commit}, authData) {
+            axios.post('/signupNewUser?key=' + firebaseConfig.apiKey, {
+                email: authData.email,
+                password: authData.password,
+                returnSecureToken: true
+            })
+                .then(res => console.log(res))
+                .catch(error => console.log(error))
+        },
+        login ({commit}, authData) {
+            axios.post('/verifyPassword?key=' + firebaseConfig.apiKey, authData)
+            .then(res => console.log(res))
+            .catch(error => console.log(error))
+        }
     },
     getters: {
-
+        
+        
+        // To review
         journey(state) {
             return state.journey;
         }
