@@ -1,3 +1,20 @@
 .form-container {
     color: white;
 }
+
+.logo-container {
+    img {
+        width: 80px;
+        height: auto;
+
+        // This mixin seems to just render: min-width
+        // @include media-breakpoint-only(sm) {
+        @media (min-width: 568px) and (max-width: 767px) {
+            width: 40px;
+        }
+        @media (min-width: 768px) {
+            width: 100px;
+            margin-bottom: 1rem;   
+        }
+    }
+}

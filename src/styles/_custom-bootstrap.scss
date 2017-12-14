@@ -19,3 +19,8 @@ ul.nav.nav-pills {
         }
     }
 }
+
+$grid-breakpoints: (
+    // Overwrite the value to match iphone 5S dimensions.  
+    sm: 568px
+);
