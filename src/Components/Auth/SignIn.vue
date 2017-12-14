@@ -43,7 +43,8 @@
 </template>
 
 <script>
-  import axios from '../../axios-auth';
+    import axios from '../../axios-auth';
+    import { firebaseConfig }  from '../../firebase';
     import ParticlesJS from '../Particles/ParticlesJS'
     export default {
         components: {
@@ -62,7 +63,7 @@
                     password: this.password
                 }
                     console.log(formData)
-                    axios.post('/users.json', formData)
+                    axios.post('/verifyPassword?key=' + firebaseConfig.apiKey, formData)
                         .then(res => console.log(res))
                         .catch(error => console.log(error))
             }
