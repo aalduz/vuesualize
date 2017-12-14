@@ -13,6 +13,12 @@ const SignupPage = resolve => {
     });
 };
 
+const SigninPage = resolve => {
+    require.ensure(['./Components/Auth/Signin.vue'], () => {
+        resolve(require('./Components/Auth/Signin.vue'));
+    });
+};
+
 const Journey = resolve => {
     require.ensure(['./Components/Journey/Journey.vue'], () => {
         resolve(require('./Components/Journey/Journey.vue'));
@@ -42,6 +48,7 @@ export const routes = [
         'header-top': Header
     } },
     { path: '/signup', component: SignupPage },
+    { path: '/signin', component: SigninPage },
     { path: '/user', components: {
         default: User,
         'header-bottom': Header
