@@ -62,14 +62,8 @@
                     email: this.email,
                     password: this.password
                 }
-                    console.log(formData)
-                    axios.post('/signupNewUser?key=' + firebaseConfig.apiKey, {
-                        email: formData.email,
-                        password: formData.password,
-                        returnSecureToken: true
-                    })
-                        .then(res => console.log(res))
-                        .catch(error => console.log(error))
+                console.log(formData);
+                this.$store.dispatch('signup', {email: formData.email, password: formData.password});
             }
         }
     }
