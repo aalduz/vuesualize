@@ -1,5 +1,5 @@
 <template>
-    <transition enter-active-class="animated flipInY" mode="out-in">
+    <transition mode="out-in">
     <div class="page-wrapper page-wrapper--center">
         <particles/>
         <div class="container">
@@ -12,6 +12,9 @@
                         <h1 class="justify-content-lg-center">Sign In</h1>
                     </div>
                     <div class="form-container">
+                        <transition enter-active-class="animated shake" leave-active-class="fade">
+                            <small v-if="authenticationFailed" class="form-submission-failed-message">Something went wrong, please try again.</small>
+                        </transition>
                         <form @submit.prevent="onSubmit">
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -20,7 +23,8 @@
                                         id="email"
                                         v-model="email"
                                         class="form-control"
-                                        placeholder="example@mail.domain">
+                                        placeholder="example@mail.domain"
+                                        @keyup="authenticationFailed = false">
                             </div>
                             <div class="form-group">
                                 <label for="email">Password</label>
@@ -28,13 +32,16 @@
                                         type="password"
                                         id="password"
                                         v-model="password"
-                                        class="form-control">
+                                        class="form-control"
+                                        @keyup="authenticationFailed = false">
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </form>
                     </div>
-                    <router-link to="/signup" class="router-link">Don't you have an account yet? <span class="color--secondary">Sign up</span></router-link>
+                    <transition enter-active-class="animated flipInY">
+                        <router-link to="/signup" class="authentication-link">Don't you have an account yet? <span class="color--secondary">Sign up</span></router-link>
+                    </transition>
                 </div>
             </div>
         </div>
@@ -54,6 +61,8 @@
             return {
                 email: '',
                 password: '',
+                authenticationFailed: false,
+                userAccessIsGranted: false,
             }
         },
         methods: {
@@ -64,16 +73,25 @@
                 }
                 console.log(formData);
                 this.$store.dispatch('login', {email: formData.email, password: formData.password})
-                    // .then(res => this.$router.push('/'));
+                    .then(res => {
+                        this.userAccessIsGranted = true;
+                        this.$router.push('/');
+                    })
+                    .catch(error => {
+                        this.authenticationFailed = true;
+                    })
+            },
+            beforeLeave: function(el, done) {
+                if (this.userAccessIsGranted) {
+                    Velocity(el, 'flipY', { 
+                        duration: 500
+                    });
+                } else {
+                    Velocity(el, 'flipY', {
+                        duration: 500
+                    });
+                }
             }
         }
     }
 </script>
-
-<style lang="scss">
-    #sign-up .form-container {
-        input.form-control {
-            background-color: rgba(56, 63, 74, 0.5);
-        }
-    }
-</style>

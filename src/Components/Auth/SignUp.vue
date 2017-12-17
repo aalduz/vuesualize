@@ -1,5 +1,5 @@
 <template>
-    <transition enter-active-class="animated flipInY" mode="out-in">
+    <transition enter-active-class="animated flip" mode="out-in">
     <div class="page-wrapper page-wrapper--center">
         <particles/>
         <div class="container">
@@ -31,10 +31,12 @@
                                         class="form-control">
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            <button type="submit" class="btn btn-secondary btn-block">Submit</button>
                         </form>
                     </div>
-                    <router-link to="/signin" class="router-link">Do you have already an account? <span class="color">Sign in</span></router-link>
+                    <transition v-on:leave="leave" v-bind:css="false">
+                        <router-link to="/signin" class="authentication-link">Do you have already an account? <span class="color">Sign in</span></router-link>
+                    </transition>
                 </div>
             </div>
         </div>
@@ -54,6 +56,8 @@
             return {
                 email: '',
                 password: '',
+                authenticationFailed: false,
+                userAccessIsGranted: false,
             }
         },
         methods: {
@@ -64,30 +68,24 @@
                 }
                 console.log(formData);
                 this.$store.dispatch('signup', {email: formData.email, password: formData.password})
-                    .then(res => this.$router.push('/'));
+                    .then(res => {
+                        this.userAccessIsGranted = true;
+                        this.$router.push('/');
+                    });
+            },
+            leave: function(el, done) {
+                if (this.userAccessIsGranted) {
+                    console.log('beforeLeave', this.userAccessIsGranted);
+                    Velocity(el, 'fadeOut', { 
+                        duration: 500
+                    });
+                } else {
+                    console.log('beforeLeave', this.userAccessIsGranted);
+                    Velocity(el, 'flipY', {
+                        duration: 500
+                    });
+                }
             }
         }
     }
 </script>
-
-<style lang="scss">
-    #sign-up .form-container {
-        input.form-control {
-            background-color: rgba(56, 63, 74, 0.5);
-        }
-    }
-    .router-link {
-        display: block;
-        text-align: center;
-        margin-top: 1rem;
-        color: #2a9fda;
-
-        &:hover {
-            color: white;
-            text-decoration: none;
-            span {
-                color: white;
-            }
-        }
-    }
-</style>

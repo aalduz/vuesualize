@@ -26,17 +26,20 @@ export const store = new Vuex.Store({
     state: {
         idToken: null,
         userId: null,
-        user: null,
-        journeys: {},
-        journey: {}
+        userEmail: null,
+        userData: null,
+        project: null,
+        journeys: null,
+        journey: null
     },
     mutations: {
         authUser (state, userData) {
             state.idToken = userData.token;
             state.userId = userData.userId;
+            state.userEmail = userData.email;
         },
-        storeUser (state, user) {
-            state.user = user;
+        userData (state, user) {
+            state.userData = user;
         },
         // To review 
         addJourney(state, journey) {
@@ -65,23 +68,26 @@ export const store = new Vuex.Store({
                         token: res.data.idToken,
                         userId: res.data.localId
                     })
-                    dispatch('storeUser', authData)
+                    dispatch('storeUserInDB', authData)
                 })
                 .catch(error => console.log(error))
         },
-        login ({commit, dispatch}, authData) {
-            axios.post('/verifyPassword?key=' + firebaseConfig.apiKey, authData)
+        login ({commit}, authData) {
+            return new Promise((resolve, reject) => {
+                axios.post('/verifyPassword?key=' + firebaseConfig.apiKey, authData)
                 .then(res => {
                     console.log(res);
                     commit('authUser', {
                         token: res.data.idToken,
-                        userId: res.data.localId
+                        userId: res.data.localId,
+                        email: authData.email
                     })
-                    dispatch('fetchUser')
+                    resolve(res);
                 })
-                .catch(error => console.log(error))
+                .catch(error => reject(error))
+            });
         },
-        storeUser ({commit, state}, userData) {
+        storeUserInDB ({commit, state}, userData) {
             console.log('storeUser action');
             if (!state.idToken) {
                 return
@@ -89,36 +95,37 @@ export const store = new Vuex.Store({
             globalAxios.post('/users.json' + '?auth=' + state.idToken, userData)
                 .then(res => {
                     console.log(res)
-                    commit('storeUser', userData);
+                    commit('userData', userData);
                 })
                 .catch(error => console.log(error))
         },
         fetchUser ({commit, state}) {
-            console.log(state);
-            if (!state.idToken) {
-                return
-            }
-            globalAxios.get('/users.json' + '?auth=' + state.idToken)
-                .then(res => {
-                    console.log(res);
-                    const data = res.data;
-                    const users = [];
+            return new Promise((resolve, reject) => {
+                console.log(state);
+                globalAxios.get('/users.json?auth=' + state.idToken)
+                    .then(res => {
+                        console.log(res);
+                        const data = res.data;
+                        const users = [];
 
-                    for (let key in data) {
-                        const user = data[key];
-                        user.id = key;
-                        users.push(user);
-                    }
-                    console.log(users);
-                    // commit('storeUser', users.filter(user => user['id'] == state.user.userId)[0]);
-                    commit('storeUser', users[0]);
-                })
-                .catch(error => console.log(error))
+                        for (let key in data) {
+                            const user = data[key];
+                            user.id = key;
+                            users.push(user);
+                        }
+                        console.log(users);
+                        let user = users.filter(user => user['email'] == state.userEmail)[0];
+                        console.log(user);
+                        commit('userData', user);
+                        resolve(user);
+                    })
+                    .catch(error => console.log(error))
+            });
         }
     },
     getters: {
         user (state) {
-            return state.user
+            return state.userData
         },
         
         // To review

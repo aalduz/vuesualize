@@ -54,3 +54,18 @@
 .page-heading button {
     margin-top: 2rem;
 }
+
+.authentication-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #2a9fda;
+
+    &:hover {
+        color: white;
+        text-decoration: none;
+        span {
+            color: white;
+        }
+    }
+}
