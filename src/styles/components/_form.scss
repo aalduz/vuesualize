@@ -1,5 +1,14 @@
 .form-container {
     color: white;
+    .form-submission-failed-message {
+        display: block;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    input.form-control {
+        background-color: rgba(56, 63, 74, 0.5);
+    }
 }
 
 .logo-container {
