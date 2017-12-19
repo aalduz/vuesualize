@@ -9,22 +9,35 @@
 <script>
     // Components
     import Header from './Components/Header/Header.vue'
+    import { auth }  from './firebase';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'app',
+        components: {
+            appHeader: Header
+        },
         methods: {
             goToJourney(journey) {
                 console.log(journey);
             },
         },
-        components: {
-            appHeader: Header
+        computed: {
+            ...mapGetters([
+                'currentUser',
+                'userData'
+            ]),
         },
-        data () {
-            return {
-
-            }
-        }
+        mounted() {
+            auth.onAuthStateChanged( user => {
+                if (user && !this.$store.getters.currentUser) {
+                    this.$store.dispatch('currentUser', user);
+                }
+                if (user && !this.$store.getters.userData) {
+                    this.$store.dispatch('fetchUserData', user.uid);
+                }
+            });
+        },
     }
 </script>
 

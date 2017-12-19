@@ -1,136 +1,130 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from '../axios-auth';
-import globalAxios from 'axios';
-import { firebaseConfig }  from '../firebase';
+import firebase from 'firebase';
+import { db } from '../firebase'; 
 
-globalAxios.defaults.baseURL = 'https://vuesualize-5ec29.firebaseio.com';
-// globalAxios.defaults.headers.common['Authorization'] = 'fasfdsa'
-globalAxios.defaults.headers.get['Accepts'] = 'application/json'
+const state = {
+    currentUser: null,
+    userData: null,
+    project: null,
+    journeys: null,
+    journey: null
+}
 
-const reqInterceptor = globalAxios.interceptors.request.use(config => {
-  console.log('Request Interceptor', config)
-  return config
-})
-const resInterceptor = globalAxios.interceptors.response.use(res => {
-  console.log('Response Interceptor', res)
-  return res
-})
-
-globalAxios.interceptors.request.eject(reqInterceptor)
-globalAxios.interceptors.response.eject(resInterceptor)
-
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
-    state: {
-        idToken: null,
-        userId: null,
-        userEmail: null,
-        userData: null,
-        project: null,
-        journeys: null,
-        journey: null
+const mutations = {
+    authUser (state, userData) {
+        state.idToken = userData.token;
+        state.userId = userData.userId;
+        state.userEmail = userData.email;
     },
-    mutations: {
-        authUser (state, userData) {
-            state.idToken = userData.token;
-            state.userId = userData.userId;
-            state.userEmail = userData.email;
-        },
-        userData (state, user) {
-            state.userData = user;
-        },
-        // To review 
-        addJourney(state, journey) {
-            state.journeys.push(journey);
-        },
-        updateJourney(state, journey) {
-            let journeyKey = journey['.key'];
-            state.journeys[journeyKey] = journey;
-            state.journey = journey;
-        },
-
-        journey(state, journey) {
-            state.journey = journey;
-        }
+    userData (state, userData) {
+        state.userData = userData;
     },
-    actions: {
-        signup ({commit, dispatch}, authData) {
-            axios.post('/signupNewUser?key=' + firebaseConfig.apiKey, {
-                email: authData.email,
-                password: authData.password,
-                returnSecureToken: true
-            })
+
+    currentUser (state, user) {
+        state.currentUser = user;
+    },
+    // To review 
+    addJourney(state, journey) {
+        state.journeys.push(journey);
+    },
+    updateJourney(state, journey) {
+        let journeyKey = journey['.key'];
+        state.journeys[journeyKey] = journey;
+        state.journey = journey;
+    },
+
+    journey(state, journey) {
+        state.journey = journey;
+    }
+}
+
+const actions = {
+    signUp ({commit, dispatch}, authData) {
+        return new Promise((resolve,reject) => {
+            firebase.auth().createUserWithEmailAndPassword(authData.email, authData.password)
                 .then(res => {
-                    console.log(res);
-                    commit('authUser', {
-                        token: res.data.idToken,
-                        userId: res.data.localId
-                    })
-                    dispatch('storeUserInDB', authData)
-                })
-                .catch(error => console.log(error))
-        },
-        login ({commit}, authData) {
-            return new Promise((resolve, reject) => {
-                axios.post('/verifyPassword?key=' + firebaseConfig.apiKey, authData)
-                .then(res => {
-                    console.log(res);
-                    commit('authUser', {
-                        token: res.data.idToken,
-                        userId: res.data.localId,
-                        email: authData.email
-                    })
+                    dispatch('storeUserInDB', res);
                     resolve(res);
                 })
-                .catch(error => reject(error))
-            });
-        },
-        storeUserInDB ({commit, state}, userData) {
-            console.log('storeUser action');
-            if (!state.idToken) {
-                return
-            }
-            globalAxios.post('/users.json' + '?auth=' + state.idToken, userData)
-                .then(res => {
-                    console.log(res)
-                    commit('userData', userData);
+                .catch(error => {
+                    reject(error);
                 })
-                .catch(error => console.log(error))
-        },
-        fetchUser ({commit, state}) {
-            return new Promise((resolve, reject) => {
-                console.log(state);
-                globalAxios.get('/users.json?auth=' + state.idToken)
-                    .then(res => {
-                        console.log(res);
-                        const data = res.data;
-                        const users = [];
+        });
+    },
+    storeUserInDB({commit, dispatch}, userData) {
+        console.log(userData);
+        let usersRef = db.ref('users');
+        let user = {
+            email: userData.email,
+            uid: userData.uid
+        }
 
-                        for (let key in data) {
-                            const user = data[key];
-                            user.id = key;
-                            users.push(user);
-                        }
-                        console.log(users);
-                        let user = users.filter(user => user['email'] == state.userEmail)[0];
-                        console.log(user);
-                        commit('userData', user);
-                        resolve(user);
-                    })
-                    .catch(error => console.log(error))
-            });
-        }
+        usersRef.push(user).then(snapshot => {
+            console.log(snapshot);
+            commit('userData', user);
+        });
     },
-    getters: {
-        user (state) {
-            return state.userData
-        },
-        
-        // To review
-        journey(state) {
-            return state.journey;
-        }
+    signIn ({commit, dispatch, store}, authData) {
+        return new Promise((resolve, reject) => {
+            firebase.auth().signInWithEmailAndPassword(authData.email, authData.password)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        });
     },
-})
+    signOut ({commit, dispatch}) {
+        return new Promise((resolve, reject) => {
+            firebase.auth().signOut()
+                .then(res  => {
+                    // Sign-out successful.
+                    commit('userData', null);
+                    commit('currentUser', null);
+                    resolve(res);
+                }).catch(function(error) {
+                    // An error happened.
+                    reject(error);
+                });
+        });
+    },
+    currentUser ({commit}, user) {
+        commit('currentUser', user);
+    },
+    userData ({commit}, userData) {
+        commit('userData', userData);
+    },
+    fetchUserData ({commit}, uid){
+        db.ref('users').orderByChild("uid").equalTo(uid).once('value', snap =>{
+            let user = snap.val();
+            let userData = Object.values(user)[0];
+
+            commit('userData', userData);
+        });
+    }
+}
+
+const getters = {
+    currentUser (state) {
+        return state.currentUser
+    },
+
+    userData (state) {
+        return state.userData
+    },
+    
+    // To review
+    journey(state) {
+        return state.journey;
+    }
+}
+
+Vue.use(Vuex);
+export const store = new Vuex.Store({
+    state: state,
+    mutations: mutations,
+    actions: actions,
+    getters: getters
+});

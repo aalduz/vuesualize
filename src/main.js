@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueFire from 'vuefire';
-import App from './App.vue';
-import { routes } from './routes';
-import { store } from './store/store'
+import Vuex from 'vuex';
+import App from '@/App.vue';
+import { routes } from '@/routes';
+import { store } from '@/store/store'
 
 Vue.use(VueFire);
 Vue.use(VueRouter);
@@ -18,15 +19,19 @@ const router = new VueRouter({
       return savedPosition;
     }
     if (to.hash) {
-      return { selector: to.hash }
+      return {
+        selector: to.hash
+      }
     }
-    return { x: 0, y: 0};
+    return {
+      x: 0,
+      y: 0
+    };
   }
 });
 
 // Route Guards: Avoid leaving without confirmation for certain routes.
 router.beforeEach((to, from, next) => {
-  console.log('global beforeEach');
   next();
 });
 
