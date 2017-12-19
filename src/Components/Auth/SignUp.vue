@@ -12,6 +12,11 @@
                         <h1 class="justify-content-lg-center"><span class="color--secondary">Sign Up</span></h1>
                     </div>
                     <div class="form-container">
+                        <transition enter-active-class="animated shake" leave-active-class="fade">
+                            <div v-if="authenticationFailed" class="alert alert-danger" role="alert">
+                                <strong>Oh snap!</strong> {{ authenticationFailed }}
+                            </div>
+                        </transition>
                         <form @submit.prevent="onSubmit">
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -34,7 +39,7 @@
                             <button type="submit" class="btn btn-secondary btn-block">Submit</button>
                         </form>
                     </div>
-                    <transition v-on:leave="leave" v-bind:css="false">
+                    <transition>
                         <router-link to="/signin" class="authentication-link">Do you have already an account? <span class="color">Sign in</span></router-link>
                     </transition>
                 </div>
@@ -57,7 +62,6 @@
                 email: '',
                 password: '',
                 authenticationFailed: false,
-                userAccessIsGranted: false,
             }
         },
         methods: {
@@ -66,25 +70,13 @@
                     email: this.email,
                     password: this.password
                 }
-                console.log(formData);
-                this.$store.dispatch('signup', {email: formData.email, password: formData.password})
+                this.$store.dispatch('signUp', {email: formData.email, password: formData.password})
                     .then(res => {
-                        this.userAccessIsGranted = true;
                         this.$router.push('/');
+                    })
+                    .catch(error => {
+                        this.authenticationFailed = error.message;
                     });
-            },
-            leave: function(el, done) {
-                if (this.userAccessIsGranted) {
-                    console.log('beforeLeave', this.userAccessIsGranted);
-                    Velocity(el, 'fadeOut', { 
-                        duration: 500
-                    });
-                } else {
-                    console.log('beforeLeave', this.userAccessIsGranted);
-                    Velocity(el, 'flipY', {
-                        duration: 500
-                    });
-                }
             }
         }
     }

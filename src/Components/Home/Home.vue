@@ -10,14 +10,32 @@
             <p v-if="loading">Loading</p>
         </div>
         <div class="col-12">
-            <p v-if="user">{{user}}</p>
+            <p v-if="currentUser">{{currentUser}}</p>
         </div>
         
     </div>
 </template>
 
 <script>
+    import { 
+        mapGetters,
+        mapActions
+    } from 'vuex';
+
+    import { auth }  from '@/firebase';
+
     export default {
+        methods: {
+            fetchData() {
+                // Fetch Data
+            }
+        },
+        computed: {
+            ...mapGetters([
+                'userData',
+                'currentUser'
+            ]),
+        },
         data () {
             return {
                 loading: false,
@@ -25,28 +43,16 @@
                 error: null
             }
         },
-        created () {
-            console.log('created');
-            this.fetchData();
-        },
         watch: {
             '$route': 'fetchData'
         },
-        methods: {
-            fetchData() {
-                this.error = this.post = null;
-                this.loading = true;
-                this.$store.dispatch('fetchUser')
-                    .then(res => {
-                        this.loading = false;
-                        this.user = this.$store.getters.user;
-                    })
-                    .catch(err => {
-                        this.loading = false;
-                        this.error = err.toString();
-                    });
-            }
-        }
+        mounted() {
+            auth.onAuthStateChanged( user => {
+                if (!user && !this.currentUser) {
+                    this.$router.push('/signin');
+                }
+            });
+        },
     }
 </script>
 

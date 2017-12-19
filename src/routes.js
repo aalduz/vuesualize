@@ -49,10 +49,16 @@ export const routes = [
     } },
     { path: '/signup', component: SignupPage },
     { path: '/signin', component: SigninPage },
-    { path: '/user', components: {
-        default: User,
-        'header-bottom': Header
-    } },
+    { 
+        path: '/user',
+        components: {
+            default: User,
+            'header-bottom': Header
+        },
+        meta: {
+            requiresAuth: true
+        }
+    },
     { path: '/journey', components: {
         default: Journey,
         'header-top': Header

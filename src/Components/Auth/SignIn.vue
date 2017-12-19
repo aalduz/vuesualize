@@ -1,5 +1,5 @@
 <template>
-    <transition mode="out-in">
+    <transition enter-active-class="animated flip" mode="out-in">
     <div class="page-wrapper page-wrapper--center">
         <particles/>
         <div class="container">
@@ -13,7 +13,9 @@
                     </div>
                     <div class="form-container">
                         <transition enter-active-class="animated shake" leave-active-class="fade">
-                            <small v-if="authenticationFailed" class="form-submission-failed-message">Something went wrong, please try again.</small>
+                            <div v-if="authenticationFailed" class="alert alert-danger" role="alert">
+                                <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                            </div>
                         </transition>
                         <form @submit.prevent="onSubmit">
                             <div class="form-group">
@@ -39,7 +41,7 @@
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </form>
                     </div>
-                    <transition enter-active-class="animated flipInY">
+                    <transition>
                         <router-link to="/signup" class="authentication-link">Don't you have an account yet? <span class="color--secondary">Sign up</span></router-link>
                     </transition>
                 </div>
@@ -61,8 +63,7 @@
             return {
                 email: '',
                 password: '',
-                authenticationFailed: false,
-                userAccessIsGranted: false,
+                authenticationFailed: false
             }
         },
         methods: {
@@ -71,26 +72,16 @@
                     email: this.email,
                     password: this.password
                 }
-                console.log(formData);
-                this.$store.dispatch('login', {email: formData.email, password: formData.password})
+                this.$store.dispatch('signIn', {
+                    email: formData.email,
+                    password: formData.password
+                })
                     .then(res => {
-                        this.userAccessIsGranted = true;
-                        this.$router.push('/');
+                        this.$router.push('/user');
                     })
                     .catch(error => {
                         this.authenticationFailed = true;
                     })
-            },
-            beforeLeave: function(el, done) {
-                if (this.userAccessIsGranted) {
-                    Velocity(el, 'flipY', { 
-                        duration: 500
-                    });
-                } else {
-                    Velocity(el, 'flipY', {
-                        duration: 500
-                    });
-                }
             }
         }
     }
