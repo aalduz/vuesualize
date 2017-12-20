@@ -1,6 +1,5 @@
 <template>
-    <div class="page-wrapper">
-        <app-header></app-header>
+    <transition name="slide-y" mode="out-in">
         <div class="container">
             <div class="row">
                 <div class="col-12 page-heading">
@@ -16,7 +15,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>

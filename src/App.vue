@@ -1,8 +1,9 @@
 <template>
     <div id="app">
-        <!-- <transition name="slide" mode="out-in"> -->
+        <div class="page-wrapper">
+            <app-header></app-header>
             <router-view></router-view>
-        <!-- </transition> -->
+        </div>
     </div>
 </template>
 
@@ -37,6 +38,7 @@
                     this.$store.dispatch('fetchUserData', user.uid);
                 }
             });
+
         },
     }
 </script>
@@ -53,22 +55,22 @@
 
     @import "styles/index";
 
-    .slide-leave-active {
+    .slide-y-leave-active {
         transition: opacity 0.3s ease;
         opacity: 0;
-        animation: slide-out 0.3s ease-out forwards;
+        animation: slide-y-out 0.3s ease-out forwards;
     }
 
-    .slide-leave {
+    .slide-y-leave {
         opacity: 1;
         transform: translateX(0);
     }
 
-    .slide-enter-active {
-        animation: slide-in 0.3s ease-out forwards;
+    .slide-y-enter-active {
+        animation: slide-y-in 0.3s ease-out forwards;
     }
 
-    @keyframes slide-out {
+    @keyframes slide-y-out {
         0% {
             transform: translateY(0);
         }
@@ -77,12 +79,45 @@
         }
     }
 
-    @keyframes slide-in {
+    @keyframes slide-y-in {
         0% {
             transform: translateY(-30px);
         }
         100% {
             transform: translateY(0);
+        }
+    }
+
+    .slide-x-leave-active {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        animation: slide-x-out 0.3s ease-out forwards;
+    }
+
+    .slide-x-leave {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .slide-x-enter-active {
+        animation: slide-x-in 0.3s ease-out forwards;
+    }
+
+    @keyframes slide-x-out {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-30px);
+        }
+    }
+
+    @keyframes slide-x-in {
+        0% {
+            transform: translateX(-30px);
+        }
+        100% {
+            transform: translateX(0);
         }
     }
 
