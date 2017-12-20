@@ -1,16 +1,8 @@
 <template>
     <div id="app">
-        <div class="container-fluid header-container--top">
-            <div class="row">
-                <div class="col-12">
-                    <router-view name="header-top"></router-view>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <transition name="slide" mode="out-in">
-                <router-view></router-view>
-            </transition>
+        <app-header></app-header>
+        <div class="page-wrapper">
+            <router-view></router-view>
         </div>
     </div>
 </template>
@@ -18,28 +10,38 @@
 <script>
     // Components
     import Header from './Components/Header/Header.vue'
-
-    
-    // let projectsRef = db.ref('projects');
-    // let journeysRef = db.ref('journeys');
-    // let storageRef = app.storage().ref();
-    // let imagesRef = storageRef.child('images');
+    import { auth }  from './firebase';
+    import { mapGetters } from 'vuex';
 
     export default {
         name: 'app',
+        components: {
+            appHeader: Header
+        },
         methods: {
             goToJourney(journey) {
                 console.log(journey);
             },
         },
-        components: {
-            appHeader: Header,
+        computed: {
+            ...mapGetters([
+                'currentUser',
+                'userData'
+            ]),
         },
-        data () {
-            return {
+        mounted() {
+            auth.onAuthStateChanged( user => {
+                if (user && !this.$store.getters.currentUser) {
+                    this.$store.dispatch('currentUser', user);
+                    console.info('authStateChanged, currentUser');
+                }
+                if (user && !this.$store.getters.userData) {
+                    this.$store.dispatch('fetchUserData', user.uid);
+                    console.info('authStateChanged, userData');
+                }
+            });
 
-            }
-        }
+        },
     }
 </script>
 
@@ -52,56 +54,25 @@
         color: #2c3e50;
     }
 
-    .page-heading > h1,
-    .page-heading > h2,
-    .page-heading > h3,
-    .page-heading > h4 {
-        color: white;
-        text-align: center;
-    }
-
-    .page-heading > h3,
-    .page-heading > h4 {
-        color: #2a9fda;
-        text-align: center;
-    }
-
-
-
-    .page-heading {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        margin: 2rem 0;
-        padding-bottom: 2rem;
-
-        border-bottom: 1px solid white;
-    }
-
-    .page-heading button {
-        margin-top: 2rem;
-    }
 
     @import "styles/index";
 
-    .slide-leave-active {
+    .slide-y-leave-active {
         transition: opacity 0.3s ease;
         opacity: 0;
-        animation: slide-out 0.3s ease-out forwards;
+        animation: slide-y-out 0.3s ease-out forwards;
     }
 
-    .slide-leave {
+    .slide-y-leave {
         opacity: 1;
         transform: translateX(0);
     }
 
-    .slide-enter-active {
-        animation: slide-in 0.3s ease-out forwards;
+    .slide-y-enter-active {
+        animation: slide-y-in 0.3s ease-out forwards;
     }
 
-    @keyframes slide-out {
+    @keyframes slide-y-out {
         0% {
             transform: translateY(0);
         }
@@ -110,12 +81,45 @@
         }
     }
 
-    @keyframes slide-in {
+    @keyframes slide-y-in {
         0% {
             transform: translateY(-30px);
         }
         100% {
             transform: translateY(0);
+        }
+    }
+
+    .slide-x-leave-active {
+        transition: opacity 0.3s ease;
+        opacity: 0;
+        animation: slide-x-out 0.3s ease-out forwards;
+    }
+
+    .slide-x-leave {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .slide-x-enter-active {
+        animation: slide-x-in 0.3s ease-out forwards;
+    }
+
+    @keyframes slide-x-out {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-30px);
+        }
+    }
+
+    @keyframes slide-x-in {
+        0% {
+            transform: translateX(-30px);
+        }
+        100% {
+            transform: translateX(0);
         }
     }
 

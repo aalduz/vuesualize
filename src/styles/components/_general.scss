@@ -1,0 +1,73 @@
+.page-wrapper {
+    min-height: 100vh;
+    padding-top: 85px;
+
+    &--center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        min-height: calc(100vh - 70px);
+    }
+}
+
+.page-heading > h1,
+.page-heading > h2,
+.page-heading > h3,
+.page-heading > h4 {
+    color: white;
+    text-align: center;
+}
+
+.page-heading > h3,
+.page-heading > h4 {
+    color: #2a9fda;
+    text-align: center;
+}
+
+
+
+.page-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0 0 2rem;
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid white;
+    
+    // This mixin seems to just render: min-width
+    // @include media-breakpoint-only(sm) {
+    @media (min-width: 568px) and (max-width: 767px) {
+        flex-direction: row;
+        justify-content: space-between;
+        margin: .5rem 0;
+        padding-bottom: .5rem;
+
+        & > h1 {
+            font-size: 2rem;
+        }
+    }
+}
+
+.page-heading button {
+    margin-top: 2rem;
+}
+
+.authentication-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #2a9fda;
+
+    &:hover {
+        color: white;
+        text-decoration: none;
+        span {
+            color: white;
+        }
+    }
+}

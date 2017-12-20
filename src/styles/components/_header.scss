@@ -8,3 +8,39 @@
         border-top: 1px solid white;
     }
 }
+
+nav.navbar.navbar-light.bg-faded {
+    min-height: 70px;
+    border-bottom: 1px solid white;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 2;
+    background-color: rgba(56, 63, 74, .99);
+}
+.nav-item > a.nav-link {
+    color: white;
+
+    &:hover {
+        color: map-get($brand-palette, primary);
+    }
+}
+
+.navbar-text > .btn.btn-link {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        color: map-get($brand-palette, primary);
+    }
+}
+
+.nav-item--text {
+    padding-left: 3px;
+
+    // @include media-breakpoint-down(md) {
+    @media (max-width: 767px) {
+        display:none;
+    }
+}
