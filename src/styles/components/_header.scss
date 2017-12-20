@@ -11,12 +11,30 @@
 
 nav.navbar.navbar-light.bg-faded {
     min-height: 70px;
-    border-bottom: 1px solid white;
     position: fixed;
     width: 100%;
     display: flex;
     z-index: 2;
-    background-color: rgba(56, 63, 74, .99);
+
+    &.signed_in {
+        background-color: rgba(56, 63, 74, .99);
+        border-bottom: 1px solid white;
+
+        ul.nav.nav-pills {
+            li.nav-item {
+                border-radius: .25rem;
+                cursor: pointer;
+                margin-right: .25rem;
+        
+                &.router-link-exact-active {
+                    background-color: map-get($brand-palette, primary);
+                    a.nav-link {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
 }
 .nav-item > a.nav-link {
     color: white;
@@ -25,6 +43,7 @@ nav.navbar.navbar-light.bg-faded {
         color: map-get($brand-palette, primary);
     }
 }
+
 
 .navbar-text > .btn.btn-link {
     color: white;
