@@ -1,88 +1,101 @@
 <template>
-    <div class="row justify-content-lg-center">
-        <div class="col-12 col-lg-10 empty-item-form">
-            <modal v-if="showModalPreventLeave" 
-                    @cancel="showModalPreventLeave = false"
-                    @confirm="confirmChanges"
-                    :autoDismiss="false"
-                    :confirmCancel="true">
-                <h3 slot="header">Unsaved changes!</h3>
-                <p slot="body">Are you sure you want to leave?</p>
-                <span slot="confirm-text">Discard changes</span>
-            </modal>
-            <modal v-if="showModalNameEmpty"
-                    @ok="showModalNameEmpty = false"
-                    @dismiss="showModalNameEmpty = false"
-                    :autoDismiss="true"
-                    :confirmCancel="false">
-                <h3 slot="header">The name of your journey is empty</h3>
-                <p slot="body">In order to save it, you need to provide some value</p>
-            </modal>
-            <div class="page-heading">
-                <h1 class="justify-content-lg-center">New Journey</h1>
+    <transition name="slide-y" mode="out-in">
+        <div class="container">
+            <div class="action-btn-container">
+                <router-link 
+                    to="/journey"
+                    tag="button"
+                    class="btn btn-link">
+                    <i class="fa fa-chevron-left"></i>
+                    <span>Back</span>
+                </router-link>
             </div>
-            <div class="card">
-                <div v-if="!savingJourney" class="container edit-mode-container" id="journeyForm">
-                    <div class="form-group">
-                        <label for="journeyName">Journey Name *</label>
-                        <input v-model="newJourney.name"
-                            :class="nameInputClasses"
-                            @click="nameIsDirty = true; preventLeave = true"
-                            type="text"
-                            class="form-control"
-                            id="journeyName"
-                            aria-describedby="journeyName"
-                            placeholder="Enter the name of the journey">
-                        <small id="journeyHelp" 
-                            class="form-text text-muted">It can also be the name of the page where the journey is happening</small>
+            <div class="row">
+                <div class="col-12 empty-item-form">
+                    <modal v-if="showModalPreventLeave" 
+                            @cancel="showModalPreventLeave = false"
+                            @confirm="confirmChanges"
+                            :autoDismiss="false"
+                            :confirmCancel="true">
+                        <h3 slot="header">Unsaved changes!</h3>
+                        <p slot="body">Are you sure you want to leave?</p>
+                        <span slot="confirm-text">Discard changes</span>
+                    </modal>
+                    <modal v-if="showModalNameEmpty"
+                            @ok="showModalNameEmpty = false"
+                            @dismiss="showModalNameEmpty = false"
+                            :autoDismiss="true"
+                            :confirmCancel="false">
+                        <h3 slot="header">The name of your journey is empty</h3>
+                        <p slot="body">In order to save it, you need to provide some value</p>
+                    </modal>
+                    <div class="page-heading">
+                        <h1 class="justify-content-lg-center">New Journey</h1>
                     </div>
-                    <div @click="focusOnInput" class="form-group">
-                        <label for="journeyTags">Journey Tags</label>
-                        <div class="tags-input">
-                            <span v-for="(tag, index) in newJourney.tags" @click="removeTag(index)" :class="badgeColor(index)" class="badge badge-pill">{{ tag }}<span class="close-x">x</span></span>
-                            <input v-model="tagsInput" 
-                                ref="tagsInput"
-                                @keyup.space="getTag"
-                                @keyup.comma="getTag"
-                                type="text" class="form-control"
-                                id="journeyTags"
-                                aria-describedby="journeyTags"
-                                placeholder="You can attach tags">
-                        </div>
-                        <small id="journeyTagsHelp" class="form-text text-muted">Tags are useful to filter between your journeys.(Use spaces or ',' as delimiters)</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="stepImage">Journey image</label>
-                        <div class="input-group">
-                            <input v-model="newJourney.imageSrc"
-                                   type="text" class="form-control"
-                                   id="journeyImg"
-                                   aria-describedby="journeyImg"
-                                   placeholder="Image src"
-                                   readonly>
-                            <div class="input-group-btn">
-                                <label class="btn btn-info">
-                                    Browse <input @change="processFile($event)" type="file"  id="journeyImgUploadBtn" aria-describedby="journeyImgageUploadButton" hidden>
-                                </label>
+                    <div class="card">
+                        <div v-if="!savingJourney" class="container edit-mode-container" id="journeyForm">
+                            <div class="form-group">
+                                <label for="journeyName">Journey Name *</label>
+                                <input v-model="newJourney.name"
+                                    :class="nameInputClasses"
+                                    @click="nameIsDirty = true; preventLeave = true"
+                                    type="text"
+                                    class="form-control"
+                                    id="journeyName"
+                                    aria-describedby="journeyName"
+                                    placeholder="Enter the name of the journey">
+                                <small id="journeyHelp" 
+                                    class="form-text text-muted">It can also be the name of the page where the journey is happening</small>
+                            </div>
+                            <div @click="focusOnInput" class="form-group">
+                                <label for="journeyTags">Journey Tags</label>
+                                <div class="tags-input">
+                                    <span v-for="(tag, index) in newJourney.tags" @click="removeTag(index)" :class="badgeColor(index)" class="badge badge-pill">{{ tag }}<span class="close-x">x</span></span>
+                                    <input v-model="tagsInput" 
+                                        ref="tagsInput"
+                                        @keyup.space="getTag"
+                                        @keyup.comma="getTag"
+                                        type="text" class="form-control"
+                                        id="journeyTags"
+                                        aria-describedby="journeyTags"
+                                        placeholder="You can attach tags">
+                                </div>
+                                <small id="journeyTagsHelp" class="form-text text-muted">Tags are useful to filter between your journeys.(Use spaces or ',' as delimiters)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="stepImage">Journey image</label>
+                                <div class="input-group">
+                                    <input v-model="newJourney.imageSrc"
+                                        type="text" class="form-control"
+                                        id="journeyImg"
+                                        aria-describedby="journeyImg"
+                                        placeholder="Image src"
+                                        readonly>
+                                    <div class="input-group-btn">
+                                        <label class="btn btn-info">
+                                            Browse <input @change="processFile($event)" type="file"  id="journeyImgUploadBtn" aria-describedby="journeyImgageUploadButton" hidden>
+                                        </label>
+                                    </div>
+                                </div>
+                                <small id="imageSrcHelp" class="form-text text-muted">Is there any image you would like to attach to your Journey.</small>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-12">
+                                    <button @click="saveJourney" class="btn btn-primary">Save Journey</button>
+                                    <router-link to="/journey" tag="button" class="btn btn-dismiss">Cancel</router-link>
+                                </div>
                             </div>
                         </div>
-                        <small id="imageSrcHelp" class="form-text text-muted">Is there any image you would like to attach to your Journey.</small>
-                    </div>
-                    <div class="row justify-content-end">
-                        <div class="col-12">
-                            <button @click="saveJourney" class="btn btn-primary">Save Journey</button>
-                            <router-link to="/journey" tag="button" class="btn btn-dismiss">Cancel</router-link>
+                        <div v-else class="row">
+                            <div class="col-12">
+                                <loader></loader>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div v-else class="row">
-                    <div class="col-12">
-                        <loader></loader>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
