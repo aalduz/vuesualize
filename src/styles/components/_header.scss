@@ -11,6 +11,12 @@
 
 nav.navbar.navbar-light.bg-faded {
     min-height: 70px;
+    border-bottom: 1px solid white;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 2;
+    background-color: rgba(56, 63, 74, .99);
 }
 .nav-item > a.nav-link {
     color: white;

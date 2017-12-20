@@ -13,8 +13,8 @@
 
                     <div class="modal-footer">
                         <slot name="footer">
-                            <button v-if="discardCancel" class="btn btn-default" @click="$emit('cancel')">Cancel</button>
-                            <button v-if="discardCancel" class="btn btn-primary" @click="$emit('discard')">Discard changes</button>
+                            <button v-if="confirmCancel" class="btn btn-default" @click="$emit('cancel')">Cancel</button>
+                            <button v-if="confirmCancel" class="btn btn-primary" @click="$emit('confirm')"><slot name="confirm-text">Confirm</slot></button>
                             <button v-else class="btn btn-primary" @click="$emit('ok')">OK</button>
                         </slot>
                     </div>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    props: ['autoDismiss', 'discardCancel'],
+    props: ['autoDismiss', 'confirmCancel'],
     mounted: function () {
         if (this.autoDismiss) {
             let vm = this;
@@ -38,7 +38,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "../../styles/index";
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -59,35 +60,63 @@ export default {
 .modal-container {
   width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
+  padding: 15px;
+  background-color: map-get($brand-palette, main-background);
   border-radius: 2px;
+  border: 1px solid white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-}
+  color: white;
 
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
+  @media (min-width: 572px) {
+      width: 50%;
+  }
 
-.modal-body {
-  margin: 20px 0;
-}
+  @media (min-width: 1199px) {
+      width: 500px;
+  }
 
-.modal-default-button {
-  float: right;
-}
+  .modal-header {
+        padding: 15px 0;
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
+        h3 {
+            margin-top: 0;
+            text-align: center;
+            width: 100%;
+            color: map-get($brand-palette, primary);
+        }
+  }
+
+  .modal-body {
+      margin: 0;
+
+      p.center {
+          text-align: center;
+      }
+  }
+
+  .modal-footer {
+      margin: 0;
+      padding: 15px 0;
+
+      button.btn {
+          cursor: pointer;
+
+          &.btn-default {
+              border: 1px solid white;
+          }
+
+          &:hover {
+            background-color: map-get($brand-palette, main-background);
+            color: white;
+          }
+      }
+  }
+
+  .modal-default-button {
+    float: right;
+  }
+}
 
 .modal-enter {
   opacity: 0;

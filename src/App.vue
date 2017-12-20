@@ -1,7 +1,7 @@
 <template>
     <div id="app">
+        <app-header></app-header>
         <div class="page-wrapper">
-            <app-header></app-header>
             <router-view></router-view>
         </div>
     </div>
@@ -33,9 +33,11 @@
             auth.onAuthStateChanged( user => {
                 if (user && !this.$store.getters.currentUser) {
                     this.$store.dispatch('currentUser', user);
+                    console.info('authStateChanged, currentUser');
                 }
                 if (user && !this.$store.getters.userData) {
                     this.$store.dispatch('fetchUserData', user.uid);
+                    console.info('authStateChanged, userData');
                 }
             });
 
