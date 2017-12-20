@@ -35,7 +35,7 @@
             </router-link>
         </ul>
         <span class="navbar-text">
-            <button v-if="userData" @click="signOut" class="btn btn-link">
+            <button v-if="userData" @click="signUserOut" class="btn btn-link">
                 <i class="fa fa-sign-out"></i>
                 <span class="nav-item--text">Sign Out</span>
             </button>
@@ -59,7 +59,13 @@
         methods: {
             ...mapActions([
                 'signOut',
-            ])
+            ]),
+            signUserOut () {
+                this.signOut()
+                    .then(res => {
+                        this.$router.push('/signin');
+                    })
+            }
         },
         computed: {
             ...mapGetters([
