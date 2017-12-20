@@ -1,10 +1,10 @@
 <template>
-    <div class="page-wrapper">
-        <app-header></app-header>
+    <transition name="slide-y" mode="out-in">
         <div class="container">
             <div class="row">
                 <div class="col-12 page-heading">
-                    <h1 class="justify-content-lg-center"><span><i class="fa fa-user"></i></span>Home Page</h1>
+                    <h1 class="justify-content-lg-center">
+                        <i class="fa fa-home"></i> <span>Home Page</span></h1>
                 </div>
                 <div class="col-12">
                     <p v-if="error">{{error}}</p>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -57,7 +57,7 @@
         mounted() {
             auth.onAuthStateChanged( user => {
                 if (!user && !this.currentUser) {
-                    this.$router.push('/signin');
+                    // this.$router.push('/signin');
                 }
             });
         },

@@ -1,6 +1,6 @@
 <template>
     <transition enter-active-class="animated flip" mode="out-in">
-    <div class="page-wrapper page-wrapper--center">
+    <div class="page-wrapper--center">
         <particles/>
         <div class="container">
             <div id="sign-up" class="row justify-content-center">
