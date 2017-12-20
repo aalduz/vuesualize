@@ -1,6 +1,6 @@
 .page-wrapper {
     min-height: 100vh;
-    padding-top: 85px;
+    padding-top: 80px;
 
     &--center {
         display: flex;
@@ -69,5 +69,22 @@
         span {
             color: white;
         }
+    }
+}
+
+.action-btn-container {
+    button.btn.btn-link {
+        color: map-get($brand-palette, primary);
+        padding: 0;
+
+        &:hover {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    @media (min-width: 768px) {
+        margin-left: -15px;
     }
 }

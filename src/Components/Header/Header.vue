@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-faded">
+    <nav class="navbar navbar-light bg-faded" :class="navbarClasses">
         <ul class="nav nav-pills">
             <router-link
                 to="/" 
@@ -92,6 +92,11 @@
                 'userData',
                 'currentUser'
             ]),
+            navbarClasses() {
+                return {
+                    signed_in: this.currentUser,
+                }
+            }
         },
         data () {
             return {
