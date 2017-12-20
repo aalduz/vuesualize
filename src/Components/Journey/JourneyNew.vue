@@ -3,17 +3,18 @@
         <div class="col-12 col-lg-10 empty-item-form">
             <modal v-if="showModalPreventLeave" 
                     @cancel="showModalPreventLeave = false"
-                    @discard="discardChanges"
+                    @confirm="confirmChanges"
                     :autoDismiss="false"
-                    :discardCancel="true">
+                    :confirmCancel="true">
                 <h3 slot="header">Unsaved changes!</h3>
                 <p slot="body">Are you sure you want to leave?</p>
+                <span slot="confirm-text">Discard changes</span>
             </modal>
             <modal v-if="showModalNameEmpty"
                     @ok="showModalNameEmpty = false"
                     @dismiss="showModalNameEmpty = false"
                     :autoDismiss="true"
-                    :discardCancel="false">
+                    :confirmCancel="false">
                 <h3 slot="header">The name of your journey is empty</h3>
                 <p slot="body">In order to save it, you need to provide some value</p>
             </modal>
@@ -149,7 +150,7 @@ export default {
 
             return colors[index % numberOfColors];
         },
-        discardChanges: function() {
+        confirmChanges: function() {
             this.showModalPreventLeave = false;
             this.preventLeave = false;
             this.$router.push('/journey');

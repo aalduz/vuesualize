@@ -35,9 +35,12 @@
             </router-link>
         </ul>
         <span class="navbar-text">
-            <button v-if="userData" @click="signUserOut" class="btn btn-link">
-                <i class="fa fa-sign-out"></i>
-                <span class="nav-item--text">Sign Out</span>
+            <button
+                v-if="userData"
+                @click="showModalConfirmSignOut = true"
+                class="btn btn-link">
+                    <i class="fa fa-sign-out"></i>
+                    <span class="nav-item--text">Sign Out</span>
             </button>
             <router-link
                 v-if="!userData && $route.path != '/signin'"
@@ -47,6 +50,17 @@
                     <span class="nav-item--text">Sign In</span>
             </router-link>
         </span>
+        <modal v-if="showModalConfirmSignOut" 
+                @cancel="showModalConfirmSignOut = false"
+                @confirm="signUserOut"
+                :autoDismiss="false"
+                :confirmCancel="true">
+            <h3 slot="header">Sign Out</h3>
+            <div slot="body">
+                <p class="center">Are you sure you want to leave?</p>
+            </div>
+            <span slot="confirm-text">Sign out</span>
+        </modal>
     </nav>
 </template>
 <script>
@@ -55,7 +69,12 @@
         mapActions
     } from 'vuex';
 
+    import Modal from '@/Components/Modal/Modal';
+
     export default {
+        components: {
+            modal: Modal
+        },
         methods: {
             ...mapActions([
                 'signOut',
@@ -63,6 +82,7 @@
             signUserOut () {
                 this.signOut()
                     .then(res => {
+                        this.showModalConfirmSignOut = false;
                         this.$router.push('/signin');
                     })
             }
@@ -73,6 +93,11 @@
                 'currentUser'
             ]),
         },
+        data () {
+            return {
+                showModalConfirmSignOut: false,
+            }
+        }
     }
 </script>
 
