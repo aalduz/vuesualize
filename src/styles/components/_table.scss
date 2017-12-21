@@ -23,7 +23,11 @@ table {
 
     tbody tr {
         cursor: pointer;
-        
+        &:hover {
+            td {
+                background-color: rgba(42, 159, 218, 0.5);
+            }
+        }
         &.delete:hover {
             td {
                 background-color: rgba(221, 53, 69, 0.5);

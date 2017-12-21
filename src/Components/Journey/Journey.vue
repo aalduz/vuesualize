@@ -168,23 +168,18 @@
             }
         },
         methods: {
-            ...mapMutations([
-                'addJourney',
-                'updateJourney',
-                'journey'
-            ]),
             itemAction: function(journey) {
                 this.isDeleteMode
                     ? this.deleteJourney(journey)
                     : this.navigateToJourney(journey)
             },
             navigateToNewJourney: function() {
-                this.$router.push('/journey/new')
+                this.$router.push('/journey/new');
             },
             navigateToJourney: function(journey) {
                 console.log(journey);
                 let journeyId = journey['.key'];
-                this.$store.commit('journey', journey);
+                this.$store.dispatch('journey', journey);
 
                 this.$router.push('/journey/'+journeyId);
             },
