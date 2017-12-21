@@ -21,6 +21,7 @@
         @media (min-width: 768px) {
             height: 180px;
         }
+
     }
 
     .card-block {
@@ -38,7 +39,7 @@
         }
         .tags-container {
             padding: 0 12px 5px;
-            
+
             span.badge-pill {
                 margin: 0 2px 0 0;
             }
@@ -47,6 +48,7 @@
             padding-left: 15px;
         }
     }
+
     &.delete {
         border: 1px solid map-get($brand-palette, danger);
         border-radius: 5px;
