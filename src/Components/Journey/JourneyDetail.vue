@@ -102,7 +102,7 @@
             ...mapGetters([
                 'journey'
             ]),
-            steps: function() {
+            steps: function () {
                 if (this.journey.steps) {
                     let stepsWithControlProperties = this.journey.steps;
 
@@ -125,9 +125,6 @@
             }
         },
         methods: {
-            ...mapMutations([
-                'journey'
-            ]),
             updateJourney: function(step, field) {
                 let journey = this.journey;
                 let journeyKey = journey['.key'];
