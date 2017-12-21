@@ -44,7 +44,7 @@
             }
         }
 
-        &.user-journey-step-container--no-childs {
+        &.no_children {
             &:after {
                 content: '';
                 height: 9rem;
@@ -134,6 +134,8 @@
 
         .card-img-bottom {
             max-height: 400px;
+            object-fit: cover;
+            background-color: map-get($brand-palette, main-background);
         }
     }
 }
