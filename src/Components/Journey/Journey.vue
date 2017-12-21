@@ -4,14 +4,114 @@
             <div class="row">
                 <div class="col-12 page-heading">
                     <h1 class="justify-content-lg-center">These are your Journeys</h1>
-                    <button @click="navigateToNewJourney" class="btn btn-primary">Add Journey</button>
-                    <button @click="isDeleteMode = !isDeleteMode" class="btn btn-danger">Delete Journey</button>
-                    <p>{{ isDeleteMode }} {{ thumbnailClasses }}</p>
+                    <div class="action-buttons-container">
+                        <div class="left">
+                            <div class="btn-group">
+                                <button
+                                    @click="isListView = true"
+                                    class="btn btn-link"
+                                    :class="isListViewActiveClass">
+                                        <i class="fa fa-list-alt"></i>
+                                        <span class="action-item-text">Table</span>
+                                </button>
+                                <button
+                                    @click="isListView = false"
+                                    class="btn btn-link"
+                                    :class="isListViewNotActiveClass">
+                                        <i class="fa fa fa-picture-o"></i>
+                                        <span class="action-item-text">Thumbnails</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <transition
+                                enter-active-class="animated rubberBand" mode="in-out">
+                                    <button
+                                        v-if="!isDeleteMode"
+                                        @click="isDeleteMode = !isDeleteMode"
+                                        class="btn btn-danger">
+                                            <i class="fa fa-trash-o"></i>
+                                            <span class="action-item-text">Delete Journey(s)</span>
+                                    </button>
+                            </transition>
+                            <transition
+                                enter-active-class="animated rubberBand" mode="in-out">
+                                    <button
+                                        v-if="!isDeleteMode"
+                                        @click="navigateToNewJourney"
+                                        class="btn btn-primary">
+                                            <i class="fa fa-plus"></i>
+                                            <span class="action-item-text">Add Journey</span>
+                                    </button>
+                            </transition>
+                            <transition
+                                enter-active-class="animated rubberBand" mode="out-in">
+                                    <button
+                                        v-if="isDeleteMode"
+                                        @click="isDeleteMode = !isDeleteMode"
+                                        class="btn btn-default">
+                                            <i class="fa fa-times"></i>
+                                            <span class="action-item-text">Stop deleting</span>
+                                    </button>
+                            </transition>
+                        </div>
+                    </div>
                 </div>
-                <div v-for="journey in journeys" @click="thumbnailAction(journey)" class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <thumbnail :item="journey" 
-                            :imageSrc="journey.imageSrc ? journey.imageSrc : ''"
-                            :class="thumbnailClasses"></thumbnail>
+                <div
+                    v-if="isListView"
+                    class="col-12">
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="name">Journey Name</th>
+                                <th class="tags">Tags</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="journey in journeys"
+                                @click="itemAction(journey)"
+                                :class="itemClasses">
+                                <td>
+                                    {{ journey.name }}
+                                </td>
+                                <td>
+                                    <template v-if="journey.tags">
+                                        <div class="tags-container">
+                                            <span v-for="(tag,index) in journey.tags"
+                                                v-if="index < 3"
+                                                class="badge badge-pill badge-warning">{{ tag }}</span>
+                                            <span v-if="journey.tags.length > 3">...</span>
+                                        </div>
+                                    </template>
+                                    <template v-else>
+                                        <small><i>No tags on this journey</i></small>
+                                    </template>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <!-- <tfoot>
+                            <tr>
+                                <td>Footer content 1</td>
+                                <td>Footer content 2</td>
+                            </tr>
+                        </tfoot> -->
+                    </table>
+                </div>
+                <div 
+                    v-else
+                    v-for="journey in journeys"
+                    @click="itemAction(journey)"
+                    class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <transition 
+                            enter-active-class="animated rubberBand" mode="out-in">
+                                <thumbnail
+                                    :item="journey" 
+                                    :imageSrc="journey.imageSrc ? journey.imageSrc : ''"
+                                    :class="itemClasses">
+                                </thumbnail>
+                        </transition>
                 </div>
             </div>
         </div>
@@ -35,17 +135,28 @@
             journeyNew: JourneyNew
         },
         computed: {
-            thumbnailClasses() {
+            itemClasses() {
                 return {
                     delete: this.isDeleteMode,
                 }
             },
+            isListViewActiveClass() {
+                return {
+                    active: this.isListView
+                }
+            },
+            isListViewNotActiveClass() {
+                return {
+                    active: !this.isListView
+                }
+            }
         },
         data () {
             return {
                 isViewMode: true,
                 journeys: {},
-                isDeleteMode: false
+                isDeleteMode: false,
+                isListView: false
             }
         },
         firebase: {
@@ -62,7 +173,7 @@
                 'updateJourney',
                 'journey'
             ]),
-            thumbnailAction: function(journey) {
+            itemAction: function(journey) {
                 this.isDeleteMode
                     ? this.deleteJourney(journey)
                     : this.navigateToJourney(journey)

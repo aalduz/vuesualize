@@ -54,12 +54,3 @@ nav.navbar.navbar-light.bg-faded {
         color: map-get($brand-palette, primary);
     }
 }
-
-.nav-item--text {
-    padding-left: 3px;
-
-    // @include media-breakpoint-down(md) {
-    @media (max-width: 767px) {
-        display:none;
-    }
-}
