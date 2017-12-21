@@ -1,0 +1,52 @@
+.action-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.action-btn-container {
+    button.btn.btn-link {
+        color: map-get($brand-palette, primary);
+        padding: 0;
+
+        &:hover {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+
+    @media (min-width: 768px) {
+        margin-left: -15px;
+        margin-top: 15px;
+    }
+}
+
+.action-item-text {
+    padding-left: 3px;
+
+    // @include media-breakpoint-down(md) {
+    @media (max-width: 767px) {
+        display:none;
+    }
+}
+
+.btn-group {
+    z-index: 1;
+    .btn.btn-link {
+        border: 1px solid map-get($brand-palette, primary);
+        color: map-get($brand-palette, primary);
+
+        &.active {
+            background-color: map-get($brand-palette, primary);
+            color: white;
+        }
+
+        &:hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+}

@@ -103,7 +103,12 @@ const actions = {
 
             commit('userData', userData);
         });
+    },
+
+    journey ({commit}, journey) {
+        commit('journey', journey);
     }
+
 }
 
 const getters = {
@@ -114,7 +119,7 @@ const getters = {
     userData (state) {
         return state.userData
     },
-    
+
     // To review
     journey(state) {
         return state.journey;

@@ -5,20 +5,7 @@ body {
     background-color: map-get($brand-palette, main-background);
 }
 
-ul.nav.nav-pills {
-    li.nav-item {
-        border-radius: .25rem;
-        cursor: pointer;
-        margin-right: .25rem;
 
-        &.router-link-exact-active {
-            background-color: map-get($brand-palette, primary);
-            a.nav-link {
-                color: white;
-            }
-        }
-    }
-}
 
 .alert.alert-danger {
     color: white;
