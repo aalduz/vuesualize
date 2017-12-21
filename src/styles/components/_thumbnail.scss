@@ -1,10 +1,10 @@
 .card.card__overview-item {
     margin: 15px 0;
-    height: 220px;
+    height: 280px;
     cursor: pointer;
 
     .card-img-top {
-        height: 180px;
+        height: 222px;
         overflow-y: hidden;
         background-color: map-get($brand-palette, main-background);
         border-top-left-radius: 4px;
@@ -16,6 +16,10 @@
         }
         .ux-clarification-container {
             display: none;
+        }
+
+        @media (min-width: 768px) {
+            height: 180px;
         }
     }
 
@@ -72,5 +76,9 @@
                 }
             }
         }
+    }
+
+    @media (min-width: 768px) {
+        height: 220px;
     }
 }

@@ -1,0 +1,33 @@
+table {
+    // border: 1px solid white;
+    color: white;
+    width: 100%;
+    border-collapse:collapse;
+    th,td {
+        border-bottom: 1px solid white;
+        padding: 1rem;
+        color: white;
+    }
+
+    thead tr {
+        th {
+            background-color: map-get($brand-palette, primary);
+        }
+        th.name {
+            width: 60%;
+        }
+        th.tags {
+            width: 40%;
+        }
+    }
+
+    tbody tr {
+        cursor: pointer;
+        
+        &.delete:hover {
+            td {
+                background-color: rgba(221, 53, 69, 0.5);
+            }
+        }
+    }
+}

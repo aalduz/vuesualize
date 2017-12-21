@@ -8,7 +8,7 @@
                 class="nav-item">
                 <a class="nav-link">
                     <i class="fa fa-home"></i>
-                    <span class="nav-item--text">Home</span>
+                    <span class="action-item-text">Home</span>
                 </a>
             </router-link>
             <router-link
@@ -19,7 +19,7 @@
                 class="nav-item">
                 <a class="nav-link">
                     <i class="fa fa-user"></i>
-                    <span class="nav-item--text">User</span>
+                    <span class="action-item-text">User</span>
                 </a>
             </router-link>
             <router-link
@@ -30,7 +30,7 @@
                 class="nav-item">
                 <a class="nav-link">
                     <i class="fa fa-id-card-o"></i>
-                    <span class="nav-item--text">Journeys</span>
+                    <span class="action-item-text">Journeys</span>
                 </a>
             </router-link>
         </ul>
@@ -40,14 +40,14 @@
                 @click="showModalConfirmSignOut = true"
                 class="btn btn-link">
                     <i class="fa fa-sign-out"></i>
-                    <span class="nav-item--text">Sign Out</span>
+                    <span class="action-item-text">Sign Out</span>
             </button>
             <router-link
                 v-if="!userData && $route.path != '/signin'"
                 to="/signin"
                 class="btn btn-link">
                     <i class="fa fa-sign-in"></i>
-                    <span class="nav-item--text">Sign In</span>
+                    <span class="action-item-text">Sign In</span>
             </router-link>
         </span>
         <modal v-if="showModalConfirmSignOut" 
