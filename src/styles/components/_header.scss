@@ -1,0 +1,56 @@
+.header-container {
+    &--top {
+        padding: 10px;
+        border-bottom: 1px solid white;
+    }
+
+    &--bottom {
+        border-top: 1px solid white;
+    }
+}
+
+nav.navbar.navbar-light.bg-faded {
+    min-height: 70px;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    z-index: 2;
+
+    &.signed_in {
+        background-color: rgba(56, 63, 74, .99);
+        border-bottom: 1px solid white;
+
+        ul.nav.nav-pills {
+            li.nav-item {
+                border-radius: .25rem;
+                cursor: pointer;
+                margin-right: .25rem;
+        
+                &.router-link-exact-active {
+                    background-color: map-get($brand-palette, primary);
+                    a.nav-link {
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
+.nav-item > a.nav-link {
+    color: white;
+
+    &:hover {
+        color: map-get($brand-palette, primary);
+    }
+}
+
+
+.navbar-text > .btn.btn-link {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        color: map-get($brand-palette, primary);
+    }
+}

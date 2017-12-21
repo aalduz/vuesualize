@@ -1,5 +1,17 @@
+// Dependencies
 @import "~bootstrap/scss/bootstrap";
-@import "styles/colors";
-@import "styles/custom-bootstrap";
-@import "styles/components/step";
-@import "styles/components/loader";
+@import "~animate.css/animate.css";
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome.scss";
+
+// Own styles
+@import "colors";
+@import "custom-bootstrap";
+@import "components/step";
+@import "components/loader";
+@import "components/thumbnail";
+@import "components/header";
+@import "components/general";
+@import "components/form";
+@import "components/table";
+@import "action-buttons";

@@ -4,3 +4,16 @@ body {
     padding:0;
     background-color: map-get($brand-palette, main-background);
 }
+
+
+
+.alert.alert-danger {
+    color: white;
+    background-color:  rgba(184, 23, 58, 0.2);
+    border-color: map-get($brand-palette, danger);
+}
+
+$grid-breakpoints: (
+    // Overwrite the value to match iphone 5S dimensions.  
+    sm: 568px
+);
