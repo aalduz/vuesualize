@@ -37,6 +37,7 @@
                 }
                 if (user && !this.$store.getters.userData) {
                     this.$store.dispatch('fetchUserData', user.uid);
+                    this.$store.dispatch('fetchUserJourneys');
                     console.info('authStateChanged, userData');
                 }
             });
@@ -121,6 +122,14 @@
         100% {
             transform: translateX(0);
         }
+    }
+
+    .component-fade-enter-active, .component-fade-leave-active {
+    transition: opacity .3s ease;
+    }
+    .component-fade-enter, .component-fade-leave-to
+    /* .component-fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
     }
 
 </style>
