@@ -1,10 +1,33 @@
 <template>
-    <transition
-        enter-active-class="animated rubberBand">
-        <div class="user-journey-step-container"
-            :class="userJourneyStepContainerClasses">
+    <div class="user-journey-step-container"
+        :class="userJourneyStepContainerClasses">
+        <transition
+            enter-active-class="animated bounceIn"
+            leave-active-class="animated bounceOut"
+            mode="in-out">
             <template v-if="!isEditMode">
-                <div class="card user-journey-step">
+                <div class="card user-journey-step"
+                    :class="modeButtonsEngaged"
+                    @click="showModeButtons = !showModeButtons">
+                    <transition enter-active-class="animated zoomInRight"
+                                leave-active-class="animated zoomOutRight">
+                        <template v-if="showModeButtons">
+                            <div class="mode-buttons-container">
+                                <button
+                                    @click="toEditMode($event)"
+                                    class="btn btn-primary">
+                                    <i class="fa fa-pencil"></i>
+                                    <small class="action-item-text">Edit</small>
+                                </button>
+                                <button 
+                                    @click="deleteStep($event)"
+                                    class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                    <small class="action-item-text">Delete</small>
+                                </button>
+                            </div>
+                        </template>
+                    </transition>
                     <div class="card-header">
                         <h4>
                             <span class="step-number">{{ index + 1 }}</span>
@@ -20,35 +43,82 @@
                         </template>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">{{step.description}}</p>
+                        <p class="card-text">{{ step.description }}</p>
                     </div>
                     <img 
                         v-if="step.imageSrc"
                         :src="step.imageSrc"
                         class="card-img-bottom">
+                    <div
+                        v-else
+                        class="card-img-bottom"><i>No image for this step.</i></div>
                 </div>
             </template>
-            <template v-else>
-
+        </transition>
+        <transition
+            enter-active-class="animated bounceIn"
+            leave-active-class="animated bounceOut"
+            mode="in-out">
+            <template v-if="isEditMode">
+                <step-edit
+                    :step="step"
+                    :index="index"
+                    @view="isEditMode = false"
+                    @update="updatedStep"></step-edit>
             </template>
-        </div>
-    </transition>
+        </transition>
+    </div>
 </template>
 
 <script>
+import StepEdit from './StepEdit';
+
 export default {
-    props: ['step', 'index'],
+    components: {
+        stepEdit: StepEdit
+    },
+    props: ['index', 'last'],
     computed: {
         userJourneyStepContainerClasses () {
             return {
                 no_children : !this.step.childs,
-                with_children : this.step.childs
+                with_children : this.step.childs,
+                last_step: this.last
             }
-        }
+        },
+        modeButtonsEngaged () {
+            return {
+                mode_buttons_on: this.showModeButtons
+            }
+        },
+    },
+    methods: {
+        toEditMode (event) {
+            event.stopPropagation();
+            this.isEditMode = true;
+            this.showModeButtons = false;
+        },
+        deleteStep (event) {
+            event.stopPropagation();
+            this.showModeButtons = false;
+            this.$emit('delete');
+        },
+        updatedStep () {
+            this.$emit('update');
+            this.isEditMode = false;
+            this.step = this.$store.getters.step;
+
+            // update journey
+            let journey = this.$store.getters.journey;
+            journey.steps[this.index] = this.step;
+            this.$store.commit('journey', journey);
+        },
     },
     data () {
         return {
+            step: this.$store.getters.journey.steps[this.index],
             isEditMode : false,
+            showModeButtons: false,
         }
     }
 }

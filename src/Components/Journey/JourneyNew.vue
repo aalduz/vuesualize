@@ -117,7 +117,8 @@ export default {
                 name: '',
                 imageSrc: '',
                 tags: [],
-                steps: []
+                steps: [],
+                uid: this.$store.state.currentUser.uid
             },
             tagsInput: '',
             file: {},
@@ -202,7 +203,6 @@ export default {
         },
         storeJourney: function() {
             let journeysRef = db.ref('journeys');
-            // let vm = this;
 
             journeysRef.push(this.newJourney).then(snapshot => {
                 this.showModalNameEmpty = false;
@@ -212,6 +212,7 @@ export default {
                 let journey = this.journeys.filter(journey => journey['.key'] == journeyKey)[0];
 
                 this.$store.commit('journey', journey);
+                this.$store.dispatch('fetchUserJourneys');
                 this.$router.push('/journey/' + journeyKey);
             });
         },

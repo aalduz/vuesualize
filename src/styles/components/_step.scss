@@ -9,7 +9,29 @@
         .card.user-journey-step {
             width: 100%;
             margin: 5rem 0;
-    
+
+            .mode-buttons-container {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                right: 0;
+                top: 5px;
+
+                button.btn {
+                    padding: 12px;
+                    border-radius: 50%;
+                    width: 45px;
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                    margin: 2px 15px 2px 0;
+
+                    @media (min-width: 768px) {
+                        width: 60px;
+                    }
+                }
+            }
             .card-body {
                 background-color: map-get($brand-palette, main-background);
                 color: white;
@@ -42,6 +64,12 @@
                     }
                 }
             }
+            &:hover {
+                cursor: pointer;
+            }
+            &.mode_buttons_on {
+                border: 1px solid map-get($brand-palette, secondary);
+            }
         }
 
         &.no_children {
@@ -70,14 +98,14 @@
                 left: calc(50% - 5px);
             }
 
-            &.last-step {
+            &.last_step {
                 &:after,
                 &:before {
                     display: none;
                 }
             }
         }
-        &.user-journey-step-container--with-childs {
+        &.with__children {
             &:after {
                 content: '';
                 height: calc(4rem - 5px);
@@ -151,6 +179,7 @@
     .form-group {
         label {
             color: white;
+            margin-bottom: 0;
         }
     }
     &--feature {
