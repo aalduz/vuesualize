@@ -8,7 +8,8 @@ const state = {
     userData: null,
     project: null,
     journeys: null,
-    journey: null
+    journey: null,
+    step: null
 }
 
 const mutations = {
@@ -34,8 +35,16 @@ const mutations = {
         state.journey = journey;
     },
 
+    journeys(state, journeys) {
+        state.journeys = journeys;
+    },
+
     journey(state, journey) {
         state.journey = journey;
+    },
+
+    step(state, step) {
+        state.step = step;
     }
 }
 
@@ -96,13 +105,41 @@ const actions = {
     userData ({commit}, userData) {
         commit('userData', userData);
     },
-    fetchUserData ({commit}, uid){
-        db.ref('users').orderByChild("uid").equalTo(uid).once('value', snap =>{
+    fetchUserData ({commit}, uid) {
+        db.ref('users').orderByChild('uid').equalTo(uid).once('value', snap =>{
             let user = snap.val();
             let userData = Object.values(user)[0];
 
             commit('userData', userData);
         });
+    },
+
+    fetchUserJourneys ({commit, state}) {
+        // return new Promise((resolve, reject) => {
+        let uid = state.currentUser.uid;
+            db.ref('journeys')
+                .orderByChild('uid')
+                .equalTo(uid)
+                .once('value', snap => {
+                    let journeys = Object.values(snap.val());
+                    let index = 0;
+                    snap.forEach((snapData) => {
+                        journeys[index].key = snapData.key;
+                        index++;
+                    });
+
+                    commit('journeys', journeys);
+            })
+                // .then(res => resolve(res))
+                // .catch(error => reject(error))
+        // });
+    },
+
+    deleteJourney ({commit, dispatch, state}, journey) {
+        db.ref('journeys')
+            .child(journey.key).remove(function(){
+                dispatch('fetchUserJourneys');
+            });
     },
 
     journey ({commit}, journey) {
@@ -123,7 +160,15 @@ const getters = {
     // To review
     journey(state) {
         return state.journey;
-    }
+    },
+
+    journeys(state) {
+        return state.journeys;
+    },
+
+    step(state) {
+        return state.step;
+    },
 }
 
 Vue.use(Vuex);
