@@ -174,8 +174,9 @@
                 this.$router.push('/journey/new');
             },
             navigateToJourney: function(journey) {
-                console.log(journey);
-                let journeyId = journey['.key'];
+                let journeyId = journey['key'];
+                console.info(journeyId, journey);
+
                 this.$store.dispatch('journey', journey);
 
                 this.$router.push('/journey/'+journeyId);
