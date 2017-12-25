@@ -211,6 +211,10 @@ export default {
                 let journeyKey = snapshot['key'];
                 let journey = this.journeys.filter(journey => journey['.key'] == journeyKey)[0];
 
+                journey.key =  journey['.key'];
+                delete journey['.key'];
+
+                console.log(journey);
                 this.$store.commit('journey', journey);
                 this.$store.dispatch('fetchUserJourneys');
                 this.$router.push('/journey/' + journeyKey);

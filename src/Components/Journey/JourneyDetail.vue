@@ -72,6 +72,7 @@
             step: Step,
             stepNew: StepNew
         },
+
         data () {
             return {
                 addStepStarted: false,
@@ -81,7 +82,7 @@
         methods: {
             updateJourney: function() {
                 this.addStepStarted = false;
-
+                this.journey = this.$store.getters.journey;
             },
             deleteStep: function (stepIndex) {
                 let stepToDelete = this.journey.steps[stepIndex];

@@ -144,6 +144,7 @@ const actions = {
 
     journey ({commit}, journey) {
         commit('journey', journey);
+        console.log(journey);
     }
 
 }

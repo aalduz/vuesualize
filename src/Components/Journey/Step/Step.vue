@@ -43,15 +43,15 @@
                         </template>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">{{ step.description }}</p>
+                        <p class="card-text multiline">{{ step.description }}</p>
                     </div>
                     <img 
                         v-if="step.imageSrc"
                         :src="step.imageSrc"
                         class="card-img-bottom">
-                    <div
+                    <!-- <div
                         v-else
-                        class="card-img-bottom"><i>No image for this step.</i></div>
+                        class="card-img-bottom"><i>No image for this step.</i></div> -->
                 </div>
             </template>
         </transition>
@@ -90,7 +90,7 @@ export default {
             return {
                 mode_buttons_on: this.showModeButtons
             }
-        },
+        }
     },
     methods: {
         toEditMode (event) {
