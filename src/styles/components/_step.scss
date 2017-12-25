@@ -9,6 +9,9 @@
         .card.user-journey-step {
             width: 100%;
             margin: 5rem 0;
+            background-color: map-get($brand-palette, main-background);
+            color: white;
+            border-color: white;
 
             .mode-buttons-container {
                 display: flex;
@@ -33,14 +36,17 @@
                 }
             }
             .card-body {
-                background-color: map-get($brand-palette, main-background);
                 color: white;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
             }
     
             .card-header {
                 background-color: map-get($brand-palette, main-background);
                 color: white;
                 border-bottom-color: white;
+                border-top-left-radius: 3px;
+                border-top-right-radius: 3px;
     
                 .step-number {
                     border-radius: 50%;

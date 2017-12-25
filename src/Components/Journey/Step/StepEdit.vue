@@ -141,7 +141,7 @@
                             vm.storeJourney();
                         });
                     } else {
-                        this.storeStep();
+                        this.storeJourney();
                     }
                 }
             }

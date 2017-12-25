@@ -78,6 +78,11 @@
 </template>
 
 <script>
+    import { 
+        mapGetters,
+    } from 'vuex';
+
+    import { db, storageRef, imagesRef } from '@/firebase';
     import Loader from '@/Components/Loader/Loader';
     import Modal from '@/Components/Modal/Modal';
     export default {
@@ -97,12 +102,49 @@
                     this.$emit('view');
                 }
             },
+            processFile: function(event) {
+                var file = event.target.files[0];
+
+                this.newStep.imageSrc = file.name;
+                this.file = file;
+                this.preventLeave = true;
+
+            },
+            storeJourney() {
+                let journeyUpdated = {...this.journey};
+                    journeyUpdated.steps = [];
+                    journeyUpdated.steps.push(this.newStep);
+
+                let journeysRef = db.ref('journeys');
+                console.log(this.journey, journeyUpdated);
+                journeysRef.child(this.journey.key).set(journeyUpdated, res => {
+                    // Update step
+                    this.$store.commit('step', this.newStep);
+                    this.$store.dispatch('journey', journeyUpdated);
+                    this.$emit('created');
+                });
+            },
             saveStep () {
                 if (this.newStep.name == '') {
                     this.showModalNameEmpty = true;
                 } else {
                     this.savingJourney = true;
-                    this.$emit('created');
+                    if (this.file['name'] != null) {
+                        // upload Picture
+                        let fileRef = storageRef.child(this.file.name);
+
+                        let fileImagesRef = storageRef.child('images/' + this.file.name);
+
+                        let vm = this;
+                        fileImagesRef.put(this.file).then(function(snapshot) {
+
+                            vm.newStep.imageSrc = snapshot.downloadURL;
+                            vm.preventLeave = false;
+                            vm.storeJourney();
+                        });
+                    } else {
+                        this.storeJourney();
+                    }
                 }
             }
         },
@@ -112,7 +154,10 @@
                     valid: this.newStep.name != '' && this.nameIsDirty,
                     invalid: this.newStep.name == '' && this.nameIsDirty
                 }
-            }
+            },
+            ...mapGetters([
+                'journey'
+            ]),
         },
         data () {
             return {
