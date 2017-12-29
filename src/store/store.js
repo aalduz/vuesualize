@@ -142,6 +142,20 @@ const actions = {
             });
     },
 
+    udpateJourney ({dispatch}, journeyUpdated) {
+        return new Promise((resolve, reject) => {
+            let journeysRef = db.ref('journeys');
+
+            journeysRef.child(journeyUpdated.key).set(journeyUpdated, err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    },
+
     journey ({commit}, journey) {
         commit('journey', journey);
         console.log(journey);

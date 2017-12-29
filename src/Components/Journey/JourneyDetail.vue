@@ -31,6 +31,20 @@
                             </div>
                         </template>
                     </transition>
+                </div>
+                <div v-else class="col-12">
+                    <div class="steps-container row justify-content-lg-center">
+                        <div v-for="(step, index) in journey.steps" class="col-12 col-lg-10 ">
+                            <transition name="component-fade" mode="out-in">
+                                <step
+                                    :index="index"
+                                    :last="index == journey.steps.length - 1"
+                                    :addStepStarted="addStepStarted"
+                                    @delete="deleteStep(index)"
+                                    @add="addStep()"></step>
+                            </transition>
+                        </div>
+                    </div>
                     <transition
                         name="component-fade"
                         mode="out-in">
@@ -40,18 +54,6 @@
                                 @created="updateJourney"></step-new>
                         </template>
                     </transition>
-                </div>
-                <div v-else class="col-12">
-                    <div class="steps-container row justify-content-lg-center">
-                        <div v-for="(step, index) in journey.steps" class="col-12 col-lg-10 ">
-                            <transition name="component-fade" mode="out-in">
-                                <step
-                                    :index="index"
-                                    :last="index == journey.steps.length - 1"
-                                    @delete="deleteStep(index)"></step>
-                            </transition>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -82,15 +84,26 @@
         methods: {
             updateJourney: function() {
                 this.addStepStarted = false;
+                this.journey = null;
                 this.journey = this.$store.getters.journey;
             },
             deleteStep: function (stepIndex) {
                 let stepToDelete = this.journey.steps[stepIndex];
-                console.info(stepToDelete);
                 this.journey.steps = this.journey.steps.filter(step => step !== stepToDelete);
-                console.info(this.journey);
-                this.updateJourney();
+
+                this.$store.dispatch('udpateJourney', this.journey)
+                    .then(() => {
+                        // Update step
+                        this.$store.commit('journey', this.journey);
+                        this.updateJourney();
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             },
+            addStep: function () {
+                this.addStepStarted = true;
+            }
         },
         beforeRouteLeave(to, from, next) {
             this.$store.commit('journey', {});

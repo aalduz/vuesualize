@@ -77,7 +77,7 @@
                     password: formData.password
                 })
                     .then(res => {
-                        this.$router.push('/user');
+                        this.$router.push('/journey');
                     })
                     .catch(error => {
                         this.authenticationFailed = true;

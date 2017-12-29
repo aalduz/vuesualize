@@ -13,17 +13,6 @@
             </router-link>
             <router-link
                 v-if="userData"
-                to="/user"
-                tag="li"
-                active-class="active"
-                class="nav-item">
-                <a class="nav-link">
-                    <i class="fa fa-user"></i>
-                    <span class="action-item-text">User</span>
-                </a>
-            </router-link>
-            <router-link
-                v-if="userData"
                 to="/journey"
                 tag="li"
                 active-class="active"
@@ -31,6 +20,17 @@
                 <a class="nav-link">
                     <i class="fa fa-id-card-o"></i>
                     <span class="action-item-text">Journeys</span>
+                </a>
+            </router-link>
+            <router-link
+                v-if="userData"
+                to="/user"
+                tag="li"
+                active-class="active"
+                class="nav-item">
+                <a class="nav-link">
+                    <i class="fa fa-user"></i>
+                    <span class="action-item-text">User</span>
                 </a>
             </router-link>
         </ul>

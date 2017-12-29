@@ -67,6 +67,17 @@
                     @update="updatedStep"></step-edit>
             </template>
         </transition>
+        <div 
+            v-if="last && !isEditMode && !addStepStarted"
+            class="action-buttons-container right"
+            :class="lastStepClasses">
+            <button
+                @click="$emit('add')"
+                class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+                <span>Add Step</span>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -77,7 +88,7 @@ export default {
     components: {
         stepEdit: StepEdit
     },
-    props: ['index', 'last'],
+    props: ['index', 'last', 'addStepStarted'],
     computed: {
         userJourneyStepContainerClasses () {
             return {
@@ -90,7 +101,13 @@ export default {
             return {
                 mode_buttons_on: this.showModeButtons
             }
+        },
+        lastStepClasses () {
+            return {
+                last_step: this.last
+            }
         }
+
     },
     methods: {
         toEditMode (event) {
