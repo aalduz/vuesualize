@@ -45,15 +45,20 @@
                             </transition>
                         </div>
                     </div>
-                    <transition
-                        name="component-fade"
-                        mode="out-in">
-                        <template v-if="addStepStarted">
-                            <step-new
-                                @view="addStepStarted = false"
-                                @created="updateJourney"></step-new>
-                        </template>
-                    </transition>
+                    <div class="row justify-content-lg-center">
+                        <div class="col-12 col-lg-10">
+                            <hr v-if="addStepStarted" class="new-step">
+                            <transition
+                                name="component-fade"
+                                mode="out-in">
+                                <template v-if="addStepStarted">
+                                    <step-new
+                                        @view="addStepStarted = false"
+                                        @created="updateJourney"></step-new>
+                                </template>
+                            </transition>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
