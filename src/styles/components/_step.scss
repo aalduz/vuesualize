@@ -6,6 +6,7 @@
     align-items: center;
 
     .user-journey-step-container {
+        margin-bottom: 2rem;
         .card.user-journey-step {
             width: 100%;
             margin: 5rem 0;
@@ -236,4 +237,10 @@ button.btn.btn-primary {
 button.btn.btn-secondary {
     background-color: map-get($brand-palette, secondary); 
     border-color: map-get($brand-palette, secondary); 
+}
+
+hr.new-step {
+    margin-top: -2rem;
+    margin-bottom: 3rem;
+    border-top: 1px solid white;
 }
