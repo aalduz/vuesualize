@@ -4,10 +4,22 @@
     align-content: center;
     align-items: center;
     width: 100%;
+
+    &.right {
+        justify-content: flex-end;
+    }
+
+    &.last_step {
+        margin-top: -65px;
+        margin-bottom: 15px;
+    }
 }
 
 .action-btn-container {
     margin-top: 15px;
+    // position: fixed;
+    // z-index: 2;
+
     button.btn.btn-link {
         color: map-get($brand-palette, primary);
         padding: 0;

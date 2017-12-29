@@ -112,17 +112,22 @@
             },
             storeJourney() {
                 let journeyUpdated = {...this.journey};
-                    journeyUpdated.steps = [];
-                    journeyUpdated.steps.push(this.newStep);
 
-                let journeysRef = db.ref('journeys');
-                console.log(this.journey, journeyUpdated);
-                journeysRef.child(this.journey.key).set(journeyUpdated, res => {
-                    // Update step
-                    this.$store.commit('step', this.newStep);
-                    this.$store.dispatch('journey', journeyUpdated);
-                    this.$emit('created');
-                });
+                if (!journeyUpdated.steps) {
+                    journeyUpdated.steps = [];
+                }
+                journeyUpdated.steps.push(this.newStep);
+
+                this.$store.dispatch('udpateJourney', journeyUpdated)
+                    .then(() => {
+                        // Update step
+                        this.$store.commit('step', this.newStep);
+                        this.$store.dispatch('journey', journeyUpdated);
+                        this.$emit('created');
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             },
             saveStep () {
                 if (this.newStep.name == '') {
@@ -164,7 +169,7 @@
                 newStep: {
                     name: '',
                     imageSrc: '',
-                    childs: [],
+                    //childs: [],
                     uid: this.$store.state.currentUser.uid
                 },
                 file: {},
