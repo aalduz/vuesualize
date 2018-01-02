@@ -1,17 +1,21 @@
 <template>
     <transition enter-active-class="animated bounceInDown" mode="in-out">
         <div class="container">
-            <div class="action-btn-container">
-                <router-link 
-                    to="/journey"
-                    tag="button"
-                    class="btn btn-link">
-                    <i class="fa fa-chevron-left"></i>
-                    <span>Back</span>
-                </router-link>
+            <div class="row justify-content-lg-center">
+                <div class="col-12 col-lg-10">
+                    <div class="action-btn-container">
+                        <router-link 
+                            to="/journey"
+                            tag="button"
+                            class="btn btn-link">
+                            <i class="fa fa-chevron-left"></i>
+                            <span>Back</span>
+                        </router-link>
+                    </div>
+                </div>
             </div>
-            <div class="row journey-container">
-                <div class="col-12 col-lg-10 page-heading">
+            <div class="row journey-container justify-content-lg-center">
+                <section class="col-12 col-lg-10 page-heading">
                     <div class="journey-avatar">
                         <img :src="journey.imageSrc == '' 
                                 ? 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2'
@@ -24,7 +28,7 @@
                         </div>
                     </template>
                     <hr class="page-heading">
-                </div>
+                </section>
                 <div v-if="!journey.steps" class="col-12">
                     <transition
                         name="component-fade"
