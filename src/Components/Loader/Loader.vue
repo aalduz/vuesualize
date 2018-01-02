@@ -18,6 +18,7 @@
             </filter>
             </defs>
         </svg>
+        <p>Your content is being saved</p>
     </div>
 </template>
 
