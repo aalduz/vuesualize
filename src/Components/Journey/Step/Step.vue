@@ -88,7 +88,7 @@ export default {
     components: {
         stepEdit: StepEdit
     },
-    props: ['index', 'last', 'addStepStarted'],
+    props: [ 'step', 'index', 'last', 'addStepStarted'],
     computed: {
         userJourneyStepContainerClasses () {
             return {
@@ -133,7 +133,6 @@ export default {
     },
     data () {
         return {
-            step: this.$store.getters.journey.steps[this.index],
             isEditMode : false,
             showModeButtons: false,
         }
