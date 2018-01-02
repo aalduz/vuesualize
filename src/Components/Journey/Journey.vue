@@ -56,6 +56,7 @@
                             </transition>
                         </div>
                     </div>
+                    <hr class="page-heading">
                 </div>
                 <div
                     v-if="isListView"

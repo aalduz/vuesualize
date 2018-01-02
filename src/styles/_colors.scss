@@ -8,7 +8,7 @@ $brand-palette: (
 
 .color {
     color: white;
-    
+
     &--primary {
         color: map-get($brand-palette, primary);
     }
