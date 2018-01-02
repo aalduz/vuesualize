@@ -12,6 +12,11 @@
             </div>
             <div class="row journey-container">
                 <div class="col-12 col-lg-10 page-heading">
+                    <div class="journey-avatar">
+                        <img :src="journey.imageSrc == '' 
+                                ? 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2'
+                                : journey.imageSrc">
+                    </div>
                     <h1 class="justify-content-lg-center">{{ journey.name }}</h1>
                     <template v-if="journey.tags">
                         <div class="tags-container">
