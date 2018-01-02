@@ -83,6 +83,7 @@
                 this.signOut()
                     .then(res => {
                         this.showModalConfirmSignOut = false;
+                        this.$store.dispatch('clearState');
                         this.$router.push('/signin');
                     })
             }
