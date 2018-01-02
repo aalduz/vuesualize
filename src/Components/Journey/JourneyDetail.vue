@@ -11,22 +11,23 @@
                 </router-link>
             </div>
             <div class="row journey-container">
-                <div class="col-12 page-heading">
+                <div class="col-12 col-lg-10 page-heading">
                     <h1 class="justify-content-lg-center">{{ journey.name }}</h1>
                     <template v-if="journey.tags">
                         <div class="tags-container">
                             <span v-for="tag in journey.tags" class="badge badge-pill badge-warning">{{ tag }}</span>
                         </div>
                     </template>
+                    <hr class="page-heading">
                 </div>
                 <div v-if="!journey.steps" class="col-12">
                     <transition
                         name="component-fade"
                         mode="out-in">
                         <template v-if="!addStepStarted">
-                            <div>
-                                <h3 class="color--primary">It  seems you dont have any steps defined on your user journey.</h3>
-                                <h4 class="color--primary">Why dont you start creating the first one?</h4>
+                            <div class="empty-item">
+                                <h3 class="color--primary">It seems you dont have any steps defined on your user journey.</h3>
+                                <h4 class="color">Why dont you start creating the first one?</h4>
                                 <button v-on:click="addStepStarted = true;" class="btn btn-primary">Add step</button>
                             </div>
                         </template>
@@ -35,9 +36,11 @@
                         name="component-fade"
                         mode="out-in">
                         <template v-if="addStepStarted">
-                            <step-new
+                            <div class="first-step">
+                                <step-new
                                 @view="addStepStarted = false"
                                 @created="updateJourney"></step-new>
+                            </div>
                         </template>
                     </transition>
                 </div>

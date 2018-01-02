@@ -159,6 +159,7 @@ const actions = {
                 if (err) {
                     reject(err);
                 } else {
+                    dispatch('fetchUserJourneys');
                     resolve();
                 }
             });
