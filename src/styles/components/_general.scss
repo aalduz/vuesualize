@@ -36,10 +36,13 @@
     align-content: center;
     align-items: center;
     margin: 0;
-    padding-bottom: .8rem;
 
-    border-bottom: 1px solid white;
-    
+    hr.page-heading {
+        width: 100%;
+        border-top: 1px solid white;
+        margin-top: 1rem;
+    }
+
     // This mixin seems to just render: min-width
     // @include media-breakpoint-only(sm) {
     @media (min-width: 568px) and (max-width: 767px) {
@@ -69,4 +72,16 @@
 
 .multiline {
     white-space: pre-line;
+}
+
+.empty-item {
+    &>h1,&>h2,&>h3,&>h4,&>h5,&>h6 {
+        text-align: center;
+    }
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }

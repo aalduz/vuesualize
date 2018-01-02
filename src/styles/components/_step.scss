@@ -178,7 +178,7 @@
 .edit-mode-container {
     padding: 1rem;
     background-color: map-get($brand-palette, main-background); 
-    border-bottom: 1px solid white;
+    border-radius: 3px;
 
     .form-inline  .form-control.full {
         width: 100%;
@@ -237,6 +237,10 @@ button.btn.btn-primary {
 button.btn.btn-secondary {
     background-color: map-get($brand-palette, secondary); 
     border-color: map-get($brand-palette, secondary); 
+}
+
+.first-step {
+    margin-top: 2rem;
 }
 
 hr.new-step {

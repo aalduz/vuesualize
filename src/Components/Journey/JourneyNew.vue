@@ -10,8 +10,8 @@
                     <span>Back</span>
                 </router-link>
             </div>
-            <div class="row">
-                <div class="col-12 empty-item-form">
+            <div class="row justify-content-lg-center">
+                <div class="col-12 col-lg-10">
                     <modal v-if="showModalPreventLeave" 
                             @cancel="showModalPreventLeave = false"
                             @confirm="confirmChanges"
@@ -31,8 +31,9 @@
                     </modal>
                     <div class="page-heading">
                         <h1 class="justify-content-lg-center">New Journey</h1>
+                        <hr class="page-heading">
                     </div>
-                    <div class="card">
+                    <div class="card empty-journey">
                         <div v-if="!savingJourney" class="container edit-mode-container" id="journeyForm">
                             <div class="form-group">
                                 <label for="journeyName">Journey Name *</label>
@@ -256,10 +257,10 @@ export default {
 </script>
 
 <style lang="scss">
-    .empty-item-form {
+
+    .empty-journey {
         margin-top: 2rem;
     }
-
     .input-group > .input-group-btn > label.btn {
         margin-bottom: 0;
     }
