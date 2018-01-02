@@ -45,6 +45,15 @@ const mutations = {
 
     step(state, step) {
         state.step = step;
+    },
+
+    clearState(state) {
+        state.currentUser = null;
+        state.userData =  null;
+        state.project =  null;
+        state.journeys =  null;
+        state.journey =  null;
+        state.step = null;
     }
 }
 
@@ -158,7 +167,10 @@ const actions = {
 
     journey ({commit}, journey) {
         commit('journey', journey);
-        console.log(journey);
+    },
+
+    clearState ({commit} ) {
+        commit('clearState');
     }
 
 }
