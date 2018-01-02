@@ -19,7 +19,7 @@
                         </div>
                     </template>
                 </div>
-                <div v-if="!journey.steps" class="col-12 page-heading">
+                <div v-if="!journey.steps" class="col-12">
                     <transition
                         name="component-fade"
                         mode="out-in">
@@ -31,17 +31,27 @@
                             </div>
                         </template>
                     </transition>
+                    <transition
+                        name="component-fade"
+                        mode="out-in">
+                        <template v-if="addStepStarted">
+                            <step-new
+                                @view="addStepStarted = false"
+                                @created="updateJourney"></step-new>
+                        </template>
+                    </transition>
                 </div>
                 <div v-else class="col-12">
                     <div class="steps-container row justify-content-lg-center">
                         <div v-for="(step, index) in journey.steps" class="col-12 col-lg-10 ">
                             <transition name="component-fade" mode="out-in">
                                 <step
+                                    :step="step"
                                     :index="index"
                                     :last="index == journey.steps.length - 1"
                                     :addStepStarted="addStepStarted"
                                     @delete="deleteStep(index)"
-                                    @add="addStep()"></step>
+                                    @add="addStep"></step>
                             </transition>
                         </div>
                     </div>
@@ -89,8 +99,8 @@
         methods: {
             updateJourney: function() {
                 this.addStepStarted = false;
-                this.journey = null;
-                this.journey = this.$store.getters.journey;
+                let journeyUpdated = this.$store.getters.journey;
+                this.journey = {...journeyUpdated};
             },
             deleteStep: function (stepIndex) {
                 let stepToDelete = this.journey.steps[stepIndex];
@@ -99,7 +109,7 @@
                 this.$store.dispatch('udpateJourney', this.journey)
                     .then(() => {
                         // Update step
-                        this.$store.commit('journey', this.journey);
+                        this.$store.dispatch('journey', this.journey);
                         this.updateJourney();
                     })
                     .catch(error => {
