@@ -141,9 +141,8 @@ const actions = {
                             journeys[index].key = snapData.key;
                             index++;
                         });
-
-                        commit('journeys', journeys);
                     }
+                    commit('journeys', journeys);
             })
                 // .then(res => resolve(res))
                 // .catch(error => reject(error))
