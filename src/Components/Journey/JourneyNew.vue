@@ -1,14 +1,18 @@
 <template>
     <transition name="slide-y" mode="out-in">
         <div class="container">
-            <div class="action-btn-container">
-                <router-link 
-                    to="/journey"
-                    tag="button"
-                    class="btn btn-link">
-                    <i class="fa fa-chevron-left"></i>
-                    <span>Back</span>
-                </router-link>
+            <div class="row justify-content-lg-center">
+                <div class="col-12 col-lg-10">
+                    <div class="action-btn-container">
+                        <router-link 
+                            to="/journey"
+                            tag="button"
+                            class="btn btn-link">
+                            <i class="fa fa-chevron-left"></i>
+                            <span>Back</span>
+                        </router-link>
+                    </div>
+                </div>
             </div>
             <div class="row justify-content-lg-center">
                 <div class="col-12 col-lg-10">

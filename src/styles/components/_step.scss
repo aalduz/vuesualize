@@ -73,9 +73,14 @@
             }
             &:hover {
                 cursor: pointer;
+                border: 1px solid map-get($brand-palette, secondary);
             }
             &.mode_buttons_on {
                 border: 1px solid map-get($brand-palette, secondary);
+            }
+            &.user-journey-step--edit:hover {
+                cursor: auto;
+                border: 1px solid white;
             }
         }
 
