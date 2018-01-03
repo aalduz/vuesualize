@@ -68,8 +68,8 @@
             </template>
         </transition>
         <div 
-            v-if="last && !isEditMode && !addStepStarted"
-            class="action-buttons-container right"
+            v-if="last && !isEditMode && !addStepStarted && !isPrintView"
+            class="action-buttons-container"
             :class="lastStepClasses">
             <button
                 @click="$emit('add')"
@@ -77,12 +77,21 @@
                 <i class="fa fa-plus"></i>
                 <span>Add Step</span>
             </button>
+            <button
+                @click="print(true)"
+                class="btn btn-secondary print">
+                <i class="fa fa-print"></i>
+                <span>Print Journey</span>
+            </button>
         </div>
     </div>
 </template>
 
 <script>
 import StepEdit from './StepEdit';
+import { 
+    mapGetters,
+} from 'vuex';
 
 export default {
     components: {
@@ -90,6 +99,9 @@ export default {
     },
     props: [ 'step', 'index', 'last', 'addStepStarted'],
     computed: {
+        ...mapGetters([
+            'isPrintView'
+        ]),
         userJourneyStepContainerClasses () {
             return {
                 no_children : !this.step.childs,
@@ -130,6 +142,9 @@ export default {
             journey.steps[this.index] = this.step;
             this.$store.commit('journey', journey);
         },
+        print (value) {
+            this.$store.dispatch('printView', value);
+        }
     },
     data () {
         return {

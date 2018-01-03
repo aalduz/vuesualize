@@ -1,7 +1,7 @@
 <template>
     <transition enter-active-class="animated bounceInDown" mode="in-out">
         <div class="container">
-            <div class="row justify-content-lg-center">
+            <div v-if="!isPrintView" class="row justify-content-lg-center">
                 <div class="col-12 col-lg-10">
                     <div class="action-btn-container">
                         <router-link 
@@ -14,7 +14,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row journey-container justify-content-lg-center">
+            <div class="row journey-container justify-content-lg-center"
+                 :class="printViewClass">
                 <section class="col-12 col-lg-10 page-heading">
                     <div class="journey-avatar">
                         <img :src="journey.imageSrc == '' 
@@ -67,6 +68,23 @@
                             </transition>
                         </div>
                     </div>
+                    <section 
+                        v-if="isPrintView"
+                        class="mode-buttons-container print">
+                        <p class="color">To print your document use Google Dev tools</p>
+                        <ol class="color">
+                            <li>Cmd + Alt + I <i>(Ctrl if Windows)</i></li>
+                            <li>Cmd + Shift + P</li>
+                            <li>Type: <b>full</b></li>
+                        </ol>
+                        <p class="color"><i>This dialog is just visible on desktop <br> and when hovering the journey.<br>To avoid printing it, <br>just set the window resolution below 1200px.</i></p>
+                        <button 
+                            @click="exitPrintView"
+                            class="btn btn-danger">
+                            <i class="fa fa-times"></i>
+                            <small class="action-item-text">Exit Print View</small>
+                        </button>
+                    </section>
                     <div class="row justify-content-lg-center">
                         <div class="col-12 col-lg-10">
                             <hr v-if="addStepStarted" class="new-step">
@@ -101,7 +119,16 @@
             step: Step,
             stepNew: StepNew
         },
-
+        computed: {
+            ...mapGetters([
+                'isPrintView'
+            ]),
+            printViewClass () {
+                return {
+                    print_view : this.isPrintView,
+                }
+            }
+        },
         data () {
             return {
                 addStepStarted: false,
@@ -130,6 +157,9 @@
             },
             addStep: function () {
                 this.addStepStarted = true;
+            },
+            exitPrintView () {
+                this.$store.dispatch('printView', false);
             }
         },
         beforeRouteLeave(to, from, next) {
