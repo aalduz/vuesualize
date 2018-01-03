@@ -29,7 +29,7 @@
                     </template>
                     <hr class="page-heading">
                 </section>
-                <div v-if="!journey.steps" class="col-12">
+                <div v-if="!journey.steps" class="col-12 col-lg-10">
                     <transition
                         name="component-fade"
                         mode="out-in">

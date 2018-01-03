@@ -1,5 +1,5 @@
 <template>
-<div class="card user-journey-step">
+<div class="card user-journey-step user-journey-step--edit">
     <modal v-if="showModalPreventLeave" 
             @cancel="showModalPreventLeave = false"
             @confirm="discardChanges"
