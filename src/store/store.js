@@ -9,7 +9,8 @@ const state = {
     project: null,
     journeys: null,
     journey: null,
-    step: null
+    step: null,
+    isPrintView: false,
 }
 
 const mutations = {
@@ -45,6 +46,10 @@ const mutations = {
 
     step(state, step) {
         state.step = step;
+    },
+
+    isPrintView(state, value) {
+        state.isPrintView = value;
     },
 
     clearState(state) {
@@ -175,6 +180,10 @@ const actions = {
         commit('journey', journey);
     },
 
+    printView({commit}, value) {
+        commit('isPrintView', value);
+    },
+
     clearState ({commit} ) {
         commit('clearState');
     }
@@ -191,17 +200,21 @@ const getters = {
     },
 
     // To review
-    journey(state) {
+    journey (state) {
         return state.journey;
     },
 
-    journeys(state) {
+    journeys (state) {
         return state.journeys;
     },
 
-    step(state) {
+    step (state) {
         return state.step;
     },
+
+    isPrintView (state) {
+        return state.isPrintView;
+    }
 }
 
 Vue.use(Vuex);

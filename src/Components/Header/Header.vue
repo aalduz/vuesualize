@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-faded" :class="navbarClasses">
+    <nav v-if="!isPrintView" class="navbar navbar-light bg-faded" :class="navbarClasses">
         <ul class="nav nav-pills">
             <router-link
                 to="/" 
@@ -91,7 +91,8 @@
         computed: {
             ...mapGetters([
                 'userData',
-                'currentUser'
+                'currentUser',
+                'isPrintView'
             ]),
             navbarClasses() {
                 return {
