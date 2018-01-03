@@ -130,14 +130,20 @@ const actions = {
                 .orderByChild('uid')
                 .equalTo(uid)
                 .once('value', snap => {
-                    let journeys = Object.values(snap.val());
-                    let index = 0;
-                    snap.forEach((snapData) => {
-                        journeys[index].key = snapData.key;
-                        index++;
-                    });
+                    let journeys = null;
+                    let value = snap.val();
+                    if (value) {
+                        let index = 0;
 
-                    commit('journeys', journeys);
+                        journeys = Object.values(value);
+
+                        snap.forEach((snapData) => {
+                            journeys[index].key = snapData.key;
+                            index++;
+                        });
+
+                        commit('journeys', journeys);
+                    }
             })
                 // .then(res => resolve(res))
                 // .catch(error => reject(error))
