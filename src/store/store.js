@@ -180,6 +180,10 @@ const actions = {
         commit('journey', journey);
     },
 
+    step ({commit}, step) {
+        commit('step', step);
+    },
+
     printView({commit}, value) {
         commit('isPrintView', value);
     },
