@@ -135,12 +135,6 @@ export default {
         updatedStep () {
             this.$emit('update');
             this.isEditMode = false;
-            this.step = this.$store.getters.step;
-
-            // update journey
-            let journey = this.$store.getters.journey;
-            journey.steps[this.index] = this.step;
-            this.$store.commit('journey', journey);
         },
         print (value) {
             this.$store.dispatch('printView', value);
