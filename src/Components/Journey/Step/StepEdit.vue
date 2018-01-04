@@ -18,6 +18,16 @@
         <p slot="body">In order to save it, you need to provide some value</p>
     </modal>
     <div v-if="!savingStep" class="container edit-mode-container" id="stepForm">
+        <!-- <div class="form-group justify-content-end">
+            <div class="form-check form-check-inline">
+                <input
+                    v-model="allowHtml"
+                    type="checkbox"
+                    class="form-check-input"
+                    id="allowHtmlContent">
+                <label class="form-check-label" for="allowHtmlContent">HTML content allowed</label>
+            </div>
+        </div> -->
         <div class="form-group">
             <label for="stepName">Step Name *</label>
             <input v-model="stepData.name"
@@ -91,7 +101,6 @@
         },
         methods: {
             discardChanges () {
-                console.info(this.step,this.stepData);
                 this.$emit('view');
             },
             cancel () {
@@ -112,21 +121,24 @@
             },
             storeJourney() {
                 let journeyUpdated = {...this.journey};
-                    journeyUpdated.steps[this.index] = {...this.stepData};
+                journeyUpdated.steps[this.index] = {...this.stepData};
 
-                let journeysRef = db.ref('journeys');
-                journeysRef.child(this.journey.key).set(journeyUpdated, res => {
-                    // to the callback
-                    this.$store.commit('step', this.stepData);
-                    // Update step
-                    this.$emit('update');
-                });
+                this.$store.dispatch('udpateJourney', journeyUpdated)
+                    .then(() => {
+                        // Update step
+                        this.$store.commit('step', this.stepData);
+                        this.$store.dispatch('journey', journeyUpdated);
+                        this.$emit('update');
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
             },
             saveStep () {
                 if (this.stepData.name == '') {
                     this.showModalNameEmpty = true;
                 } else {
-                    this.savingStep= true;
+                    this.savingStep = true;
                     if (this.file['name'] != null) {
                         // upload Picture
                         let fileRef = storageRef.child(this.file.name);
@@ -166,6 +178,7 @@
                 preventLeave: false,
                 savingStep: false,
                 nameIsDirty: false,
+                allowHtml: false,
             }
         }
 
