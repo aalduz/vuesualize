@@ -1,3 +1,19 @@
+.journey-content-view.page-heading {
+    cursor: pointer;
+    margin-top: 1rem;
+    padding-top: 1rem;
+
+    &:hover {
+        border: 1px solid map-get($brand-palette, secondary);
+        border-radius: 3px;
+        padding-bottom: 1rem;
+
+        hr.page-heading {
+            display: none;
+        }
+    }
+}
+
 .journey-avatar {
     width: 150px;
     height: 150px;
@@ -41,6 +57,12 @@
         .mode-buttons-container.print {
             opacity: 1;
         }
+    }
+}
+
+.journey-content-edit {
+    .card {
+        margin-bottom: 2rem;
     }
 }
 
