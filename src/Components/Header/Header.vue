@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-faded" :class="navbarClasses">
+    <nav v-if="!isPrintView" class="navbar navbar-light bg-faded" :class="navbarClasses">
         <ul class="nav nav-pills">
             <router-link
                 to="/" 
@@ -13,17 +13,6 @@
             </router-link>
             <router-link
                 v-if="userData"
-                to="/user"
-                tag="li"
-                active-class="active"
-                class="nav-item">
-                <a class="nav-link">
-                    <i class="fa fa-user"></i>
-                    <span class="action-item-text">User</span>
-                </a>
-            </router-link>
-            <router-link
-                v-if="userData"
                 to="/journey"
                 tag="li"
                 active-class="active"
@@ -31,6 +20,17 @@
                 <a class="nav-link">
                     <i class="fa fa-id-card-o"></i>
                     <span class="action-item-text">Journeys</span>
+                </a>
+            </router-link>
+            <router-link
+                v-if="userData"
+                to="/user"
+                tag="li"
+                active-class="active"
+                class="nav-item">
+                <a class="nav-link">
+                    <i class="fa fa-user"></i>
+                    <span class="action-item-text">User</span>
                 </a>
             </router-link>
         </ul>
@@ -83,6 +83,7 @@
                 this.signOut()
                     .then(res => {
                         this.showModalConfirmSignOut = false;
+                        this.$store.dispatch('clearState');
                         this.$router.push('/signin');
                     })
             }
@@ -90,7 +91,8 @@
         computed: {
             ...mapGetters([
                 'userData',
-                'currentUser'
+                'currentUser',
+                'isPrintView'
             ]),
             navbarClasses() {
                 return {

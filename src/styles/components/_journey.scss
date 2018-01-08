@@ -1,0 +1,115 @@
+.journey-content-view.page-heading {
+    cursor: pointer;
+    margin-top: 1rem;
+    padding-top: 1rem;
+
+    &:hover {
+        border: 1px solid map-get($brand-palette, secondary);
+        border-radius: 3px;
+        padding-bottom: 1rem;
+
+        hr.page-heading {
+            display: none;
+        }
+    }
+}
+
+.journey-avatar {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid white;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+
+        &:after {
+            content: '\f127';
+            height: 150px;
+            width: 150px;
+            position: absolute;
+            top: 32px;
+            color: map-get($brand-palette, primary);
+            font-size: 32px;
+            font-style: normal;
+            font-family: FontAwesome;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+        }
+    }
+}
+
+.journey-container.print_view {
+    .mode-buttons-container.print {
+        opacity: 0;
+        position: fixed;
+        top: 50px;
+        display: none;
+        border: 1px solid white;
+        border-radius: 3px;
+        padding: 1rem;
+        background-color: map-get($brand-palette, main-background);
+
+        /* Desktop only Non Retina displays */
+        @media screen 
+            and (min-device-width: 1200px) 
+            and (-webkit-min-device-pixel-ratio: 1) { 
+            display: block;
+        }
+        /* Desktop only Retina displays */
+        @media screen 
+            and (min-device-width: 1200px) 
+            and (-webkit-min-device-pixel-ratio: 2)
+            and (min-resolution: 192dpi) {
+            display: block;
+        }
+    }
+
+    &:hover {
+        .mode-buttons-container.print {
+            opacity: 1;
+        }
+    }
+}
+
+.journey-content-edit {
+    .card {
+        margin-bottom: 2rem;
+    }
+}
+
+.image-preview {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid white;
+    border-radius: 3px;
+    margin: 1rem auto;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    button {
+        position: absolute;
+        bottom: 225px;
+        right: 25px;
+        z-index: 2;
+    }
+
+    @media (min-width: 568px) { 
+        width: 200px;
+
+        button {
+            bottom: 232px;
+            right: 15px;
+        }
+
+    }
+}

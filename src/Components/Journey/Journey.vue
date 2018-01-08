@@ -56,6 +56,7 @@
                             </transition>
                         </div>
                     </div>
+                    <hr class="page-heading">
                 </div>
                 <div
                     v-if="isListView"
@@ -120,10 +121,12 @@
 
 <script>
     import { 
+        mapGetters,
         mapMutations
     } from 'vuex';
 
     import { db } from '../../firebase';
+    import { store } from '@/store/store';
     import Header from '../Header/Header';
     import Thumbnail from '../Thumbnail/Thumbnail';
     import JourneyNew from './JourneyNew';
@@ -135,6 +138,10 @@
             journeyNew: JourneyNew
         },
         computed: {
+            ...mapGetters([
+                'currentUser',
+                'journeys'
+            ]),
             itemClasses() {
                 return {
                     delete: this.isDeleteMode,
@@ -154,17 +161,8 @@
         data () {
             return {
                 isViewMode: true,
-                journeys: {},
                 isDeleteMode: false,
-                isListView: false
-            }
-        },
-        firebase: {
-            journeys: {
-                source: db.ref('journeys'),
-                cancelCallback(err) {
-                    console.error(err);
-                }
+                isListView: false,
             }
         },
         methods: {
@@ -177,20 +175,21 @@
                 this.$router.push('/journey/new');
             },
             navigateToJourney: function(journey) {
-                console.log(journey);
-                let journeyId = journey['.key'];
+                let journeyId = journey['key'];
+                console.info(journeyId, journey);
+
                 this.$store.dispatch('journey', journey);
 
                 this.$router.push('/journey/'+journeyId);
             },
-            deleteJourney: function(journey) {
-                this.$firebaseRefs.journeys.child(journey['.key']).remove();
+            deleteJourney(journey) {
+                this.$store.dispatch('deleteJourney', journey);
             }
         },
         watch: {
             '$route'(to, from) {
                 this.id = to.params.id;
-            }
+            },
         }
     }
 </script>

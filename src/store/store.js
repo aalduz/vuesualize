@@ -1,14 +1,16 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import firebase from 'firebase';
-import { db } from '../firebase'; 
+import { db, storageRef } from '../firebase'; 
 
 const state = {
     currentUser: null,
     userData: null,
     project: null,
     journeys: null,
-    journey: null
+    journey: null,
+    step: null,
+    isPrintView: false,
 }
 
 const mutations = {
@@ -34,8 +36,29 @@ const mutations = {
         state.journey = journey;
     },
 
+    journeys(state, journeys) {
+        state.journeys = journeys;
+    },
+
     journey(state, journey) {
         state.journey = journey;
+    },
+
+    step(state, step) {
+        state.step = step;
+    },
+
+    isPrintView(state, value) {
+        state.isPrintView = value;
+    },
+
+    clearState(state) {
+        state.currentUser = null;
+        state.userData =  null;
+        state.project =  null;
+        state.journeys =  null;
+        state.journey =  null;
+        state.step = null;
     }
 }
 
@@ -96,8 +119,8 @@ const actions = {
     userData ({commit}, userData) {
         commit('userData', userData);
     },
-    fetchUserData ({commit}, uid){
-        db.ref('users').orderByChild("uid").equalTo(uid).once('value', snap =>{
+    fetchUserData ({commit}, uid) {
+        db.ref('users').orderByChild('uid').equalTo(uid).once('value', snap =>{
             let user = snap.val();
             let userData = Object.values(user)[0];
 
@@ -105,8 +128,80 @@ const actions = {
         });
     },
 
+    fetchUserJourneys ({commit, state}) {
+        // return new Promise((resolve, reject) => {
+        let uid = state.currentUser.uid;
+            db.ref('journeys')
+                .orderByChild('uid')
+                .equalTo(uid)
+                .once('value', snap => {
+                    let journeys = null;
+                    let value = snap.val();
+                    if (value) {
+                        let index = 0;
+
+                        journeys = Object.values(value);
+
+                        snap.forEach((snapData) => {
+                            journeys[index].key = snapData.key;
+                            index++;
+                        });
+                    }
+                    commit('journeys', journeys);
+            })
+                // .then(res => resolve(res))
+                // .catch(error => reject(error))
+        // });
+    },
+
+    deleteJourney ({commit, dispatch, state}, journey) {
+        db.ref('journeys')
+            .child(journey.key).remove(function(){
+                dispatch('fetchUserJourneys');
+            });
+    },
+
+    udpateJourney ({dispatch}, journeyUpdated) {
+        return new Promise((resolve, reject) => {
+            let journeysRef = db.ref('journeys');
+
+            journeysRef.child(journeyUpdated.key).set(journeyUpdated, err => {
+                if (err) {
+                    reject(err);
+                } else {
+                    dispatch('fetchUserJourneys');
+                    resolve();
+                }
+            });
+        });
+    },
+
     journey ({commit}, journey) {
         commit('journey', journey);
+    },
+
+    step ({commit}, step) {
+        commit('step', step);
+    },
+
+    storeImage ({}, file) {
+        return new Promise((resolve, reject) => {
+            storageRef.child('images/' + file.name).put(file)
+            .then(result => {
+                resolve(result);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+
+    },
+
+    printView({commit}, value) {
+        commit('isPrintView', value);
+    },
+
+    clearState ({commit} ) {
+        commit('clearState');
     }
 
 }
@@ -121,8 +216,20 @@ const getters = {
     },
 
     // To review
-    journey(state) {
+    journey (state) {
         return state.journey;
+    },
+
+    journeys (state) {
+        return state.journeys;
+    },
+
+    step (state) {
+        return state.step;
+    },
+
+    isPrintView (state) {
+        return state.isPrintView;
     }
 }
 

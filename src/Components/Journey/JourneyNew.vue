@@ -1,17 +1,21 @@
 <template>
     <transition name="slide-y" mode="out-in">
         <div class="container">
-            <div class="action-btn-container">
-                <router-link 
-                    to="/journey"
-                    tag="button"
-                    class="btn btn-link">
-                    <i class="fa fa-chevron-left"></i>
-                    <span>Back</span>
-                </router-link>
+            <div class="row justify-content-lg-center">
+                <div class="col-12 col-lg-10">
+                    <div class="action-btn-container">
+                        <router-link 
+                            to="/journey"
+                            tag="button"
+                            class="btn btn-link">
+                            <i class="fa fa-chevron-left"></i>
+                            <span>Back</span>
+                        </router-link>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-12 empty-item-form">
+            <div class="row justify-content-lg-center">
+                <div class="col-12 col-lg-10">
                     <modal v-if="showModalPreventLeave" 
                             @cancel="showModalPreventLeave = false"
                             @confirm="confirmChanges"
@@ -31,8 +35,9 @@
                     </modal>
                     <div class="page-heading">
                         <h1 class="justify-content-lg-center">New Journey</h1>
+                        <hr class="page-heading">
                     </div>
-                    <div class="card">
+                    <div class="card empty-journey">
                         <div v-if="!savingJourney" class="container edit-mode-container" id="journeyForm">
                             <div class="form-group">
                                 <label for="journeyName">Journey Name *</label>
@@ -47,21 +52,12 @@
                                 <small id="journeyHelp" 
                                     class="form-text text-muted">It can also be the name of the page where the journey is happening</small>
                             </div>
-                            <div @click="focusOnInput" class="form-group">
-                                <label for="journeyTags">Journey Tags</label>
-                                <div class="tags-input">
-                                    <span v-for="(tag, index) in newJourney.tags" @click="removeTag(index)" :class="badgeColor(index)" class="badge badge-pill">{{ tag }}<span class="close-x">x</span></span>
-                                    <input v-model="tagsInput" 
-                                        ref="tagsInput"
-                                        @keyup.space="getTag"
-                                        @keyup.comma="getTag"
-                                        type="text" class="form-control"
-                                        id="journeyTags"
-                                        aria-describedby="journeyTags"
-                                        placeholder="You can attach tags">
-                                </div>
-                                <small id="journeyTagsHelp" class="form-text text-muted">Tags are useful to filter between your journeys.(Use spaces or ',' as delimiters)</small>
-                            </div>
+                            <tags-input
+                                :tags="newJourney.tags"
+                                @newTag="newTag(...arguments)"
+                                @removeTag="removeTag(...arguments)"
+                                >
+                            </tags-input>
                             <div class="form-group">
                                 <label for="stepImage">Journey image</label>
                                 <div class="input-group">
@@ -77,7 +73,22 @@
                                         </label>
                                     </div>
                                 </div>
-                                <small id="imageSrcHelp" class="form-text text-muted">Is there any image you would like to attach to your Journey.</small>
+                                <small
+                                    v-if="!imageData"
+                                    id="imageSrcHelp" class="form-text text-muted">Is there any image you would like to attach to your Journey.</small>
+                                <div
+                                    v-if="file">
+                                        <div class="image-preview">
+                                            <img
+                                            :src="imageData"
+                                            alt="Journey Image">
+                                            <button
+                                                @click="discardImage"
+                                                class="btn btn-secondary">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+                                </div>
                             </div>
                             <div class="row justify-content-end">
                                 <div class="col-12">
@@ -102,6 +113,7 @@
 import { db, storageRef, imagesRef } from '../../firebase';
 import Loader from '../Loader/Loader';
 import Modal from '../Modal/Modal';
+import TagsInput from '../TagsInput/TagsInput';
 import { 
         mapGetters,
 } from 'vuex';
@@ -109,7 +121,8 @@ import {
 export default {
     components: {
         loader: Loader,
-        modal: Modal
+        modal: Modal,
+        tagsInput: TagsInput
     },
     data () {
         return {
@@ -117,10 +130,12 @@ export default {
                 name: '',
                 imageSrc: '',
                 tags: [],
-                steps: []
+                steps: [],
+                uid: null
             },
             tagsInput: '',
-            file: {},
+            file: null,
+            imageData: '',
             savingJourney: false,
             nameIsDirty: false,
             showModalPreventLeave: false,
@@ -129,6 +144,10 @@ export default {
         }
     },
     beforeRouteLeave(to, from, next) {
+        
+        if (this.newJourney.name || this.file || this.tagsInput) {
+            console.log('prevent')
+        }
         
         if(this.preventLeave) {
             this.showModalPreventLeave = true;
@@ -149,48 +168,18 @@ export default {
     },
     props: ['isViewMode'],
     methods: {
-        badgeColor: function(index) {
-            let colors = [
-                'badge-primary',
-                'badge-secondary',
-                'badge-success',
-                'badge-danger',
-                'badge-info',
-                'badge-light',
-                'badge-dark'
-            ];
-            let numberOfColors = colors.length;
-
-            return colors[index % numberOfColors];
-        },
         confirmChanges: function() {
             this.showModalPreventLeave = false;
             this.preventLeave = false;
             this.$router.push('/journey');
         },
-        getTag: function() { 
-            let tagsInput = this.tagsInput;
-
-            tagsInput = tagsInput.replace(/ +/g,"_").slice(0, -1);
-
-            let tags = tagsInput.split('_');
-
-            tags.forEach(tag => {
-                this.newJourney.tags.push(tag);
-            });
-
-            this.tagsInput = '';
-
-            if (this.newJourney.tags.length > 0) {
-                this.preventLeave = true;
-            }
-
+        newTag (processedTag) {
+            this.newJourney.tags.push(processedTag);
+            console.log(processedTag);
         },
-        removeTag: function(index) {
+        removeTag (index) {
+            console.info(this.newJourney.tags, index);
             this.newJourney.tags.splice(index,1);
-        },
-        focusOnInput: function() {
-            this.$refs.tagsInput.focus();
         },
         processFile: function(event) {
             var file = event.target.files[0];
@@ -199,10 +188,17 @@ export default {
             this.file = file;
             this.preventLeave = true;
 
+            var reader = new FileReader();
+
+            reader.onload = (event) => {
+                this.imageData = event.target.result;
+            }
+            // Start the reader job - read file as a data url (base64 format)
+            reader.readAsDataURL(file);
         },
         storeJourney: function() {
+            this.newJourney['uid'] = this.$store.state.currentUser.uid;
             let journeysRef = db.ref('journeys');
-            // let vm = this;
 
             journeysRef.push(this.newJourney).then(snapshot => {
                 this.showModalNameEmpty = false;
@@ -211,7 +207,12 @@ export default {
                 let journeyKey = snapshot['key'];
                 let journey = this.journeys.filter(journey => journey['.key'] == journeyKey)[0];
 
+                journey.key =  journey['.key'];
+                delete journey['.key'];
+
+                console.log(journey);
                 this.$store.commit('journey', journey);
+                this.$store.dispatch('fetchUserJourneys');
                 this.$router.push('/journey/' + journeyKey);
             });
         },
@@ -220,7 +221,7 @@ export default {
                 this.showModalNameEmpty = true;
             } else {
                 this.savingJourney = true;
-                if (this.file['name'] != null) {
+                if (this.file != null) {
                     // upload Picture
                     let fileRef = storageRef.child(this.file.name);
 
@@ -237,7 +238,12 @@ export default {
                     this.storeJourney();
                 }
             }
-        }
+        },
+        discardImage () {
+            this.file = null;
+            this.imageData = null;
+            this.newJourney.imageSrc = null;
+        },
     },
     firebase: {
         journeys: {
@@ -251,54 +257,12 @@ export default {
 </script>
 
 <style lang="scss">
-    .empty-item-form {
+    @import "../../styles/index";
+    .empty-journey {
         margin-top: 2rem;
     }
-
     .input-group > .input-group-btn > label.btn {
         margin-bottom: 0;
-    }
-
-    .tags-input {
-        background-color: #383f4a;
-        border: 1px solid #ccc;
-        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-        display: inline-block;
-        padding: 6px 12px;
-        color: #ccc;
-        vertical-align: middle;
-        border-radius: 4px;
-        width: 100%;
-        max-width: 100%;
-        line-height: 22px;
-        cursor: text;
-    }
-    .tags-input span.badge {
-        margin-right: 5px;
-        cursor: pointer;
-    }
-    .tags-input span.badge span.close-x {
-        padding-left: 3px;
-        color: lightgray;
-    }
-    .tags-input input {
-        border: none;
-        box-shadow: none;
-        outline: none;
-        background-color: transparent;
-        padding: 0 6px;
-        margin: 0;
-        width: auto;
-        max-width: inherit;
-        display: inline-block;
-        color: #ccc;
-    }
-    .tags-input input:focus {
-        outline: 0;
-        border:none;
-        box-shadow:none;
-        background-color: transparent;
-        color: #ccc;
     }
 </style>
 

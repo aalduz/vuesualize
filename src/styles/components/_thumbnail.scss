@@ -12,7 +12,26 @@
 
         img {
             width: 100%;
-            height: auto;
+            object-fit: cover;
+
+            &:after {
+                content: '\f127';
+                width: calc(100%);
+                height: calc(100% - 56px);
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: map-get($brand-palette, primary);
+                background-color: map-get($brand-palette, main-background);
+                font-size: 32px;
+                font-style: normal;
+                font-family: FontAwesome;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+            }
         }
         .ux-clarification-container {
             display: none;

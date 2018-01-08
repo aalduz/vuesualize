@@ -4,9 +4,39 @@
     align-content: center;
     align-items: center;
     width: 100%;
+
+    &.right {
+        justify-content: flex-end;
+    }
+
+    &.last_step {
+        margin-top: -65px;
+        margin-bottom: 15px;
+
+        button.btn.print {
+            display: none;
+            /* Desktop only Non Retina displays */
+            @media screen 
+                and (min-device-width: 1200px) 
+                and (-webkit-min-device-pixel-ratio: 1) { 
+                display: block;
+            }
+            /* Desktop only Retina displays */
+            @media screen 
+                and (min-device-width: 1200px) 
+                and (-webkit-min-device-pixel-ratio: 2)
+                and (min-resolution: 192dpi) {
+                display: block;
+            }
+        }
+    }
 }
 
 .action-btn-container {
+    margin-top: 15px;
+    // position: fixed;
+    // z-index: 2;
+
     button.btn.btn-link {
         color: map-get($brand-palette, primary);
         padding: 0;
@@ -16,11 +46,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-    }
-
-    @media (min-width: 768px) {
-        margin-left: -15px;
-        margin-top: 15px;
     }
 }
 
