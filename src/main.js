@@ -35,7 +35,13 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-
+export const helpers = Object.freeze({
+    object: {
+      copy: function (object) {
+        return JSON.parse(JSON.stringify(object));
+      }
+    }
+});
 
 new Vue({
   el: '#app',
