@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import firebase from 'firebase';
-import { db } from '../firebase'; 
+import { db, storageRef } from '../firebase'; 
 
 const state = {
     currentUser: null,
@@ -182,6 +182,18 @@ const actions = {
 
     step ({commit}, step) {
         commit('step', step);
+    },
+
+    storeImage ({}, file) {
+        return new Promise((resolve, reject) => {
+            storageRef.child('images/' + file.name).put(file)
+            .then(result => {
+                resolve(result);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+
     },
 
     printView({commit}, value) {

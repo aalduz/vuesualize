@@ -37,12 +37,6 @@
     align-items: center;
     margin: 0;
 
-    hr.page-heading {
-        width: 100%;
-        border-top: 1px solid white;
-        margin-top: 1rem;
-    }
-
     // This mixin seems to just render: min-width
     // @include media-breakpoint-only(sm) {
     @media (min-width: 568px) and (max-width: 767px) {
@@ -53,6 +47,12 @@
             font-size: 2rem;
         }
     }
+}
+
+hr.page-heading {
+    width: 100%;
+    border-top: 1px solid white;
+    margin-top: 1rem;
 }
 
 .authentication-link {
