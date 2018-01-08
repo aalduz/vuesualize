@@ -7,8 +7,8 @@
                 active-class="active"
                 class="nav-item">
                 <a class="nav-link">
-                    <i class="fa fa-home"></i>
-                    <span class="action-item-text">Home</span>
+                    <i class="fa fa-hand-spock-o"></i>
+                    <span class="action-item-text">Welcome</span>
                 </a>
             </router-link>
             <router-link

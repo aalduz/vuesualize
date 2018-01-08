@@ -1,4 +1,4 @@
-import Home from './Components/Home/Home.vue';
+import Welcome from './Components/Welcome/Welcome.vue';
 import Header from './Components/Header/Header.vue';
 
 const User = resolve => {
@@ -43,8 +43,8 @@ const JourneyForm = resolve => {
     });
 };
 export const routes = [
-    { path: '', name: 'home', components: {
-        default: Home,
+    { path: '', name: 'welcome', components: {
+        default: Welcome,
         'header-top': Header
     } },
     { path: '/signup', component: SignupPage },
