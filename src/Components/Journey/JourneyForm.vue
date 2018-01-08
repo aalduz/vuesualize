@@ -168,7 +168,6 @@
 
                 this.journeyData.imageSrc = file.name;
                 this.file = file;
-                this.preventLeave = true;
 
                 var reader = new FileReader();
 
