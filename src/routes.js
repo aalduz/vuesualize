@@ -37,9 +37,9 @@ const JourneyDetail = resolve => {
     });
 };
 
-const JourneyEdit = resolve => {
-    require.ensure(['./Components/Journey/JourneyEdit.vue'], () => {
-        resolve(require('./Components/Journey/JourneyEdit.vue'));
+const JourneyForm = resolve => {
+    require.ensure(['./Components/Journey/JourneyForm.vue'], () => {
+        resolve(require('./Components/Journey/JourneyForm.vue'));
     });
 };
 export const routes = [

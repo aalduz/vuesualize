@@ -16,28 +16,46 @@
             </div>
             <div class="row journey-container justify-content-lg-center"
                  :class="printViewClass">
-                <section class="col-12 col-lg-10 page-heading">
-                    <div class="journey-avatar">
-                        <img :src="journey.imageSrc == '' 
-                                ? 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2'
-                                : journey.imageSrc">
-                    </div>
-                    <h1 class="justify-content-lg-center">{{ journey.name }}</h1>
-                    <template v-if="journey.tags">
-                        <div class="tags-container">
-                            <span v-for="tag in journey.tags" class="badge badge-pill badge-warning">{{ tag }}</span>
-                        </div>
-                    </template>
-                    <hr class="page-heading">
+                <section 
+                    class="col-12 col-lg-10">
+                    <transition 
+                        enter-active-class="animated flip" mode="out-in">
+                        <template v-if="isViewMode">
+                            <div
+                                @click="isViewMode = false"
+                                class="journey-content-view page-heading">
+                                <div class="journey-avatar">
+                                    <img :src="journey.imageSrc == '' 
+                                            ? 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2'
+                                            : journey.imageSrc">
+                                </div>
+                                <h1 class="color">{{ journey.name }}</h1>
+                                <template v-if="journey.tags">
+                                    <div class="tags-container">
+                                        <span v-for="tag in journey.tags" class="badge badge-pill badge-warning">{{ tag }}</span>
+                                    </div>
+                                </template>
+                                <hr class="page-heading">
+                            </div>
+                        </template>
+                    </transition>
+                    <transition 
+                        enter-active-class="animated flip" mode="out-in">
+                        <template v-if="!isViewMode">
+                            <journey-form
+                            @view="backToView"></journey-form>
+                        </template>
+                    </transition>
                 </section>
-                <div v-if="!journey.steps" class="col-12 col-lg-10">
+
+                <section v-if="!journey.steps" class="col-12 col-lg-10">
                     <transition
                         name="component-fade"
                         mode="out-in">
                         <template v-if="!addStepStarted">
                             <div class="empty-item">
-                                <h3 class="color--primary">It seems you dont have any steps defined on your user journey.</h3>
-                                <h4 class="color">Why dont you start creating the first one?</h4>
+                                <h3 class="color--primary">It seems you don't have any steps defined on your user journey.</h3>
+                                <h4 class="color">Why don't you start creating the first one?</h4>
                                 <button v-on:click="addStepStarted = true;" class="btn btn-primary">Add step</button>
                             </div>
                         </template>
@@ -53,8 +71,8 @@
                             </div>
                         </template>
                     </transition>
-                </div>
-                <div v-else class="col-12">
+                </section>
+                <section v-else class="col-12">
                     <div class="steps-container row justify-content-lg-center">
                         <div v-for="(step, index) in journey.steps" class="col-12 col-lg-10 ">
                             <transition name="component-fade" mode="out-in">
@@ -64,6 +82,7 @@
                                     :last="index == journey.steps.length - 1"
                                     :addStepStarted="addStepStarted"
                                     @delete="deleteStep(index)"
+                                    @update="addStepStarted = false"
                                     @add="addStep"></step>
                             </transition>
                         </div>
@@ -94,12 +113,12 @@
                                 <template v-if="addStepStarted">
                                     <step-new
                                         @view="addStepStarted = false"
-                                        @created="updateJourney"></step-new>
+                                        @created="addStepStarted = false"></step-new>
                                 </template>
                             </transition>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     </transition>
@@ -111,17 +130,20 @@
         mapMutations
     } from 'vuex';
 
+    import JourneyForm from './JourneyForm';
     import Step from './Step/Step';
     import StepNew from './Step/StepNew';
 
     export default {
         components: {
+            journeyForm: JourneyForm,
             step: Step,
-            stepNew: StepNew
+            stepNew: StepNew,
         },
         computed: {
             ...mapGetters([
-                'isPrintView'
+                'isPrintView',
+                'journey'
             ]),
             printViewClass () {
                 return {
@@ -132,24 +154,30 @@
         data () {
             return {
                 addStepStarted: false,
-                journey: this.$store.getters.journey
+                isViewMode: true,
+                // journey: this.$store.getters.journey
             }
         },
         methods: {
+            backToView () {
+                this.isViewMode = true;
+            },
             updateJourney: function() {
                 this.addStepStarted = false;
-                let journeyUpdated = this.$store.getters.journey;
-                this.journey = {...journeyUpdated};
             },
             deleteStep: function (stepIndex) {
                 let stepToDelete = this.journey.steps[stepIndex];
-                this.journey.steps = this.journey.steps.filter(step => step !== stepToDelete);
+                let journeyUpdated = {...this.journey};
 
-                this.$store.dispatch('udpateJourney', this.journey)
+                journeyUpdated.steps = this.journey.steps.filter(step => step !== stepToDelete);
+                if (journeyUpdated.steps.length == 0) {
+                    journeyUpdated.steps = null;
+                }
+                this.$store.dispatch('udpateJourney', journeyUpdated)
                     .then(() => {
                         // Update step
-                        this.$store.dispatch('journey', this.journey);
-                        this.updateJourney();
+                        this.$store.dispatch('journey', journeyUpdated);
+                        this.addStepStarted = false;
                     })
                     .catch(error => {
                         console.error(error);
