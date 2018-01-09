@@ -116,6 +116,19 @@ const actions = {
     currentUser ({commit}, user) {
         commit('currentUser', user);
     },
+
+    updateUserProfile ({dispatch}, userData) {
+        var user = firebase.auth().currentUser;
+
+        user.updateProfile({
+            displayName: userData.displayName,
+            photoURL: userData.photoURL
+        }).then(result => {
+            // Update successful.
+        }).catch(function(error) {
+            // An error happened.
+        });
+    },
     userData ({commit}, userData) {
         commit('userData', userData);
     },
