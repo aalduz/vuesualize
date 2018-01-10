@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Welcome from './Components/Welcome/Welcome.vue';
 import Header from './Components/Header/Header.vue';
 
