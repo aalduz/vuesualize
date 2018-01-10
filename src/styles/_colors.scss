@@ -16,4 +16,12 @@ $brand-palette: (
     &--secondary {
         color: map-get($brand-palette, secondary);
     }
+
+    &--success {
+        color: map-get($brand-palette, success);
+    }
+
+    &--danger {
+        color: map-get($brand-palette, danger);
+    }
 }
