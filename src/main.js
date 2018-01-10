@@ -43,6 +43,10 @@ export const helpers = Object.freeze({
     }
 });
 
+require('./styles/index.scss')
+
+Vue.config.productionTip = false
+
 new Vue({
   el: '#app',
   router,
