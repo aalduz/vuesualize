@@ -43,10 +43,13 @@ const JourneyForm = resolve => {
     });
 };
 export const routes = [
-    { path: '', name: 'welcome', components: {
-        default: Welcome,
-        'header-top': Header
-    } },
+    { 
+        path: '/',
+        name: 'welcome',
+        components: {
+            default: Welcome, 
+        },
+    },
     { path: '/signup', component: SignupPage },
     { path: '/signin', component: SigninPage },
     { 
@@ -71,6 +74,6 @@ export const routes = [
         default: JourneyDetail,
         'header-top': Header
     }, props: true },
-    { path: '*', redirect: '/' }
+    { path: '*', redirect: '/journey' }
 
 ];

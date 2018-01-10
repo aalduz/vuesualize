@@ -1,72 +1,221 @@
 <template>
     <transition name="slide-y" mode="out-in">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 page-heading">
-                    <h1 class="justify-content-lg-center">
-                        <i class="fa fa-home"></i> <span>Home Page</span></h1>
-                </div>
+        <div class="container-fluid">
+            <div class="row section-container section-container--intro">
+                <particles/>
                 <div class="col-12">
-                    <p v-if="error">{{error}}</p>
-                </div>
-                <div class="col-12">
-                    <p v-if="loading">Loading</p>
-                </div>
-                <div class="col-12">
-                    <p v-if="currentUser">{{currentUser}}</p>
+                    <div class="container">
+                        <section class="row welcome-section justify-content-center">
+                            <div class="col-12 col-md-5">
+                                <div class="image-container">
+                                    <img src="../../assets/vuesualize-logo.png" alt="">
+                                    <h2 class="color--primary">It is easier when you can picture it.</h2>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
+            <div class="row section-container section-container--primary">
+                <div class="col-12">
+                    <div class="container">
+                        <section class="row welcome-section welcome-section--right">
+                            <div class="col-12 col-md-6">
+                                <div class="image-container">
+                                    <i class="fa fa-eye-slash"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="description-container">
+                                    <h3>Avoid confusion</h3>
+                                    <p>Define the steps of a user journey, so every team-member is on the same page: PO, BA, FE, BE, QA  and PM.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="row section-container">
+                <div class="col-12">
+                    <div class="container">
+                        <section class="row welcome-section welcome-section--left">
+                            <div class="col-12 col-md-6">
+                                <div class="image-container">
+                                    <div class="teams-container">
+                                        <div class="team-item">
+                                            <i class="fa fa-check-circle-o"></i>
+                                            <span>PO</span>
+                                        </div>
+                                        <div class="team-item">
+                                            <i class="fa fa-check-circle-o"></i>
+                                            <span>BA</span>
+                                        </div>
+                                        <div class="team-item">
+                                            <i class="fa fa-circle-o"></i>
+                                            <span>FE</span>
+                                        </div>
+                                        <div class="team-item">
+                                            <i class="fa fa-times-circle-o"></i>
+                                            <span>BE</span>
+                                        </div>
+                                        <div class="team-item">
+                                            <i class="fa fa-circle-o"></i>
+                                            <span>QA</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="description-container">
+                                    <h3>Requirements ready?</h3>
+                                    <p>It helps Project Managers to understand if everything required to develop a certain feature is in place.</p>
+                                    <p>In case anything is missing, they can address the responsible team-member to provide it.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="row section-container section-container--secondary">
+                <div class="col-12">
+                    <div class="container">
+                        <section class="row welcome-section welcome-section--right">
+                            <div class="col-12 col-md-6">
+                                <div class="image-container">
+                                    <i class="fa fa-object-group"></i>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="description-container">
+                                    <h3>Information at a glance</h3>
+                                    <p>Attach Acceptance Criteria, images, wireframes or links to prototypes to every step.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="row section-container section-container">
+                <div class="col-12">
+                    <div class="container">
+                        <section class="row welcome-section">
+                            <div class="col-12 col-md-6">
+                                <div class="image-container">
+                                    <div class="icons-container">
+                                        <div class="icon-item">
+                                            <i class="fa fa-code"></i>
+                                        </div>
+                                        <div class="icon-item">
+                                            <i class="fa fa-book"></i>
+                                        </div>
+                                        <div class="icon-item">
+                                            <i class="fa fa-dot-circle-o"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="description-container">
+                                    <h3>Document while you develop</h3>
+                                    <p>Once a journey is approved by every team-member involved, it becomes a documentation reference and an unique source of truth.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="row section-container section-container--primary">
+                <div class="col-12">
+                    <div class="container">
+                        <section class="row welcome-section welcome-section--right">
+                            <div class="col-12 col-md-6">
+                                <div class="image-container">
+                                    <div class="icons-container">
+                                        <div class="icon-item">
+                                            <i class="fa fa-check-square-o"></i>
+                                        </div>
+                                        <div class="icon-item">
+                                            <i class="fa fa-fire"></i>
+                                        </div>
+                                        <div class="icon-item">
+                                            <i class="fa fa-fire-extinguisher"></i>
+                                        </div>
+                                        <div class="icon-item">
+                                            <i class="fa fa-gavel"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="description-container">
+                                    <h3>Ease QA documentation</h3>
+                                    <p>Ellaborate a step by step document for QA tests</p>
+                                    <p>If test passes, it provides a graphic proof. If it fails, it provides a quick reference to where the bug is happening.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <footer>
+                <div class="row">
+                    <div class="col">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul>
+                                        <li><a href="http://github.com/aalduz/vuesualize">GitHub</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </transition>
 </template>
 
 <script>
     import { 
-        mapGetters,
-        mapActions
     } from 'vuex';
 
     import { auth }  from '@/firebase';
-    import Header from '@/Components/Header/Header';
+    import ParticlesJS from '../Particles/ParticlesJS'
 
     export default {
         components: {
-            appHeader: Header,
+            particles: ParticlesJS
         },
         methods: {
-            fetchData() {
-                // Fetch Data
-            }
         },
         computed: {
-            ...mapGetters([
-                'userData',
-                'currentUser'
-            ]),
         },
         data () {
             return {
-                loading: false,
-                user: null,
-                error: null
+                
             }
-        },
-        watch: {
-            '$route': 'fetchData'
-        },
-        mounted() {
-            auth.onAuthStateChanged( user => {
-                if (!user && !this.currentUser) {
-                    // this.$router.push('/signin');
-                }
-            });
         },
     }
 </script>
 
 <style lang="scss" scoped>
+    @import "../../styles/index";
     p {
         color: white;
+    }
+
+    footer {
+        background-color: map-get($brand-palette, main-background);
+        margin: 1rem 0;
+        ul {
+            padding: 0;
+            li {
+                a {
+                    color: white;
+                }
+            }
+        }
     }
 </style>
 
