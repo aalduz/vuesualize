@@ -1,0 +1,27 @@
+.bounceInDown {
+    @include bounceInDown();
+}
+
+.bounceOutDown {
+    @include bounceInDown();
+}
+
+.animated.bounceIn {
+    @include bounceIn();
+}
+
+.animated.bounceOut {
+    @include bounceOut();
+}
+
+.animated.flip {
+    @include flip();
+}
+
+.animated.zoomInRight {
+    @include zoomInRight();
+}
+
+.animated.zoomOutRight {
+    @include zoomOutRight();
+}
