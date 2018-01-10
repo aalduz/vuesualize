@@ -1,0 +1,122 @@
+.page-wrapper {
+    min-height: 100vh;
+    padding-top: 70px;
+
+    &--center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        min-height: calc(100vh - 70px);
+    }
+}
+
+.page-heading > h1,
+.page-heading > h2,
+.page-heading > h3,
+.page-heading > h4 {
+    color: white;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.page-heading > h3,
+.page-heading > h4 {
+    color: #2a9fda;
+    text-align: center;
+}
+
+
+
+.page-heading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin: 0;
+
+    // This mixin seems to just render: min-width
+    // @include media-breakpoint-only(sm) {
+    @media (min-width: 568px) and (max-width: 767px) {
+        margin: .5rem 0;
+        padding-bottom: .5rem;
+
+        & > h1 {
+            font-size: 2rem;
+        }
+    }
+}
+
+hr.page-heading {
+    width: 100%;
+    border-top: 1px solid white;
+    margin-top: 1rem;
+}
+
+.authentication-link {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    color: #2a9fda;
+
+    &:hover {
+        color: white;
+        text-decoration: none;
+        span {
+            color: white;
+        }
+    }
+}
+
+.multiline {
+    white-space: pre-line;
+}
+
+.empty-item {
+    &>h1,&>h2,&>h3,&>h4,&>h5,&>h6 {
+        text-align: center;
+    }
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid white;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+
+        &:after {
+            content: '\f127';
+            height: 150px;
+            width: 150px;
+            position: absolute;
+            top: 32px;
+            color: map-get($brand-palette, primary);
+            font-size: 32px;
+            font-style: normal;
+            font-family: FontAwesome;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+        }
+    }
+
+    &--small {
+        width: 50px;
+        height: 50px;
+    }
+}

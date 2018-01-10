@@ -1,0 +1,229 @@
+.section-container {
+    height: 100vh;
+
+    &--intro {
+        height: calc(100vh - 70px);
+    }
+
+    &.section-container--intro {
+        section.welcome-section {
+            .image-container {
+                height: calc(100vh - 70px);
+                img {
+                    width: 70%;
+                    @media (min-width: 568px) and (max-width: 767px) {
+                        width: 30%;
+                    }
+                }
+                h2 {
+                    margin-top: 3rem;
+                    text-align: right;
+                    font-size: 21px;
+                    padding-right: 2.5rem;
+
+                    @media (min-width: 568px) and (max-width: 767px) {
+                        margin-top: 0;
+                        padding-top: 1rem;
+                        width: 50%;
+                        padding-right: 3rem;
+                    }
+                    @media (min-width: 768px) {
+                        margin-top: 3rem;
+                        padding-right: 4.5rem;
+                        font-size: 32px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.section-container--primary {
+        background-color: map-get($brand-palette, primary);
+        section.welcome-section {
+            .image-container {
+                i {
+                    color: map-get($brand-palette, main-background);
+                }
+            }
+            .description-container {
+                h3 {
+                    color: map-get($brand-palette, main-background);
+                }
+            }
+        }
+    }
+
+    &.section-container--secondary {
+        background-color: map-get($brand-palette, secondary);
+        section.welcome-section {
+            .image-container {
+                i {
+                    color: map-get($brand-palette, main-background);
+                }
+            }
+            .description-container {
+                h3 {
+                    color: map-get($brand-palette, main-background);
+                }
+            }
+        }
+    }
+
+    &.section-container--call-to-action {
+        section.welcome-section {
+            .image-container {
+                height: 30vh;
+
+                @media (min-width: 768px) {
+                    height: 70vh;
+                }
+            }
+            .description-container {
+                height: 40vh;
+
+                @media (min-width: 768px) {
+                    height: 70vh;
+                }
+            }
+            .call-to-action-container {
+                height: 20vh;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: flex-start;
+                align-items: flex-end;
+
+                @media (min-width: 768px) {
+                    align-items: flex-start;
+                }
+            }
+        }
+    }
+
+    section.welcome-section {
+        .image-container {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+    
+            .teams-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+    
+                .team-item {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-content: center;
+                    align-items: center;
+                    margin: 0 .5rem;
+    
+                    i {
+                        font-size: 45px;
+                        margin: 0;
+                        &.fa.fa-circle-o {
+                            color: map-get($brand-palette, primary);
+                        }
+                        &.fa.fa-check-circle-o {
+                            color: map-get($brand-palette, success);
+                        }
+                        &.fa.fa-times-circle-o {
+                            color: map-get($brand-palette, secondary);
+                        }
+                    }
+                    span {
+                        font-size: 1.5rem;
+                        color: white;
+                    }
+                }
+            }
+            
+            .icons-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+
+                .icon-item {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-content: center;
+                    align-items: center;
+                    margin: 0 .5rem;
+
+                    i {
+                        font-size: 45px;
+
+                        @media (min-width: 768px) {
+                            font-size: 70px;
+                        }
+                    }
+                }
+            }
+            i {
+                color: map-get($brand-palette, primary);
+                margin: 1rem 0;
+                font-size: 60px;
+
+                @media (min-width: 768px) {
+                    font-size: 70px;
+                }
+            }
+            img {
+                width: 100%;
+            }
+
+            @media (min-width: 768px) {
+                height: 100vh;
+            }
+        }
+    
+        .description-container {
+            height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+    
+            h3 {
+                font-size: 1.5rem;
+                color: map-get($brand-palette, primary);
+            }
+            p {
+                text-align: justify;
+                font-size: 1rem;
+            }
+    
+            @media (min-width: 768px) {
+                height: 100vh;
+                align-items: flex-start;
+                align-content: flex-start;
+
+                h3 {
+                    font-size: 2.5rem;
+                }
+                p {
+                    text-align: justify;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        &--right {
+            @media (min-width: 768px) {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-between;
+            }
+        }
+    }
+}

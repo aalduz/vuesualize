@@ -1,0 +1,105 @@
+.card.card__overview-item {
+    margin: 15px 0;
+    height: 280px;
+    cursor: pointer;
+
+    .card-img-top {
+        height: 222px;
+        overflow-y: hidden;
+        background-color: map-get($brand-palette, main-background);
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+
+        img {
+            width: 100%;
+            object-fit: cover;
+
+            &:after {
+                content: '\f127';
+                width: calc(100%);
+                height: calc(100% - 56px);
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: map-get($brand-palette, primary);
+                background-color: map-get($brand-palette, main-background);
+                font-size: 32px;
+                font-style: normal;
+                font-family: FontAwesome;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+            }
+        }
+        .ux-clarification-container {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            height: 180px;
+        }
+
+    }
+
+    .card-block {
+        background-color: map-get($brand-palette, main-background);
+        color: white;
+        border-top: 1px solid white;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        min-height: 56px;
+
+        .class-title {
+            padding: 10px 15px 0;
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        .tags-container {
+            padding: 0 12px 5px;
+
+            span.badge-pill {
+                margin: 0 2px 0 0;
+            }
+        }
+        small {
+            padding-left: 15px;
+        }
+    }
+
+    &.delete {
+        border: 1px solid map-get($brand-palette, danger);
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(220, 53, 69, 1);
+
+        &:hover {
+            .card-block {
+                background-color: map-get($brand-palette, danger);
+            }
+            .card-img-top {
+                .ux-clarification-container {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                    position: absolute;
+                    width: 100%;
+                    height: 162px;
+                    top: 0;
+                    left: 0;
+                    background-color: rgba(221, 53, 69, 0.5);
+        
+                    p {
+                        color: white;
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        height: 220px;
+    }
+}

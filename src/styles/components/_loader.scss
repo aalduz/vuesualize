@@ -1,23 +1,31 @@
 .loader-container {
     display: flex;
-	justify-content: center;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    background-color: map-get($brand-palette, main-background );
+    border-radius: 3px;
 
     svg {
         display: none;
     }
-    
+    p {
+        text-align: center;
+        color: white;
+        margin-top: -50px;
+        margin-bottom: 100px;
+    }
     $bolb-color: map-get($brand-palette, primary);
-    
+
     // Loader
     .blobs {
         filter: url(#goo);
         width: 300px;
-        height: 300px;
+        height: 200px;
         position: relative;
         overflow: hidden;
         border-radius: 70px;
-        
+
         // Blob center item
         .blob-center {
             position: absolute;
