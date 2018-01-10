@@ -98,11 +98,39 @@
                     }
                 }
             }
-    
+            
+            .icons-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+
+                .icon-item {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-content: center;
+                    align-items: center;
+                    margin: 0 .5rem;
+
+                    i {
+                        font-size: 45px;
+
+                        @media (min-width: 768px) {
+                            font-size: 70px;
+                        }
+                    }
+                }
+            }
             i {
                 color: map-get($brand-palette, primary);
                 margin: 1rem 0;
                 font-size: 60px;
+
+                @media (min-width: 768px) {
+                    font-size: 70px;
+                }
             }
             img {
                 width: 100%;

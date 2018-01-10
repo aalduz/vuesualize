@@ -69,7 +69,7 @@
                                 <div class="description-container">
                                     <h3>Requirements ready?</h3>
                                     <p>It helps Project Managers to understand if everything required to develop a certain feature is in place.</p>
-                                    <p>In case anything is missing, they can address the responsible of the team section to provide it.</p>
+                                    <p>In case anything is missing, they can address the responsible team-member to provide it.</p>
                                 </div>
                             </div>
                         </section>
@@ -101,14 +101,14 @@
                         <section class="row welcome-section">
                             <div class="col-12 col-md-6">
                                 <div class="image-container">
-                                    <div class="teams-container">
-                                        <div class="team-item">
+                                    <div class="icons-container">
+                                        <div class="icon-item">
                                             <i class="fa fa-code"></i>
                                         </div>
-                                        <div class="team-item">
+                                        <div class="icon-item">
                                             <i class="fa fa-book"></i>
                                         </div>
-                                        <div class="team-item">
+                                        <div class="icon-item">
                                             <i class="fa fa-dot-circle-o"></i>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="description-container">
                                     <h3>Document while you develop</h3>
-                                    <p>Once a journey is approved by all the team, it is a documentation reference and a unique source of truth.</p>
+                                    <p>Once a journey is approved by every team-member involved, it becomes a documentation reference and an unique source of truth.</p>
                                 </div>
                             </div>
                         </section>
@@ -127,20 +127,20 @@
             <div class="row section-container section-container--primary">
                 <div class="col-12">
                     <div class="container">
-                        <section class="row welcome-section">
+                        <section class="row welcome-section welcome-section--right">
                             <div class="col-12 col-md-6">
                                 <div class="image-container">
-                                    <div class="teams-container">
-                                        <div class="team-item">
+                                    <div class="icons-container">
+                                        <div class="icon-item">
                                             <i class="fa fa-check-square-o"></i>
                                         </div>
-                                        <div class="team-item">
+                                        <div class="icon-item">
                                             <i class="fa fa-fire"></i>
                                         </div>
-                                        <div class="team-item">
+                                        <div class="icon-item">
                                             <i class="fa fa-fire-extinguisher"></i>
                                         </div>
-                                        <div class="team-item">
+                                        <div class="icon-item">
                                             <i class="fa fa-gavel"></i>
                                         </div>
                                     </div>
