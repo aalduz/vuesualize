@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Firebase
 import Firebase from 'firebase';
 

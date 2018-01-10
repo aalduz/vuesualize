@@ -11,12 +11,26 @@
                 height: calc(100vh - 70px);
                 img {
                     width: 70%;
+                    @media (min-width: 568px) and (max-width: 767px) {
+                        width: 30%;
+                    }
                 }
                 h2 {
                     margin-top: 3rem;
                     text-align: right;
+                    font-size: 21px;
+                    padding-right: 2.5rem;
+
+                    @media (min-width: 568px) and (max-width: 767px) {
+                        margin-top: 0;
+                        padding-top: 1rem;
+                        width: 50%;
+                        padding-right: 3rem;
+                    }
                     @media (min-width: 768px) {
+                        margin-top: 3rem;
                         padding-right: 4.5rem;
+                        font-size: 32px;
                     }
                 }
             }
@@ -50,6 +64,37 @@
             .description-container {
                 h3 {
                     color: map-get($brand-palette, main-background);
+                }
+            }
+        }
+    }
+
+    &.section-container--call-to-action {
+        section.welcome-section {
+            .image-container {
+                height: 30vh;
+
+                @media (min-width: 768px) {
+                    height: 70vh;
+                }
+            }
+            .description-container {
+                height: 40vh;
+
+                @media (min-width: 768px) {
+                    height: 70vh;
+                }
+            }
+            .call-to-action-container {
+                height: 20vh;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-content: flex-start;
+                align-items: flex-end;
+
+                @media (min-width: 768px) {
+                    align-items: flex-start;
                 }
             }
         }
