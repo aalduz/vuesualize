@@ -7,6 +7,7 @@ $fa-font-path: "~font-awesome/fonts";
 // Own styles
 @import "colors";
 @import "custom-bootstrap";
+@import "action-buttons";
 @import "components/journey";
 @import "components/step";
 @import "components/loader";
@@ -15,4 +16,4 @@ $fa-font-path: "~font-awesome/fonts";
 @import "components/general";
 @import "components/form";
 @import "components/table";
-@import "action-buttons";
+@import "components/welcome";
