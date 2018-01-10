@@ -2,6 +2,7 @@
     <nav v-if="!isPrintView" class="navbar navbar-light bg-faded" :class="navbarClasses">
         <ul class="nav nav-pills">
             <router-link
+                v-if="!loggedIn"
                 to="/" 
                 tag="li"
                 active-class="active"
@@ -70,6 +71,7 @@
     } from 'vuex';
 
     import Modal from '@/Components/Modal/Modal';
+    import { auth }  from '../../firebase';
 
     export default {
         components: {
@@ -83,6 +85,7 @@
                 this.signOut()
                     .then(res => {
                         this.showModalConfirmSignOut = false;
+                        this.loggedIn = false;
                         this.$store.dispatch('clearState');
                         this.$router.push('/signin');
                     })
@@ -102,8 +105,16 @@
         },
         data () {
             return {
+                loggedIn: false,
                 showModalConfirmSignOut: false,
             }
+        },
+        mounted() {
+            auth.onAuthStateChanged( user => {
+                if (user) {
+                    this.loggedIn = true;
+                }
+            });
         }
     }
 </script>
