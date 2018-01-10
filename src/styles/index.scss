@@ -1,6 +1,7 @@
 // Dependencies
 @import "~bootstrap/scss/bootstrap";
 // @import "~animate.css/animate.css";
+@import "~animate-scss/animate";
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome.scss";
 
@@ -8,6 +9,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import "colors";
 @import "custom-bootstrap";
 @import "action-buttons";
+@import "animations";
 @import "components/journey";
 @import "components/step";
 @import "components/loader";

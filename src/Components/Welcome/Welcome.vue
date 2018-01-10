@@ -35,10 +35,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row section-container">
+            <div class="row section-container section-container--call-to-action">
                 <div class="col-12">
                     <div class="container">
-                        <section class="row welcome-section welcome-section--left">
+                        <section class="row welcome-section justify-content-center">
                             <div class="col-12 col-md-6">
                                 <div class="image-container">
                                     <div class="teams-container">
@@ -72,6 +72,17 @@
                                     <p>In case anything is missing, they can address the responsible team-member to provide it.</p>
                                 </div>
                             </div>
+                            <div class="col-12 col-md-4">
+                                <div class="call-to-action-container">
+                                    <router-link
+                                        to="/signup"
+                                        tag="button"
+                                        class="btn btn-secondary btn-block">
+                                            <i class="fa fa-sign-in"></i>
+                                            <span>Sign Up</span>
+                                    </router-link>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -95,10 +106,10 @@
                     </div>
                 </div>
             </div>
-            <div class="row section-container section-container">
+            <div class="row section-container section-container--call-to-action">
                 <div class="col-12">
                     <div class="container">
-                        <section class="row welcome-section">
+                        <section class="row welcome-section justify-content-center">
                             <div class="col-12 col-md-6">
                                 <div class="image-container">
                                     <div class="icons-container">
@@ -118,6 +129,17 @@
                                 <div class="description-container">
                                     <h3>Document while you develop</h3>
                                     <p>Once a journey is approved by every team-member involved, it becomes a documentation reference and an unique source of truth.</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="call-to-action-container">
+                                    <router-link
+                                        to="/signup"
+                                        tag="button"
+                                        class="btn btn-primary btn-block">
+                                            <i class="fa fa-sign-in"></i>
+                                            <span>Sign Up</span>
+                                    </router-link>
                                 </div>
                             </div>
                         </section>
@@ -162,9 +184,15 @@
                     <div class="col">
                         <div class="container">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 col-md-6">
                                     <ul>
-                                        <li><a href="http://github.com/aalduz/vuesualize">GitHub</a></li>
+                                        <li><a href="http://github.com/aalduz/vuesualize"><i class="fa fa-github"></i> GitHub</a></li>
+                                        <li><a href="http://github.com/aalduz"><i class="fa fa-github"></i> aalduz</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <ul class="list-right">
+                                        <li><a href="https://inviqa.com/"><i class="fa fa-building"></i> Inviqa</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -210,9 +238,29 @@
         margin: 1rem 0;
         ul {
             padding: 0;
+
             li {
                 a {
                     color: white;
+                    &:hover {
+                        color: map-get($brand-palette, primary);
+                        text-decoration: none;
+                    }
+                    &:visited {
+                        color: white;
+                        &:hover {
+                            color: map-get($brand-palette, primary);
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+
+            &.list-right {
+                @media (min-width: 768px) {
+                    li {
+                        text-align: right;
+                    }
                 }
             }
         }
