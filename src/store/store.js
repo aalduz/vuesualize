@@ -77,7 +77,6 @@ const actions = {
         });
     },
     storeUserInDB({commit, dispatch}, userData) {
-        console.log(userData);
         let usersRef = db.ref('users');
         let user = {
             email: userData.email,
@@ -85,7 +84,6 @@ const actions = {
         }
 
         usersRef.push(user).then(snapshot => {
-            console.log(snapshot);
             commit('userData', user);
         });
     },

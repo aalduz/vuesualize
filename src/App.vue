@@ -33,12 +33,10 @@
             auth.onAuthStateChanged( user => {
                 if (user && !this.$store.getters.currentUser) {
                     this.$store.dispatch('currentUser', user);
-                    console.info('authStateChanged, currentUser');
                 }
                 if (user && !this.$store.getters.userData) {
                     this.$store.dispatch('fetchUserData', user.uid);
                     this.$store.dispatch('fetchUserJourneys');
-                    console.info('authStateChanged, userData');
                 }
             });
 
