@@ -27,7 +27,7 @@
                             <transition
                                 enter-active-class="animated rubberBand" mode="in-out">
                                     <button
-                                        v-if="!isDeleteMode"
+                                        v-if="!isDeleteMode && journeys"
                                         @click="isDeleteMode = !isDeleteMode"
                                         class="btn btn-danger">
                                             <i class="fa fa-trash-o"></i>
@@ -47,7 +47,7 @@
                             <transition
                                 enter-active-class="animated rubberBand" mode="out-in">
                                     <button
-                                        v-if="isDeleteMode"
+                                        v-if="isDeleteMode "
                                         @click="isDeleteMode = !isDeleteMode"
                                         class="btn btn-default">
                                             <i class="fa fa-times"></i>
@@ -114,6 +114,22 @@
                                 </thumbnail>
                         </transition>
                 </div>
+                <transition
+                    enter-active-class="animated rubberBand" mode="out-in">
+                    <div 
+                        v-if="!journeys"
+                        class="col-12">
+                        <h3 class="empty-journeys-text">You don't have any journey yet. Why don't you create one?</h3>
+                        <div class="empty-journeys-container">
+                            <div class="icon-container">
+                                <img class="compound" src="../../assets/vuesualize-icon-compound-layer.png" alt="">
+                                <img class="background" src="../../assets/vuesualize-icon-blue-layer.png" alt="">
+                                <img class="small-icons-back" src="../../assets/vuesualize-icon-orange-layer.png" alt="">
+                                <img class="small-icons-front" src="../../assets/vuesualize-icon-dark-blue-layer.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </transition>
             </div>
         </div>
     </transition>
@@ -176,7 +192,6 @@
             },
             navigateToJourney: function(journey) {
                 let journeyId = journey['key'];
-                console.info(journeyId, journey);
 
                 this.$store.dispatch('journey', journey);
 
@@ -190,6 +205,11 @@
             '$route'(to, from) {
                 this.id = to.params.id;
             },
+            journeys () {
+                if (this.journeys == null) {
+                    this.isDeleteMode = false;
+                }
+            }
         }
     }
 </script>
