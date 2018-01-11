@@ -72,7 +72,7 @@
                 }
                 this.$store.dispatch('signUp', {email: formData.email, password: formData.password})
                     .then(res => {
-                        this.$router.push('/');
+                        this.$router.push('/journey');
                     })
                     .catch(error => {
                         this.authenticationFailed = error.message;

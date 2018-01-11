@@ -1,5 +1,4 @@
 /* eslint-disable */
-import Welcome from './Components/Welcome/Welcome.vue';
 import Header from './Components/Header/Header.vue';
 
 const User = resolve => {
@@ -41,6 +40,12 @@ const JourneyDetail = resolve => {
 const JourneyForm = resolve => {
     require.ensure(['./Components/Journey/JourneyForm.vue'], () => {
         resolve(require('./Components/Journey/JourneyForm.vue'));
+    });
+};
+
+const Welcome = resolve => {
+    require.ensure(['./Components/Welcome/Welcome.vue'], () => {
+        resolve(require('./Components/Welcome/Welcome.vue'));
     });
 };
 export const routes = [
