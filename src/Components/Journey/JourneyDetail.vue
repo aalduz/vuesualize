@@ -26,7 +26,7 @@
                                 class="journey-content-view page-heading">
                                 <div class="journey-avatar">
                                     <img :src="(journey.imageSrc == '' || !journey.imageSrc)
-                                        ? 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2'
+                                        ? emptyImgSrc
                                         : journey.imageSrc" />
                                 </div>
                                 <h1 class="color">{{ journey.name }}</h1>
@@ -143,7 +143,8 @@
         computed: {
             ...mapGetters([
                 'isPrintView',
-                'journey'
+                'journey',
+                'emptyImgSrc'
             ]),
             printViewClass () {
                 return {

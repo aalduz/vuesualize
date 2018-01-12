@@ -12,6 +12,7 @@ const state = {
     journey: null,
     step: null,
     isPrintView: false,
+    emptyImgSrc: 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=b80a3bd2-dba4-4ae6-a972-96d87a351ef2'
 }
 
 const mutations = {
@@ -242,6 +243,10 @@ const getters = {
 
     isPrintView (state) {
         return state.isPrintView;
+    },
+
+    emptyImgSrc (state) {
+        return state.emptyImgSrc;
     }
 }
 

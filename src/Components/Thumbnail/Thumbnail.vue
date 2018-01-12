@@ -2,7 +2,7 @@
     <div @click="goToItem" class="card card__overview-item" :class="thumbnailClasses">
         <div class="card-img-top">
             <img :src="imageSrc == ''
-                ? 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2'
+                ? emptyImgSrc
                 : imageSrc">
             <div class="ux-clarification-container" :class="thumbnailClasses">
                 <p>Click to Delete</p>
@@ -24,6 +24,10 @@
 </template>
 
 <script>
+    import { 
+        mapGetters,
+    } from 'vuex';
+
     export default {
         name: 'thumbnail',
         props: {
@@ -32,6 +36,11 @@
             },
             item: Object,
             thumbnailClasses: Object
+        },
+        computed: {
+            ...mapGetters([
+                'emptyImgSrc'
+            ]),
         },
         methods: {
             goToItem(){

@@ -15,7 +15,7 @@
                         <div class="avatar">
                             <img :src="currentUser.photoURL
                                 ? currentUser.photoURL
-                                : 'https://firebasestorage.googleapis.com/v0/b/vuesualize-5ec29.appspot.com/o/images%2Finviqa-02.svg?alt=media&token=ad629fc3-6bac-4022-9d36-ee1255e4d9f2'" />
+                                : emptyImgSrc" />
                         </div>
                         <h3 class="justify-content-lg-center">{{ currentUser.displayName }}</h3>
                         <p class="color justify-content-center">{{ currentUser.email }}</p>
@@ -132,7 +132,8 @@
         computed: {
             ...mapGetters([
                 'userData',
-                'currentUser'
+                'currentUser',
+                'emptyImgSrc'
             ]),
         },
         data () {
