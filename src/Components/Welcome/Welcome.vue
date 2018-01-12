@@ -213,8 +213,8 @@
     import { 
     } from 'vuex';
 
-    import { auth }  from '@/firebase';
     import ParticlesJS from '../Particles/ParticlesJS'
+    import { auth }  from '../../firebase';
 
     export default {
         components: {
@@ -229,6 +229,13 @@
                 
             }
         },
+        mounted() {
+            auth.onAuthStateChanged( user => {
+                if (user) {
+                    this.$router.push('/journey');
+                }
+            });
+        }
     }
 </script>
 

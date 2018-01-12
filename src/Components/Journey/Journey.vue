@@ -146,6 +146,7 @@
 
     import { db } from '../../firebase';
     import { store } from '@/store/store';
+    import { auth } from '@/firebase';
     import Header from '../Header/Header';
     import Thumbnail from '../Thumbnail/Thumbnail';
     import JourneyNew from './JourneyNew';
@@ -213,6 +214,13 @@
                     this.isDeleteMode = false;
                 }
             }
+        },
+        mounted() {
+            auth.onAuthStateChanged( user => {
+                if (!user) {
+                    this.$router.push('/signin');
+                }
+            });
         }
     }
 </script>

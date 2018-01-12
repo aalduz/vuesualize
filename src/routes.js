@@ -1,5 +1,6 @@
 /* eslint-disable */
 import Header from './Components/Header/Header.vue';
+import {store} from '@/store/store'
 
 const User = resolve => {
     require.ensure(['./Components/User/User.vue'], () => {
@@ -55,6 +56,22 @@ export const routes = [
         components: {
             default: Welcome, 
         },
+        beforeEnter (to, from, next) {
+            console.log(store.getters.userData);
+            if(store.getters.userData) {
+                next('/journey');
+            } else {
+                next();
+            }
+        },
+        beforeUpdate (to, from, next) {
+            console.log(store.getters.userData);
+            if(store.getters.userData) {
+                next('/journey');
+            } else {
+                next();
+            }
+        }
     },
     { path: '/signup', component: SignupPage },
     { path: '/signin', component: SigninPage },
@@ -68,7 +85,7 @@ export const routes = [
             requiresAuth: true
         }
     },
-    { path: '/journey', components: {
+    { path: '/journey', name: 'journey', components: {
         default: Journey,
         'header-top': Header
     } },
