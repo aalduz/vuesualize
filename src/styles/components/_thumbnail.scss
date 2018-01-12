@@ -55,6 +55,9 @@
             padding: 10px 15px 0;
             font-size: 14px;
             margin-bottom: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .tags-container {
             padding: 0 12px 5px;
