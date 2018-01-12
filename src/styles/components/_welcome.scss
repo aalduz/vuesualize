@@ -108,7 +108,8 @@
             justify-content: center;
             align-content: center;
             align-items: center;
-    
+            position: relative;
+
             .teams-container {
                 display: flex;
                 flex-direction: row;
@@ -177,6 +178,7 @@
                     font-size: 70px;
                 }
             }
+
             img {
                 width: 100%;
             }
@@ -223,6 +225,30 @@
                 display: flex;
                 flex-direction: row-reverse;
                 justify-content: space-between;
+            }
+        }
+        .moving-icon-container.moving-icon-container--big {
+            position: relative;
+            flex-direction: column;
+            height: calc(100vh - 70px);
+
+            .icon-container.icon-container--big {
+                height: 200px;
+                width: 195px;
+                margin-bottom: 2rem;
+
+                img {
+                    height: 200px;
+                    width: 195px;
+                }
+            }
+            h2 {
+                display: block;
+            }
+
+            @media (min-width: 568px) and (max-width: 767px) {
+                height: 85vh;
+                margin-top: -2rem;
             }
         }
     }

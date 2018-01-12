@@ -4,9 +4,12 @@
             <div class="row">
                 <div class="col-12 page-heading">
                     <h1 class="justify-content-lg-center">These are your Journeys</h1>
-                    <div class="action-buttons-container">
+                    <div 
+                        class="action-buttons-container">
                         <div class="left">
-                            <div class="btn-group">
+                            <div
+                                v-if="journeys"
+                                class="btn-group">
                                 <button
                                     @click="isListView = true"
                                     class="btn btn-link"
@@ -120,7 +123,7 @@
                         v-if="!journeys"
                         class="col-12">
                         <h3 class="empty-journeys-text">You don't have any journey yet. Why don't you create one?</h3>
-                        <div class="empty-journeys-container">
+                        <div class="moving-icon-container">
                             <div class="icon-container">
                                 <img class="compound" src="../../assets/vuesualize-icon-compound-layer.png" alt="">
                                 <img class="background" src="../../assets/vuesualize-icon-blue-layer.png" alt="">

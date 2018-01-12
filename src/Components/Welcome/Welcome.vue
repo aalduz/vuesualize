@@ -6,9 +6,14 @@
                 <div class="col-12">
                     <div class="container">
                         <section class="row welcome-section justify-content-center">
-                            <div class="col-12 col-md-5">
-                                <div class="image-container">
-                                    <img src="../../assets/vuesualize-logo.png" alt="">
+                            <div class="col-12 col-md-5 col-lg-3">
+                                <div class="moving-icon-container moving-icon-container--big">
+                                    <div class="icon-container icon-container--big">
+                                        <img class="compound" src="../../assets/vuesualize-icon-compound-layer.png" alt="">
+                                        <img class="background" src="../../assets/vuesualize-icon-blue-layer-text.png" alt="">
+                                        <img class="small-icons-back" src="../../assets/vuesualize-icon-orange-layer.png" alt="">
+                                        <img class="small-icons-front" src="../../assets/vuesualize-icon-dark-blue-layer.png" alt="">
+                                    </div>
                                     <h2 class="color--primary">It is easier when you can picture it.</h2>
                                 </div>
                             </div>
