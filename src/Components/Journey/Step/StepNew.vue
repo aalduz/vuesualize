@@ -133,7 +133,7 @@
                 if (this.newStep.name == '') {
                     this.showModalNameEmpty = true;
                 } else {
-                    this.savingJourney = true;
+                    this.savingStep = true;
                     if (this.file['name'] != null) {
                         // upload Picture
                         let fileRef = storageRef.child(this.file.name);

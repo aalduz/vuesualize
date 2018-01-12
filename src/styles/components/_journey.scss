@@ -2,6 +2,7 @@
     cursor: pointer;
     margin-top: 1rem;
     padding-top: 1rem;
+    border: 1px solid map-get($brand-palette, main-background);
 
     &:hover {
         border: 1px solid map-get($brand-palette, secondary);
